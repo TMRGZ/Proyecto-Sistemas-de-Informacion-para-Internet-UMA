@@ -5,7 +5,7 @@ import java.sql.Time;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SOCIOS", schema = "ACOES", catalog = "")
+@Table(name = "SOCIOS", schema = "ACOES")
 public class SociosEntity {
     private long numero;
     private String nombre;

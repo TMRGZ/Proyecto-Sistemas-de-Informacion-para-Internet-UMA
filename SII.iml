@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="EclipseLink" />
         <datasource-mapping>
-          <factory-entry name="ACOES" />
+          <factory-entry name="ACOES" value="a901e367-27d5-4513-9e11-4a2b59b3a85b" />
           <factory-entry name="Entities" value="a901e367-27d5-4513-9e11-4a2b59b3a85b" />
         </datasource-mapping>
         <naming-strategy-map />

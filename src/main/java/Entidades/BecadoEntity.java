@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "BECADO", schema = "ACOES", catalog = "")
+@Table(name = "BECADO", schema = "ACOES")
 public class BecadoEntity {
     private String codigo;
     private String estado;

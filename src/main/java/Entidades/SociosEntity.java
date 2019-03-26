@@ -1,12 +1,13 @@
 package Entidades;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Objects;
 
 @Entity
 @Table(name = "SOCIOS", schema = "ACOES")
-public class SociosEntity {
+public class SociosEntity implements Serializable {
     private long numero;
     private String nombre;
     private String apellidos;

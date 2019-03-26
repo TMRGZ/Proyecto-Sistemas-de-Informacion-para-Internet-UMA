@@ -1,13 +1,14 @@
 package Entidades;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
 @Table(name = "BECADO", schema = "ACOES")
-public class BecadoEntity {
+public class BecadoEntity implements Serializable {
     private String codigo;
     private String estado;
     private String beca;

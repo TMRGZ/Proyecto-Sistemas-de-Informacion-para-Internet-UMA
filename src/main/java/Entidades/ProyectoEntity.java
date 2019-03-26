@@ -1,11 +1,12 @@
 package Entidades;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "PROYECTO", schema = "ACOES")
-public class ProyectoEntity {
+public class ProyectoEntity implements Serializable {
     private long codigo;
     private String nombre;
     private Long presupuesto;

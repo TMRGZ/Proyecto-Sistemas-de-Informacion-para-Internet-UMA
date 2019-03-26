@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="ACOES">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>Entidades.BecadoEntity</class>
+        <class>Entidades.BeneficiarioEntity</class>
+        <class>Entidades.ProyectoBeneficiarioEntity</class>
+        <class>Entidades.ProyectoEntity</class>
+        <class>Entidades.SociosEntity</class>
+        <class>Entidades.UsuarioEntity</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value=""/>
+            <property name="javax.persistence.jdbc.user" value=""/>
+            <property name="javax.persistence.jdbc.driver" value=""/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+        </properties>
+    </persistence-unit>
 
 </persistence>

@@ -1,5 +1,5 @@
 -- Generado por Oracle SQL Developer Data Modeler 18.4.0.339.1532
---   en:        2019-03-26 18:13:14 CET
+--   en:        2019-03-29 15:21:06 CET
 --   sitio:      Oracle Database 11g
 --   tipo:      Oracle Database 11g
 
@@ -62,30 +62,30 @@ CREATE TABLE proyecto
 ALTER TABLE proyecto
     ADD CONSTRAINT proyecto_pk PRIMARY KEY (codigo);
 
-CREATE TABLE relation_3
+CREATE TABLE proyecto_beneficiario
 (
     proyecto_codigo     NUMBER       NOT NULL,
     beneficiario_codigo VARCHAR2(20) NOT NULL
 );
 
-ALTER TABLE relation_3
-    ADD CONSTRAINT relation_3_pk PRIMARY KEY (proyecto_codigo,
-                                              beneficiario_codigo);
+ALTER TABLE proyecto_beneficiario
+    ADD CONSTRAINT proyecto_beneficiario_pk PRIMARY KEY (proyecto_codigo,
+                                                         beneficiario_codigo);
 
-CREATE TABLE socios
+CREATE TABLE socio
 (
-    numero             NUMBER NOT NULL,
-    nombre             VARCHAR2(30),
+    numero             NUMBER       NOT NULL,
+    nombre             VARCHAR2(30) NOT NULL,
     apellidos          VARCHAR2(30),
     estado             VARCHAR2(30),
-    nif                VARCHAR2(30),
-    direccion          VARCHAR2(40),
-    poblacion          VARCHAR2(40),
-    codigo_postal      NUMBER,
-    provincia          VARCHAR2(30),
-    telefono           NUMBER,
+    nif                VARCHAR2(30) NOT NULL,
+    direccion          VARCHAR2(40) NOT NULL,
+    poblacion          VARCHAR2(40) NOT NULL,
+    codigo_postal      NUMBER       NOT NULL,
+    provincia          VARCHAR2(30) NOT NULL,
+    telefono           NUMBER       NOT NULL,
     telefono_movil     NUMBER,
-    correo_electronico VARCHAR2(40),
+    correo_electronico VARCHAR2(40) NOT NULL,
     agente             VARCHAR2(40),
     relacion           VARCHAR2(40),
     certificado        VARCHAR2(40),
@@ -95,7 +95,7 @@ CREATE TABLE socios
     observaciones      VARCHAR2(80)
 );
 
-ALTER TABLE socios
+ALTER TABLE socio
     ADD CONSTRAINT socios_pk PRIMARY KEY (numero);
 
 CREATE TABLE usuario
@@ -126,17 +126,17 @@ ALTER TABLE becado
 
 ALTER TABLE becado
     ADD CONSTRAINT becado_socios_fk FOREIGN KEY (socios_numero)
-        REFERENCES socios (numero);
+        REFERENCES socio (numero);
 
 ALTER TABLE beneficiario
     ADD CONSTRAINT beneficiario_beneficiario_fk FOREIGN KEY (beneficiario_codigo)
         REFERENCES beneficiario (codigo);
 
-ALTER TABLE relation_3
+ALTER TABLE PROYECTO_BENEFICIARIO
     ADD CONSTRAINT relation_3_beneficiario_fk FOREIGN KEY (beneficiario_codigo)
         REFERENCES beneficiario (codigo);
 
-ALTER TABLE relation_3
+ALTER TABLE PROYECTO_BENEFICIARIO
     ADD CONSTRAINT relation_3_proyecto_fk FOREIGN KEY (proyecto_codigo)
         REFERENCES proyecto (codigo);
 
@@ -146,7 +146,7 @@ ALTER TABLE usuario
 
 ALTER TABLE usuario
     ADD CONSTRAINT usuario_socios_fk FOREIGN KEY (socios_numero)
-        REFERENCES socios (numero);
+        REFERENCES socio (numero);
 
 
 

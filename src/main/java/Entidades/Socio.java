@@ -1,13 +1,14 @@
 package Entidades;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Time;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SOCIOS", schema = "ACOES")
-public class SociosEntity implements Serializable {
+public class Socio {
     private long numero;
     private String nombre;
     private String apellidos;
@@ -15,9 +16,9 @@ public class SociosEntity implements Serializable {
     private String nif;
     private String direccion;
     private String poblacion;
-    private Long codigoPostal;
+    private long codigoPostal;
     private String provincia;
-    private Long telefono;
+    private long telefono;
     private Long telefonoMovil;
     private String correoElectronico;
     private String agente;
@@ -100,11 +101,11 @@ public class SociosEntity implements Serializable {
 
     @Basic
     @Column(name = "CODIGO_POSTAL")
-    public Long getCodigoPostal() {
+    public long getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(Long codigoPostal) {
+    public void setCodigoPostal(long codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
@@ -120,11 +121,11 @@ public class SociosEntity implements Serializable {
 
     @Basic
     @Column(name = "TELEFONO")
-    public Long getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
@@ -222,30 +223,79 @@ public class SociosEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SociosEntity that = (SociosEntity) o;
-        return numero == that.numero &&
-                Objects.equals(nombre, that.nombre) &&
-                Objects.equals(apellidos, that.apellidos) &&
-                Objects.equals(estado, that.estado) &&
-                Objects.equals(nif, that.nif) &&
-                Objects.equals(direccion, that.direccion) &&
-                Objects.equals(poblacion, that.poblacion) &&
-                Objects.equals(codigoPostal, that.codigoPostal) &&
-                Objects.equals(provincia, that.provincia) &&
-                Objects.equals(telefono, that.telefono) &&
-                Objects.equals(telefonoMovil, that.telefonoMovil) &&
-                Objects.equals(correoElectronico, that.correoElectronico) &&
-                Objects.equals(agente, that.agente) &&
-                Objects.equals(relacion, that.relacion) &&
-                Objects.equals(certificado, that.certificado) &&
-                Objects.equals(sector, that.sector) &&
-                Objects.equals(fechaAlta, that.fechaAlta) &&
-                Objects.equals(fechaBaja, that.fechaBaja) &&
-                Objects.equals(observaciones, that.observaciones);
+
+        Socio socio = (Socio) o;
+
+        if (numero != socio.numero) return false;
+        if (codigoPostal != socio.codigoPostal) return false;
+        if (telefono != socio.telefono) return false;
+        if (!Objects.equals(nombre, socio.nombre)) return false;
+        if (!Objects.equals(apellidos, socio.apellidos)) return false;
+        if (!Objects.equals(estado, socio.estado)) return false;
+        if (!Objects.equals(nif, socio.nif)) return false;
+        if (!Objects.equals(direccion, socio.direccion)) return false;
+        if (!Objects.equals(poblacion, socio.poblacion)) return false;
+        if (!Objects.equals(provincia, socio.provincia)) return false;
+        if (!Objects.equals(telefonoMovil, socio.telefonoMovil))
+            return false;
+        if (!Objects.equals(correoElectronico, socio.correoElectronico))
+            return false;
+        if (!Objects.equals(agente, socio.agente)) return false;
+        if (!Objects.equals(relacion, socio.relacion)) return false;
+        if (!Objects.equals(certificado, socio.certificado)) return false;
+        if (!Objects.equals(sector, socio.sector)) return false;
+        if (!Objects.equals(fechaAlta, socio.fechaAlta)) return false;
+        if (!Objects.equals(fechaBaja, socio.fechaBaja)) return false;
+        return Objects.equals(observaciones, socio.observaciones);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numero, nombre, apellidos, estado, nif, direccion, poblacion, codigoPostal, provincia, telefono, telefonoMovil, correoElectronico, agente, relacion, certificado, sector, fechaAlta, fechaBaja, observaciones);
+        int result = (int) (numero ^ (numero >>> 32));
+        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+        result = 31 * result + (apellidos != null ? apellidos.hashCode() : 0);
+        result = 31 * result + (estado != null ? estado.hashCode() : 0);
+        result = 31 * result + (nif != null ? nif.hashCode() : 0);
+        result = 31 * result + (direccion != null ? direccion.hashCode() : 0);
+        result = 31 * result + (poblacion != null ? poblacion.hashCode() : 0);
+        result = 31 * result + (int) (codigoPostal ^ (codigoPostal >>> 32));
+        result = 31 * result + (provincia != null ? provincia.hashCode() : 0);
+        result = 31 * result + (int) (telefono ^ (telefono >>> 32));
+        result = 31 * result + (telefonoMovil != null ? telefonoMovil.hashCode() : 0);
+        result = 31 * result + (correoElectronico != null ? correoElectronico.hashCode() : 0);
+        result = 31 * result + (agente != null ? agente.hashCode() : 0);
+        result = 31 * result + (relacion != null ? relacion.hashCode() : 0);
+        result = 31 * result + (certificado != null ? certificado.hashCode() : 0);
+        result = 31 * result + (sector != null ? sector.hashCode() : 0);
+        result = 31 * result + (fechaAlta != null ? fechaAlta.hashCode() : 0);
+        result = 31 * result + (fechaBaja != null ? fechaBaja.hashCode() : 0);
+        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Socio{" +
+                "numero=" + numero +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", estado='" + estado + '\'' +
+                ", nif='" + nif + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", poblacion='" + poblacion + '\'' +
+                ", codigoPostal=" + codigoPostal +
+                ", provincia='" + provincia + '\'' +
+                ", telefono=" + telefono +
+                ", telefonoMovil=" + telefonoMovil +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", agente='" + agente + '\'' +
+                ", relacion='" + relacion + '\'' +
+                ", certificado='" + certificado + '\'' +
+                ", sector='" + sector + '\'' +
+                ", fechaAlta=" + fechaAlta +
+                ", fechaBaja=" + fechaBaja +
+                ", observaciones='" + observaciones + '\'' +
+                '}';
     }
 }

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ProyectoBeneficiarioEntityPK implements Serializable {
+public class ProyectoBeneficiarioPK implements Serializable {
     private long proyectoCodigo;
     private String beneficiarioCodigo;
 
@@ -33,13 +33,26 @@ public class ProyectoBeneficiarioEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProyectoBeneficiarioEntityPK that = (ProyectoBeneficiarioEntityPK) o;
-        return proyectoCodigo == that.proyectoCodigo &&
-                Objects.equals(beneficiarioCodigo, that.beneficiarioCodigo);
+
+        ProyectoBeneficiarioPK that = (ProyectoBeneficiarioPK) o;
+
+        if (proyectoCodigo != that.proyectoCodigo) return false;
+        return Objects.equals(beneficiarioCodigo, that.beneficiarioCodigo);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(proyectoCodigo, beneficiarioCodigo);
+        int result = (int) (proyectoCodigo ^ (proyectoCodigo >>> 32));
+        result = 31 * result + (beneficiarioCodigo != null ? beneficiarioCodigo.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectoBeneficiarioPK{" +
+                "proyectoCodigo=" + proyectoCodigo +
+                ", beneficiarioCodigo='" + beneficiarioCodigo + '\'' +
+                '}';
     }
 }

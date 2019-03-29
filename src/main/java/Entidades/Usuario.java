@@ -1,12 +1,13 @@
 package Entidades;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@Table(name = "USUARIO", schema = "ACOES")
-public class UsuarioEntity implements Serializable {
+public class Usuario {
     private long idUsuario;
     private String nombreUsuario;
     private String contrasena;
@@ -45,14 +46,30 @@ public class UsuarioEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsuarioEntity that = (UsuarioEntity) o;
-        return idUsuario == that.idUsuario &&
-                Objects.equals(nombreUsuario, that.nombreUsuario) &&
-                Objects.equals(contrasena, that.contrasena);
+
+        Usuario usuario = (Usuario) o;
+
+        if (idUsuario != usuario.idUsuario) return false;
+        if (!Objects.equals(nombreUsuario, usuario.nombreUsuario))
+            return false;
+        return Objects.equals(contrasena, usuario.contrasena);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUsuario, nombreUsuario, contrasena);
+        int result = (int) (idUsuario ^ (idUsuario >>> 32));
+        result = 31 * result + (nombreUsuario != null ? nombreUsuario.hashCode() : 0);
+        result = 31 * result + (contrasena != null ? contrasena.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                '}';
     }
 }

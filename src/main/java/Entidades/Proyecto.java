@@ -1,12 +1,13 @@
 package Entidades;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PROYECTO", schema = "ACOES")
-public class ProyectoEntity implements Serializable {
+public class Proyecto {
     private long codigo;
     private String nombre;
     private Long presupuesto;
@@ -89,18 +90,44 @@ public class ProyectoEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProyectoEntity that = (ProyectoEntity) o;
-        return codigo == that.codigo &&
-                Objects.equals(nombre, that.nombre) &&
-                Objects.equals(presupuesto, that.presupuesto) &&
-                Objects.equals(combustible, that.combustible) &&
-                Objects.equals(mantenimiento, that.mantenimiento) &&
-                Objects.equals(contenedor, that.contenedor) &&
-                Objects.equals(descripcion, that.descripcion);
+
+        Proyecto proyecto = (Proyecto) o;
+
+        if (codigo != proyecto.codigo) return false;
+        if (!Objects.equals(nombre, proyecto.nombre)) return false;
+        if (!Objects.equals(presupuesto, proyecto.presupuesto))
+            return false;
+        if (!Objects.equals(combustible, proyecto.combustible))
+            return false;
+        if (!Objects.equals(mantenimiento, proyecto.mantenimiento))
+            return false;
+        if (!Objects.equals(contenedor, proyecto.contenedor)) return false;
+        return Objects.equals(descripcion, proyecto.descripcion);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nombre, presupuesto, combustible, mantenimiento, contenedor, descripcion);
+        int result = (int) (codigo ^ (codigo >>> 32));
+        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+        result = 31 * result + (presupuesto != null ? presupuesto.hashCode() : 0);
+        result = 31 * result + (combustible != null ? combustible.hashCode() : 0);
+        result = 31 * result + (mantenimiento != null ? mantenimiento.hashCode() : 0);
+        result = 31 * result + (contenedor != null ? contenedor.hashCode() : 0);
+        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Proyecto{" +
+                "codigo=" + codigo +
+                ", nombre='" + nombre + '\'' +
+                ", presupuesto=" + presupuesto +
+                ", combustible=" + combustible +
+                ", mantenimiento=" + mantenimiento +
+                ", contenedor=" + contenedor +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
 }

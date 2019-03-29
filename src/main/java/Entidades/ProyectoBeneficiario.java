@@ -1,13 +1,12 @@
 package Entidades;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "PROYECTO_BENEFICIARIO", schema = "ACOES")
-@IdClass(ProyectoBeneficiarioEntityPK.class)
-public class ProyectoBeneficiarioEntity implements Serializable {
+@IdClass(ProyectoBeneficiarioPK.class)
+public class ProyectoBeneficiario {
     private long proyectoCodigo;
     private String beneficiarioCodigo;
 
@@ -35,13 +34,26 @@ public class ProyectoBeneficiarioEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProyectoBeneficiarioEntity that = (ProyectoBeneficiarioEntity) o;
-        return proyectoCodigo == that.proyectoCodigo &&
-                Objects.equals(beneficiarioCodigo, that.beneficiarioCodigo);
+
+        ProyectoBeneficiario that = (ProyectoBeneficiario) o;
+
+        if (proyectoCodigo != that.proyectoCodigo) return false;
+        return Objects.equals(beneficiarioCodigo, that.beneficiarioCodigo);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(proyectoCodigo, beneficiarioCodigo);
+        int result = (int) (proyectoCodigo ^ (proyectoCodigo >>> 32));
+        result = 31 * result + (beneficiarioCodigo != null ? beneficiarioCodigo.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ProyectoBeneficiario{" +
+                "proyectoCodigo=" + proyectoCodigo +
+                ", beneficiarioCodigo='" + beneficiarioCodigo + '\'' +
+                '}';
     }
 }

@@ -1,12 +1,13 @@
 package Entidades;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@Table(name = "BENEFICIARIO", schema = "ACOES")
-public class BeneficiarioEntity implements Serializable {
+public class Beneficiario {
     private String codigo;
     private String identificador;
     private String nombre;
@@ -89,18 +90,43 @@ public class BeneficiarioEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BeneficiarioEntity that = (BeneficiarioEntity) o;
-        return Objects.equals(codigo, that.codigo) &&
-                Objects.equals(identificador, that.identificador) &&
-                Objects.equals(nombre, that.nombre) &&
-                Objects.equals(tipo, that.tipo) &&
-                Objects.equals(apellidos, that.apellidos) &&
-                Objects.equals(observaciones, that.observaciones) &&
-                Objects.equals(numeroCuenta, that.numeroCuenta);
+
+        Beneficiario that = (Beneficiario) o;
+
+        if (!Objects.equals(codigo, that.codigo)) return false;
+        if (!Objects.equals(identificador, that.identificador))
+            return false;
+        if (!Objects.equals(nombre, that.nombre)) return false;
+        if (!Objects.equals(tipo, that.tipo)) return false;
+        if (!Objects.equals(apellidos, that.apellidos)) return false;
+        if (!Objects.equals(observaciones, that.observaciones))
+            return false;
+        return Objects.equals(numeroCuenta, that.numeroCuenta);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, identificador, nombre, tipo, apellidos, observaciones, numeroCuenta);
+        int result = codigo != null ? codigo.hashCode() : 0;
+        result = 31 * result + (identificador != null ? identificador.hashCode() : 0);
+        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+        result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
+        result = 31 * result + (apellidos != null ? apellidos.hashCode() : 0);
+        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
+        result = 31 * result + (numeroCuenta != null ? numeroCuenta.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Beneficiario{" +
+                "codigo='" + codigo + '\'' +
+                ", identificador='" + identificador + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", observaciones='" + observaciones + '\'' +
+                ", numeroCuenta=" + numeroCuenta +
+                '}';
     }
 }

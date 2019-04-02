@@ -1,23 +1,94 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Entidades;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.List;
 
+/**
+ * @author MiguelRuiz
+ */
 @Entity
-public class Beneficiario {
-    private String codigo;
-    private String identificador;
-    private String nombre;
-    private String tipo;
-    private String apellidos;
-    private String observaciones;
-    private Long numeroCuenta;
-
+@Table(name = "BENEFICIARIO")
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b"),
+        @NamedQuery(name = "Beneficiario.findByCodigo", query = "SELECT b FROM Beneficiario b WHERE b.codigo = :codigo"),
+        @NamedQuery(name = "Beneficiario.findByIdentificador", query = "SELECT b FROM Beneficiario b WHERE b.identificador = :identificador"),
+        @NamedQuery(name = "Beneficiario.findByNombre", query = "SELECT b FROM Beneficiario b WHERE b.nombre = :nombre"),
+        @NamedQuery(name = "Beneficiario.findByTipo", query = "SELECT b FROM Beneficiario b WHERE b.tipo = :tipo"),
+        @NamedQuery(name = "Beneficiario.findByApellidos", query = "SELECT b FROM Beneficiario b WHERE b.apellidos = :apellidos"),
+        @NamedQuery(name = "Beneficiario.findByObservaciones", query = "SELECT b FROM Beneficiario b WHERE b.observaciones = :observaciones"),
+        @NamedQuery(name = "Beneficiario.findByNumeroCuenta", query = "SELECT b FROM Beneficiario b WHERE b.numeroCuenta = :numeroCuenta")})
+public class Beneficiario implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "CODIGO")
+    private String codigo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "IDENTIFICADOR")
+    private String identificador;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "NOMBRE")
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "TIPO")
+    private String tipo;
+    @Size(max = 40)
+    @Column(name = "APELLIDOS")
+    private String apellidos;
+    @Size(max = 80)
+    @Column(name = "OBSERVACIONES")
+    private String observaciones;
+    @Column(name = "NUMERO_CUENTA")
+    private BigInteger numeroCuenta;
+    @JoinTable(name = "PROYECTO_BENEFICIARIO", joinColumns = {
+            @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
+            @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO")})
+    @ManyToMany
+    private List<Proyecto> proyectoList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiario")
+    private Becado becado;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
+    private Beneficiario beneficiario;
+    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
+    @OneToOne(optional = false)
+    private Beneficiario beneficiarioCodigo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
+    private Usuario usuario;
+
+    public Beneficiario() {
+    }
+
+    public Beneficiario(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Beneficiario(String codigo, String identificador, String nombre, String tipo) {
+        this.codigo = codigo;
+        this.identificador = identificador;
+        this.nombre = nombre;
+        this.tipo = tipo;
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -26,8 +97,6 @@ public class Beneficiario {
         this.codigo = codigo;
     }
 
-    @Basic
-    @Column(name = "IDENTIFICADOR")
     public String getIdentificador() {
         return identificador;
     }
@@ -36,8 +105,6 @@ public class Beneficiario {
         this.identificador = identificador;
     }
 
-    @Basic
-    @Column(name = "NOMBRE")
     public String getNombre() {
         return nombre;
     }
@@ -46,8 +113,6 @@ public class Beneficiario {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "TIPO")
     public String getTipo() {
         return tipo;
     }
@@ -56,8 +121,6 @@ public class Beneficiario {
         this.tipo = tipo;
     }
 
-    @Basic
-    @Column(name = "APELLIDOS")
     public String getApellidos() {
         return apellidos;
     }
@@ -66,8 +129,6 @@ public class Beneficiario {
         this.apellidos = apellidos;
     }
 
-    @Basic
-    @Column(name = "OBSERVACIONES")
     public String getObservaciones() {
         return observaciones;
     }
@@ -76,57 +137,75 @@ public class Beneficiario {
         this.observaciones = observaciones;
     }
 
-    @Basic
-    @Column(name = "NUMERO_CUENTA")
-    public Long getNumeroCuenta() {
+    public BigInteger getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(Long numeroCuenta) {
+    public void setNumeroCuenta(BigInteger numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    @XmlTransient
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
+    }
 
-        Beneficiario that = (Beneficiario) o;
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
+    }
 
-        if (!Objects.equals(codigo, that.codigo)) return false;
-        if (!Objects.equals(identificador, that.identificador))
-            return false;
-        if (!Objects.equals(nombre, that.nombre)) return false;
-        if (!Objects.equals(tipo, that.tipo)) return false;
-        if (!Objects.equals(apellidos, that.apellidos)) return false;
-        if (!Objects.equals(observaciones, that.observaciones))
-            return false;
-        return Objects.equals(numeroCuenta, that.numeroCuenta);
+    public Becado getBecado() {
+        return becado;
+    }
 
+    public void setBecado(Becado becado) {
+        this.becado = becado;
+    }
+
+    public Beneficiario getBeneficiario() {
+        return beneficiario;
+    }
+
+    public void setBeneficiario(Beneficiario beneficiario) {
+        this.beneficiario = beneficiario;
+    }
+
+    public Beneficiario getBeneficiarioCodigo() {
+        return beneficiarioCodigo;
+    }
+
+    public void setBeneficiarioCodigo(Beneficiario beneficiarioCodigo) {
+        this.beneficiarioCodigo = beneficiarioCodigo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     public int hashCode() {
-        int result = codigo != null ? codigo.hashCode() : 0;
-        result = 31 * result + (identificador != null ? identificador.hashCode() : 0);
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
-        result = 31 * result + (apellidos != null ? apellidos.hashCode() : 0);
-        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
-        result = 31 * result + (numeroCuenta != null ? numeroCuenta.hashCode() : 0);
-        return result;
+        int hash = 0;
+        hash += (codigo != null ? codigo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Beneficiario)) {
+            return false;
+        }
+        Beneficiario other = (Beneficiario) object;
+        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
     }
 
     @Override
     public String toString() {
-        return "Beneficiario{" +
-                "codigo='" + codigo + '\'' +
-                ", identificador='" + identificador + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", observaciones='" + observaciones + '\'' +
-                ", numeroCuenta=" + numeroCuenta +
-                '}';
+        return "Entidades.Beneficiario[ codigo=" + codigo + " ]";
     }
+
 }

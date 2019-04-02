@@ -1,33 +1,82 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Entidades;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
 
+/**
+ * @author MiguelRuiz
+ */
 @Entity
-public class Proyecto {
-    private long codigo;
-    private String nombre;
-    private Long presupuesto;
-    private Long combustible;
-    private Long mantenimiento;
-    private Long contenedor;
-    private String descripcion;
-
+@Table(name = "PROYECTO")
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p"),
+        @NamedQuery(name = "Proyecto.findByCodigo", query = "SELECT p FROM Proyecto p WHERE p.codigo = :codigo"),
+        @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre"),
+        @NamedQuery(name = "Proyecto.findByPresupuesto", query = "SELECT p FROM Proyecto p WHERE p.presupuesto = :presupuesto"),
+        @NamedQuery(name = "Proyecto.findByCombustible", query = "SELECT p FROM Proyecto p WHERE p.combustible = :combustible"),
+        @NamedQuery(name = "Proyecto.findByMantenimiento", query = "SELECT p FROM Proyecto p WHERE p.mantenimiento = :mantenimiento"),
+        @NamedQuery(name = "Proyecto.findByContenedor", query = "SELECT p FROM Proyecto p WHERE p.contenedor = :contenedor"),
+        @NamedQuery(name = "Proyecto.findByDescripcion", query = "SELECT p FROM Proyecto p WHERE p.descripcion = :descripcion")})
+public class Proyecto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "CODIGO")
-    public long getCodigo() {
-        return codigo;
+    private BigDecimal codigo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "NOMBRE")
+    private String nombre;
+    @Column(name = "PRESUPUESTO")
+    private BigInteger presupuesto;
+    @Column(name = "COMBUSTIBLE")
+    private BigInteger combustible;
+    @Column(name = "MANTENIMIENTO")
+    private BigInteger mantenimiento;
+    @Column(name = "CONTENEDOR")
+    private BigInteger contenedor;
+    @Size(max = 80)
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
+    @ManyToMany(mappedBy = "proyectoList")
+    private List<Beneficiario> beneficiarioList;
+
+    public Proyecto() {
     }
 
-    public void setCodigo(long codigo) {
+    public Proyecto(BigDecimal codigo) {
         this.codigo = codigo;
     }
 
-    @Basic
-    @Column(name = "NOMBRE")
+    public Proyecto(BigDecimal codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+
+    public BigDecimal getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(BigDecimal codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -36,48 +85,38 @@ public class Proyecto {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "PRESUPUESTO")
-    public Long getPresupuesto() {
+    public BigInteger getPresupuesto() {
         return presupuesto;
     }
 
-    public void setPresupuesto(Long presupuesto) {
+    public void setPresupuesto(BigInteger presupuesto) {
         this.presupuesto = presupuesto;
     }
 
-    @Basic
-    @Column(name = "COMBUSTIBLE")
-    public Long getCombustible() {
+    public BigInteger getCombustible() {
         return combustible;
     }
 
-    public void setCombustible(Long combustible) {
+    public void setCombustible(BigInteger combustible) {
         this.combustible = combustible;
     }
 
-    @Basic
-    @Column(name = "MANTENIMIENTO")
-    public Long getMantenimiento() {
+    public BigInteger getMantenimiento() {
         return mantenimiento;
     }
 
-    public void setMantenimiento(Long mantenimiento) {
+    public void setMantenimiento(BigInteger mantenimiento) {
         this.mantenimiento = mantenimiento;
     }
 
-    @Basic
-    @Column(name = "CONTENEDOR")
-    public Long getContenedor() {
+    public BigInteger getContenedor() {
         return contenedor;
     }
 
-    public void setContenedor(Long contenedor) {
+    public void setContenedor(BigInteger contenedor) {
         this.contenedor = contenedor;
     }
 
-    @Basic
-    @Column(name = "DESCRIPCION")
     public String getDescripcion() {
         return descripcion;
     }
@@ -86,48 +125,35 @@ public class Proyecto {
         this.descripcion = descripcion;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    @XmlTransient
+    public List<Beneficiario> getBeneficiarioList() {
+        return beneficiarioList;
+    }
 
-        Proyecto proyecto = (Proyecto) o;
-
-        if (codigo != proyecto.codigo) return false;
-        if (!Objects.equals(nombre, proyecto.nombre)) return false;
-        if (!Objects.equals(presupuesto, proyecto.presupuesto))
-            return false;
-        if (!Objects.equals(combustible, proyecto.combustible))
-            return false;
-        if (!Objects.equals(mantenimiento, proyecto.mantenimiento))
-            return false;
-        if (!Objects.equals(contenedor, proyecto.contenedor)) return false;
-        return Objects.equals(descripcion, proyecto.descripcion);
-
+    public void setBeneficiarioList(List<Beneficiario> beneficiarioList) {
+        this.beneficiarioList = beneficiarioList;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (codigo ^ (codigo >>> 32));
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (presupuesto != null ? presupuesto.hashCode() : 0);
-        result = 31 * result + (combustible != null ? combustible.hashCode() : 0);
-        result = 31 * result + (mantenimiento != null ? mantenimiento.hashCode() : 0);
-        result = 31 * result + (contenedor != null ? contenedor.hashCode() : 0);
-        result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
-        return result;
+        int hash = 0;
+        hash += (codigo != null ? codigo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Proyecto)) {
+            return false;
+        }
+        Proyecto other = (Proyecto) object;
+        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
     }
 
     @Override
     public String toString() {
-        return "Proyecto{" +
-                "codigo=" + codigo +
-                ", nombre='" + nombre + '\'' +
-                ", presupuesto=" + presupuesto +
-                ", combustible=" + combustible +
-                ", mantenimiento=" + mantenimiento +
-                ", contenedor=" + contenedor +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        return "Entidades.Proyecto[ codigo=" + codigo + " ]";
     }
+
 }

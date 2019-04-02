@@ -1,34 +1,107 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Entidades;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.sql.Time;
-import java.util.Arrays;
-import java.util.Objects;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
+/**
+ * @author MiguelRuiz
+ */
 @Entity
-public class Becado {
-    private String codigo;
-    private String estado;
-    private String beca;
-    private String agente;
-    private byte[] foto;
-    private Time fechaNacimiento;
-    private Time fechaAcoes;
-    private String proyecto;
-    private Time fechaAltaProyecto;
-    private Time fechaSalidaActua;
-    private Time fechaAlta;
-    private Time fechaSalidaAcoes;
-    private String gradoCurso;
-    private String coloniaProcedencia;
-    private String coloniaActual;
-    private String observaciones;
-
+@Table(name = "BECADO")
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "Becado.findAll", query = "SELECT b FROM Becado b"),
+        @NamedQuery(name = "Becado.findByCodigo", query = "SELECT b FROM Becado b WHERE b.codigo = :codigo"),
+        @NamedQuery(name = "Becado.findByEstado", query = "SELECT b FROM Becado b WHERE b.estado = :estado"),
+        @NamedQuery(name = "Becado.findByBeca", query = "SELECT b FROM Becado b WHERE b.beca = :beca"),
+        @NamedQuery(name = "Becado.findByAgente", query = "SELECT b FROM Becado b WHERE b.agente = :agente"),
+        @NamedQuery(name = "Becado.findByFechaNacimiento", query = "SELECT b FROM Becado b WHERE b.fechaNacimiento = :fechaNacimiento"),
+        @NamedQuery(name = "Becado.findByFechaAcoes", query = "SELECT b FROM Becado b WHERE b.fechaAcoes = :fechaAcoes"),
+        @NamedQuery(name = "Becado.findByProyecto", query = "SELECT b FROM Becado b WHERE b.proyecto = :proyecto"),
+        @NamedQuery(name = "Becado.findByFechaAltaProyecto", query = "SELECT b FROM Becado b WHERE b.fechaAltaProyecto = :fechaAltaProyecto"),
+        @NamedQuery(name = "Becado.findByFechaSalidaActua", query = "SELECT b FROM Becado b WHERE b.fechaSalidaActua = :fechaSalidaActua"),
+        @NamedQuery(name = "Becado.findByFechaAlta", query = "SELECT b FROM Becado b WHERE b.fechaAlta = :fechaAlta"),
+        @NamedQuery(name = "Becado.findByFechaSalidaAcoes", query = "SELECT b FROM Becado b WHERE b.fechaSalidaAcoes = :fechaSalidaAcoes"),
+        @NamedQuery(name = "Becado.findByGradoCurso", query = "SELECT b FROM Becado b WHERE b.gradoCurso = :gradoCurso"),
+        @NamedQuery(name = "Becado.findByColoniaProcedencia", query = "SELECT b FROM Becado b WHERE b.coloniaProcedencia = :coloniaProcedencia"),
+        @NamedQuery(name = "Becado.findByColoniaActual", query = "SELECT b FROM Becado b WHERE b.coloniaActual = :coloniaActual"),
+        @NamedQuery(name = "Becado.findByObservaciones", query = "SELECT b FROM Becado b WHERE b.observaciones = :observaciones")})
+public class Becado implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "CODIGO")
+    private String codigo;
+    @Size(max = 30)
+    @Column(name = "ESTADO")
+    private String estado;
+    @Size(max = 30)
+    @Column(name = "BECA")
+    private String beca;
+    @Size(max = 30)
+    @Column(name = "AGENTE")
+    private String agente;
+    @Lob
+    @Column(name = "FOTO")
+    private Serializable foto;
+    @Column(name = "FECHA_NACIMIENTO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaNacimiento;
+    @Column(name = "FECHA_ACOES")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaAcoes;
+    @Size(max = 30)
+    @Column(name = "PROYECTO")
+    private String proyecto;
+    @Column(name = "FECHA_ALTA_PROYECTO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaAltaProyecto;
+    @Column(name = "FECHA_SALIDA_ACTUA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaSalidaActua;
+    @Column(name = "FECHA_ALTA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaAlta;
+    @Column(name = "FECHA_SALIDA_ACOES")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaSalidaAcoes;
+    @Size(max = 30)
+    @Column(name = "GRADO_CURSO")
+    private String gradoCurso;
+    @Size(max = 30)
+    @Column(name = "COLONIA_PROCEDENCIA")
+    private String coloniaProcedencia;
+    @Size(max = 30)
+    @Column(name = "COLONIA_ACTUAL")
+    private String coloniaActual;
+    @Size(max = 80)
+    @Column(name = "OBSERVACIONES")
+    private String observaciones;
+    @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Beneficiario beneficiario;
+    @JoinColumn(name = "SOCIOS_NUMERO", referencedColumnName = "NUMERO")
+    @ManyToOne(optional = false)
+    private Socio sociosNumero;
+
+    public Becado() {
+    }
+
+    public Becado(String codigo) {
+        this.codigo = codigo;
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -37,8 +110,6 @@ public class Becado {
         this.codigo = codigo;
     }
 
-    @Basic
-    @Column(name = "ESTADO")
     public String getEstado() {
         return estado;
     }
@@ -47,8 +118,6 @@ public class Becado {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "BECA")
     public String getBeca() {
         return beca;
     }
@@ -57,8 +126,6 @@ public class Becado {
         this.beca = beca;
     }
 
-    @Basic
-    @Column(name = "AGENTE")
     public String getAgente() {
         return agente;
     }
@@ -67,38 +134,30 @@ public class Becado {
         this.agente = agente;
     }
 
-    @Basic
-    @Column(name = "FOTO")
-    public byte[] getFoto() {
+    public Serializable getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(Serializable foto) {
         this.foto = foto;
     }
 
-    @Basic
-    @Column(name = "FECHA_NACIMIENTO")
-    public Time getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Time fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    @Basic
-    @Column(name = "FECHA_ACOES")
-    public Time getFechaAcoes() {
+    public Date getFechaAcoes() {
         return fechaAcoes;
     }
 
-    public void setFechaAcoes(Time fechaAcoes) {
+    public void setFechaAcoes(Date fechaAcoes) {
         this.fechaAcoes = fechaAcoes;
     }
 
-    @Basic
-    @Column(name = "PROYECTO")
     public String getProyecto() {
         return proyecto;
     }
@@ -107,48 +166,38 @@ public class Becado {
         this.proyecto = proyecto;
     }
 
-    @Basic
-    @Column(name = "FECHA_ALTA_PROYECTO")
-    public Time getFechaAltaProyecto() {
+    public Date getFechaAltaProyecto() {
         return fechaAltaProyecto;
     }
 
-    public void setFechaAltaProyecto(Time fechaAltaProyecto) {
+    public void setFechaAltaProyecto(Date fechaAltaProyecto) {
         this.fechaAltaProyecto = fechaAltaProyecto;
     }
 
-    @Basic
-    @Column(name = "FECHA_SALIDA_ACTUA")
-    public Time getFechaSalidaActua() {
+    public Date getFechaSalidaActua() {
         return fechaSalidaActua;
     }
 
-    public void setFechaSalidaActua(Time fechaSalidaActua) {
+    public void setFechaSalidaActua(Date fechaSalidaActua) {
         this.fechaSalidaActua = fechaSalidaActua;
     }
 
-    @Basic
-    @Column(name = "FECHA_ALTA")
-    public Time getFechaAlta() {
+    public Date getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(Time fechaAlta) {
+    public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
-    @Basic
-    @Column(name = "FECHA_SALIDA_ACOES")
-    public Time getFechaSalidaAcoes() {
+    public Date getFechaSalidaAcoes() {
         return fechaSalidaAcoes;
     }
 
-    public void setFechaSalidaAcoes(Time fechaSalidaAcoes) {
+    public void setFechaSalidaAcoes(Date fechaSalidaAcoes) {
         this.fechaSalidaAcoes = fechaSalidaAcoes;
     }
 
-    @Basic
-    @Column(name = "GRADO_CURSO")
     public String getGradoCurso() {
         return gradoCurso;
     }
@@ -157,8 +206,6 @@ public class Becado {
         this.gradoCurso = gradoCurso;
     }
 
-    @Basic
-    @Column(name = "COLONIA_PROCEDENCIA")
     public String getColoniaProcedencia() {
         return coloniaProcedencia;
     }
@@ -167,8 +214,6 @@ public class Becado {
         this.coloniaProcedencia = coloniaProcedencia;
     }
 
-    @Basic
-    @Column(name = "COLONIA_ACTUAL")
     public String getColoniaActual() {
         return coloniaActual;
     }
@@ -177,8 +222,6 @@ public class Becado {
         this.coloniaActual = coloniaActual;
     }
 
-    @Basic
-    @Column(name = "OBSERVACIONES")
     public String getObservaciones() {
         return observaciones;
     }
@@ -187,78 +230,42 @@ public class Becado {
         this.observaciones = observaciones;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Becado becado = (Becado) o;
-
-        if (!Objects.equals(codigo, becado.codigo)) return false;
-        if (!Objects.equals(estado, becado.estado)) return false;
-        if (!Objects.equals(beca, becado.beca)) return false;
-        if (!Objects.equals(agente, becado.agente)) return false;
-        if (!Arrays.equals(foto, becado.foto)) return false;
-        if (!Objects.equals(fechaNacimiento, becado.fechaNacimiento))
-            return false;
-        if (!Objects.equals(fechaAcoes, becado.fechaAcoes)) return false;
-        if (!Objects.equals(proyecto, becado.proyecto)) return false;
-        if (!Objects.equals(fechaAltaProyecto, becado.fechaAltaProyecto))
-            return false;
-        if (!Objects.equals(fechaSalidaActua, becado.fechaSalidaActua))
-            return false;
-        if (!Objects.equals(fechaAlta, becado.fechaAlta)) return false;
-        if (!Objects.equals(fechaSalidaAcoes, becado.fechaSalidaAcoes))
-            return false;
-        if (!Objects.equals(gradoCurso, becado.gradoCurso)) return false;
-        if (!Objects.equals(coloniaProcedencia, becado.coloniaProcedencia))
-            return false;
-        if (!Objects.equals(coloniaActual, becado.coloniaActual))
-            return false;
-        return Objects.equals(observaciones, becado.observaciones);
-
+    public Beneficiario getBeneficiario() {
+        return beneficiario;
     }
 
-    @Override
-    public String toString() {
-        return "Becado{" +
-                "codigo='" + codigo + '\'' +
-                ", estado='" + estado + '\'' +
-                ", beca='" + beca + '\'' +
-                ", agente='" + agente + '\'' +
-                ", foto=" + Arrays.toString(foto) +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", fechaAcoes=" + fechaAcoes +
-                ", proyecto='" + proyecto + '\'' +
-                ", fechaAltaProyecto=" + fechaAltaProyecto +
-                ", fechaSalidaActua=" + fechaSalidaActua +
-                ", fechaAlta=" + fechaAlta +
-                ", fechaSalidaAcoes=" + fechaSalidaAcoes +
-                ", gradoCurso='" + gradoCurso + '\'' +
-                ", coloniaProcedencia='" + coloniaProcedencia + '\'' +
-                ", coloniaActual='" + coloniaActual + '\'' +
-                ", observaciones='" + observaciones + '\'' +
-                '}';
+    public void setBeneficiario(Beneficiario beneficiario) {
+        this.beneficiario = beneficiario;
+    }
+
+    public Socio getSociosNumero() {
+        return sociosNumero;
+    }
+
+    public void setSociosNumero(Socio sociosNumero) {
+        this.sociosNumero = sociosNumero;
     }
 
     @Override
     public int hashCode() {
-        int result = codigo != null ? codigo.hashCode() : 0;
-        result = 31 * result + (estado != null ? estado.hashCode() : 0);
-        result = 31 * result + (beca != null ? beca.hashCode() : 0);
-        result = 31 * result + (agente != null ? agente.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(foto);
-        result = 31 * result + (fechaNacimiento != null ? fechaNacimiento.hashCode() : 0);
-        result = 31 * result + (fechaAcoes != null ? fechaAcoes.hashCode() : 0);
-        result = 31 * result + (proyecto != null ? proyecto.hashCode() : 0);
-        result = 31 * result + (fechaAltaProyecto != null ? fechaAltaProyecto.hashCode() : 0);
-        result = 31 * result + (fechaSalidaActua != null ? fechaSalidaActua.hashCode() : 0);
-        result = 31 * result + (fechaAlta != null ? fechaAlta.hashCode() : 0);
-        result = 31 * result + (fechaSalidaAcoes != null ? fechaSalidaAcoes.hashCode() : 0);
-        result = 31 * result + (gradoCurso != null ? gradoCurso.hashCode() : 0);
-        result = 31 * result + (coloniaProcedencia != null ? coloniaProcedencia.hashCode() : 0);
-        result = 31 * result + (coloniaActual != null ? coloniaActual.hashCode() : 0);
-        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
-        return result;
+        int hash = 0;
+        hash += (codigo != null ? codigo.hashCode() : 0);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Becado)) {
+            return false;
+        }
+        Becado other = (Becado) object;
+        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
+    }
+
+    @Override
+    public String toString() {
+        return "Entidades.Becado[ codigo=" + codigo + " ]";
+    }
+
 }

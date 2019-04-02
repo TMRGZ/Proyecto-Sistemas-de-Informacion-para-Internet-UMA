@@ -1,10 +1,7 @@
-import Entidades.Socio;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class CreateDB {
     public static void main(String[] args) {
@@ -12,7 +9,7 @@ public class CreateDB {
         EntityManager em = emf.createEntityManager();
         EntityTransaction entityTransaction = em.getTransaction();
 
-        entityTransaction.begin();
+        //entityTransaction.begin();
 
 
         /*try {
@@ -35,11 +32,11 @@ public class CreateDB {
         }*/
 
 
-        List<Socio> list = em.createQuery("select a from Socio a", Socio.class).getResultList();
+        /*List<Socio> list = em.createQuery("select a from Socio a", Socio.class).getResultList();
 
         for (Socio socio : list) {
             System.out.println(socio);
-        }
+        }*/
 
 
         em.close();

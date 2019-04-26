@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: miguelangelruiz
+  Date: 2019-04-26
+  Time: 19:04
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>
+        <ui:define name="titulo">Titulo de pagina</ui:define>
+    </title>
+</h:head>
+
+<h:body>
+    <div id="top-panel" class="topNav">
+        <h:form id="menu">
+            <ul class="menulist">
+                <li><h:commandLink action="inicio.xhtml" value="Inicio"/></li>
+                <li><!--@elvariable id="controlAutorizacion" type="Beans.ControlAutorizacion"-->
+                    <h:commandLink action="#{controlAutorizacion.logout()}" value="Cerrar Sesion"/></li>
+            </ul>
+        </h:form>
+    </div>
+
+    <div id="content-pane" class="content">
+        <ui:insert name="contenido">Contenido</ui:insert>
+    </div>
+</h:body>
+
+</html>

@@ -11,8 +11,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +28,9 @@ public class Login {
     private String password;
     private List<Usuario> usuarios;
 
+    private EntityManagerFactory emf;
+    private EntityManager em;
+
 
     @Inject
     private ControlAutorizacion ctrl;
@@ -34,10 +39,10 @@ public class Login {
      * Creates a new instance of Login
      */
     public Login() {
-        usuarios = new ArrayList<>();
+        emf = Persistence.createEntityManagerFactory("ACOES");
+        em = emf.createEntityManager();
+        usuarios = em.createQuery("select a from Usuario a", Usuario.class).getResultList();
         usuarios.add(new Usuario(new BigDecimal(1), "admin", "admin"));
-        usuarios.add(new Usuario(new BigDecimal(2), "user", "user"));
-
     }
 
     public String getUsuario() {

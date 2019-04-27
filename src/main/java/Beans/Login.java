@@ -4,11 +4,16 @@
  */
 package Beans;
 
+import Entidades.Usuario;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author francis
@@ -18,6 +23,8 @@ import javax.inject.Named;
 public class Login {
 
     private String usuario;
+    private String password;
+    private List<Usuario> usuarios;
 
 
     @Inject
@@ -27,6 +34,9 @@ public class Login {
      * Creates a new instance of Login
      */
     public Login() {
+        usuarios = new ArrayList<>();
+        usuarios.add(new Usuario(new BigDecimal(1), "admin", "admin"));
+        usuarios.add(new Usuario(new BigDecimal(2), "user", "user"));
 
     }
 
@@ -34,21 +44,29 @@ public class Login {
         return usuario;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String autenticar() {
         // Implementar este método
         FacesContext ctx = FacesContext.getCurrentInstance();
 
+        for (Usuario usuario1 : usuarios) {
+            if (usuario1.getNombreUsuario().equalsIgnoreCase(usuario) && usuario1.getContrasena().equals(password)) {
+                ctrl.setUsuario(usuario1);
+            }
+        }
 
-        ctrl.setUsuario(usuario);
-
-        if (ctrl.getUsuario() == null || ctrl.getUsuario().trim().length() == 0) {
-            ctrl.setUsuario(null);
+        if (ctrl.getUsuario() == null) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña no correctos", "Usuario o contraseña no correctos"));
             return null;
         }

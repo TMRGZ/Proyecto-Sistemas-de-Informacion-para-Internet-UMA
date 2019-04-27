@@ -5,6 +5,8 @@
 package Beans;
 
 
+import Entidades.Usuario;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -15,7 +17,7 @@ import java.io.Serializable;
 @SessionScoped
 public class ControlAutorizacion implements Serializable {
 
-    private String usuario;
+    private Usuario usuario;
 
     /**
      * Creates a new instance of ControlAutorizacion
@@ -23,16 +25,16 @@ public class ControlAutorizacion implements Serializable {
     public ControlAutorizacion() {
     }
 
-    public String getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
     public String home() {
-        return usuario == null ? null : usuario.equals("admin") ? "adminpage.xhtml" : "userpage.xhtml";
+        return usuario == null ? null : usuario.getNombreUsuario().equals("admin") ? "adminpage.xhtml" : "userpage.xhtml";
     }
 
     public String logout() {

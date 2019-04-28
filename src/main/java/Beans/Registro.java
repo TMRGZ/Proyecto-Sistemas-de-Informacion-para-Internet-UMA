@@ -13,9 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "register")
@@ -47,10 +47,12 @@ public class Registro {
      * Creates a new instance of Login
      */
     public Registro() {
-        emf = Persistence.createEntityManagerFactory("ACOES");
-        em = emf.createEntityManager();
-        usuarios = em.createQuery("select a from Usuario a", Usuario.class).getResultList();
-        usuarios.add(new Usuario(new BigDecimal(1), "admin", "admin"));
+        //emf = Persistence.createEntityManagerFactory("ACOES");
+        //em = emf.createEntityManager();
+        //usuarios = em.createQuery("select a from Usuario a", Usuario.class).getResultList();
+        usuarios = new ArrayList<>();
+        usuarios.add(new Usuario(new BigDecimal(1), "user", "user"));
+        usuarios.add(new Usuario(new BigDecimal(2), "admin", "admin"));
         //usuarios.add(new Usuario(new BigDecimal(2), "user", "user"));
 
     }
@@ -76,17 +78,17 @@ public class Registro {
         nuevoSocio.setUsuario(nuevoUsuario);
 
 
-        try {
-            em.persist(nuevoUsuario);
-            em.persist(nuevoSocio);
+        //try {
+        //    em.persist(nuevoUsuario);
+        //    em.persist(nuevoSocio);
 
-        } catch (Exception e) {
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al registrar", "Error al registrar"));
-            return null;
-        }
+        //} catch (Exception e) {
+        //    ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al registrar", "Error al registrar"));
+        //    return null;
+        //}
 
 
-        //usuarios.add(nuevoUsuario);
+        usuarios.add(nuevoUsuario);
 
 
         return "inicio.xhtml";

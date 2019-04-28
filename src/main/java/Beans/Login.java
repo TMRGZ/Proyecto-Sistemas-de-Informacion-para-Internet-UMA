@@ -13,8 +13,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,10 +39,12 @@ public class Login {
      * Creates a new instance of Login
      */
     public Login() {
-        emf = Persistence.createEntityManagerFactory("ACOES");
-        em = emf.createEntityManager();
-        usuarios = em.createQuery("select a from Usuario a", Usuario.class).getResultList();
-        usuarios.add(new Usuario(new BigDecimal(1), "admin", "admin"));
+        //emf = Persistence.createEntityManagerFactory("ACOES");
+        //em = emf.createEntityManager();
+        //usuarios = em.createQuery("select a from Usuario a", Usuario.class).getResultList();
+        usuarios = new ArrayList<>();
+        usuarios.add(new Usuario(new BigDecimal(1), "user", "user"));
+        usuarios.add(new Usuario(new BigDecimal(2), "admin", "admin"));
     }
 
     public String getUsuario() {

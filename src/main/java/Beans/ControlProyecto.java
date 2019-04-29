@@ -3,7 +3,7 @@ package Beans;
 import Entidades.Proyecto;
 
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,41 +13,29 @@ import java.util.List;
 
 @Named(value = "ctrlproyectos")
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ControlProyecto implements Serializable {
     private List<Proyecto> proyectos;
 
     private Proyecto proyecto;
 
-    private boolean add;
-
-
     public ControlProyecto() {
         proyectos = new ArrayList<>();
-        proyectos.add(new Proyecto(new BigDecimal(1), "Charla en la UMA"));
-        proyectos.add(new Proyecto(new BigDecimal(2), "Adaptarse al sistema de los alumnos"));
+        proyectos.add(new Proyecto(new BigDecimal(0), "Charla en la UMA"));
+        proyectos.add(new Proyecto(new BigDecimal(1), "Adaptarse al sistema de los alumnos"));
 
     }
 
-    public String AddOrModify(boolean add) {
-        this.add = add;
-        return "adminproject.xhtml";
-    }
 
-    public boolean esAdd() {
-        return add;
+    public String uploadProyecto() {
+        if (proyectos.indexOf(proyecto) >= 0) {
+            updProyecto(proyectos.get(proyectos.indexOf(proyecto)), proyecto.getNombre(), proyecto.getPresupuesto(), proyecto.getCombustible(),
+                    proyecto.getContenedor(), proyecto.getMantenimiento(), proyecto.getDescripcion());
+        } else {
+            proyectos.add(proyecto);
+        }
+        return "projects.xhtml";
     }
-
-    public Proyecto addProyecto(String name) {
-        Proyecto proyecto = new Proyecto(new BigDecimal(proyectos.size() + 1), name);
-        proyectos.add(proyecto);
-        return proyecto;
-    }
-
-    public void addProyecto(String nombre, BigInteger presupuesto, BigInteger combustible, BigInteger contenedor, BigInteger mantenimiento, String descripcion) {
-        updProyecto(addProyecto(nombre), nombre, presupuesto, combustible, contenedor, mantenimiento, descripcion);
-    }
-
 
     public String remProyecto(Proyecto p) {
         proyectos.remove(p);
@@ -74,9 +62,11 @@ public class ControlProyecto implements Serializable {
         return proyecto;
     }
 
-    public void setProyecto(Proyecto proyecto) { // Proyecto a mostrar
+    public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
     }
 
-
+    public void setProyectoVacio() {
+        setProyecto(new Proyecto(new BigDecimal(proyectos.size())));
+    }
 }

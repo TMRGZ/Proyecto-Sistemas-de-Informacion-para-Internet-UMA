@@ -1,0 +1,36 @@
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+    <ui:define name="contenido">
+
+
+        <li>
+
+            código: #{ctrlproyectos.getProyecto().codigo}
+        </li>
+
+        <li>
+            nombre: #{ctrlproyectos.getProyecto().nombre}
+        </li>
+        <li>
+            presupuesto: #{ctrlproyectos.getProyecto().presupuesto}
+        </li>
+        <li>
+            combustible: #{ctrlproyectos.getProyecto().combustible}
+        </li>
+        <li>
+            contenedor: #{ctrlproyectos.getProyecto().contenedor}
+        </li>
+        <li>
+            descripción: #{ctrlproyectos.getProyecto().descripcion}
+        </li>
+        <li>
+            mantenimiento: #{ctrlproyectos.getProyecto().mantenimiento}
+        </li>
+
+        <a href="projects.xhtml">Volver</a>
+    </ui:define>
+
+
+</ui:composition>

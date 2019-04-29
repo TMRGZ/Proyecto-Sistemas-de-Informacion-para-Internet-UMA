@@ -8,11 +8,12 @@
         <h:form id="addp">
 
             <c:choose>
-
+                <!--@elvariable id="ctrlproyectos" type="Beans.ControlProyecto"-->
                 <c:when test="#{ctrlproyectos.esAdd()}">
                     <li>
-                        código : <input type="text" name="código" id="codigo" readonly="readonly"
-                                        value="#{ctrlproyectos.getProyectos().size() + 1}"/>
+                        código :
+                        <input type="text" name="código" id="codigo" readonly="readonly"
+                               value="#{ctrlproyectos.getProyectos().size() + 1}"/>
                     </li>
                 </c:when>
                 <c:otherwise>

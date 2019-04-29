@@ -1,7 +1,7 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="contenido">
         <!--@elvariable id="register" type="Beans.Registro"-->
 
@@ -22,10 +22,12 @@
                         <li>
                             #{proyecto.nombre} <h:commandButton value="Borrar"
                                                                 action="#{ctrlproyectos.remProyecto(proyecto)}"/>
-                            <h:commandButton value="Modificar" action="#{ctrlproyectos.verProyecto(proyecto)}"/>
+                            <h:commandButton value="Modificar" action="#{ctrlproyectos.AddOrModify(false)}">
+                                <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                            </h:commandButton>
                         </li>
                     </ui:repeat>
-                    <h:commandButton value="Añadir" action="adminproject.xhtml"/>
+                    <h:commandButton value="Añadir" action="#{ctrlproyectos.AddOrModify(true)}"/>
                 </h:form>
             </c:otherwise>
 

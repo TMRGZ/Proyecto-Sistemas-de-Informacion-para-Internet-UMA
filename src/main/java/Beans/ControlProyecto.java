@@ -16,7 +16,11 @@ import java.util.List;
 @RequestScoped
 public class ControlProyecto implements Serializable {
     private List<Proyecto> proyectos;
+
     private Proyecto proyecto;
+
+    private boolean add;
+
 
     public ControlProyecto() {
         proyectos = new ArrayList<>();
@@ -25,8 +29,17 @@ public class ControlProyecto implements Serializable {
 
     }
 
+    public String AddOrModify(boolean add) {
+        this.add = add;
+        return "adminproject.xhtml";
+    }
+
+    public boolean esAdd() {
+        return add;
+    }
+
     public Proyecto addProyecto(String name) {
-        Proyecto proyecto = new Proyecto(new BigDecimal(proyectos.size()), name);
+        Proyecto proyecto = new Proyecto(new BigDecimal(proyectos.size() + 1), name);
         proyectos.add(proyecto);
         return proyecto;
     }
@@ -52,14 +65,10 @@ public class ControlProyecto implements Serializable {
         if (mantenimiento != null) upd.setMantenimiento(mantenimiento);
     }
 
-    public String verProyecto(Proyecto p) {
-        setProyecto(p);
-        return "adminproject.xhtml";
-    }
-
     public List<Proyecto> getProyectos() {
         return proyectos;
     }
+
 
     public Proyecto getProyecto() {
         return proyecto;
@@ -68,4 +77,6 @@ public class ControlProyecto implements Serializable {
     public void setProyecto(Proyecto proyecto) { // Proyecto a mostrar
         this.proyecto = proyecto;
     }
+
+
 }

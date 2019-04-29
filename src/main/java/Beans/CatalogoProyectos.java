@@ -3,7 +3,6 @@ package Beans;
 import Entidades.Proyecto;
 
 import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -18,8 +17,7 @@ public class CatalogoProyectos implements Serializable {
 
     private List<Proyecto> proyectos;
 
-    @PostConstruct
-    public void init() {
+    public CatalogoProyectos() {
         proyectos = new ArrayList<>();
         proyectos.add(new Proyecto(new BigDecimal(1), "Charla en la UMA"));
         proyectos.add(new Proyecto(new BigDecimal(2), "Adaptarse al sistema de los alumnos"));

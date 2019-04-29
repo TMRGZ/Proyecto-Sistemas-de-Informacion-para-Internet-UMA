@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestScoped
 public class ControlProyecto implements Serializable {
     private List<Proyecto> proyectos;
+    private Proyecto proyecto;
 
     public ControlProyecto() {
         proyectos = new ArrayList<>();
@@ -23,27 +25,47 @@ public class ControlProyecto implements Serializable {
 
     }
 
-    public void addProyecto(String name) {
-        proyectos.add(new Proyecto(new BigDecimal(proyectos.size()), name));
+    public Proyecto addProyecto(String name) {
+        Proyecto proyecto = new Proyecto(new BigDecimal(proyectos.size()), name);
+        proyectos.add(proyecto);
+        return proyecto;
+    }
+
+    public void addProyecto(String nombre, BigInteger presupuesto, BigInteger combustible, BigInteger contenedor, BigInteger mantenimiento, String descripcion) {
+        updProyecto(addProyecto(nombre), nombre, presupuesto, combustible, contenedor, mantenimiento, descripcion);
     }
 
 
-    public String remProyecto(BigDecimal b) {
-        for (Proyecto proyecto : proyectos) {
-            if (proyecto.getCodigo().equals(b)) {
-                proyectos.remove(proyecto);
-                return null;
-            }
-        }
+    public String remProyecto(Proyecto p) {
+        proyectos.remove(p);
         return null;
     }
 
-    public void updProyecto(Proyecto p) {
-        proyectos.remove(p);
-        proyectos.add(p);
+    public void updProyecto(Proyecto p, String nombre, BigInteger presupuesto, BigInteger combustible, BigInteger contenedor, BigInteger mantenimiento, String descripcion) {
+        Proyecto upd = proyectos.get(proyectos.indexOf(p));
+
+        if (nombre != null) upd.setNombre(nombre);
+        if (presupuesto != null) upd.setPresupuesto(presupuesto);
+        if (combustible != null) upd.setCombustible(combustible);
+        if (contenedor != null) upd.setContenedor(contenedor);
+        if (descripcion != null) upd.setDescripcion(descripcion);
+        if (mantenimiento != null) upd.setMantenimiento(mantenimiento);
+    }
+
+    public String verProyecto(Proyecto p) {
+        setProyecto(p);
+        return "adminproject.xhtml";
     }
 
     public List<Proyecto> getProyectos() {
         return proyectos;
+    }
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) { // Proyecto a mostrar
+        this.proyecto = proyecto;
     }
 }

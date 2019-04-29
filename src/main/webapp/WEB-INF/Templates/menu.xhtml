@@ -10,7 +10,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
     <title>
@@ -21,10 +22,16 @@
 <h:body>
     <div id="top-panel" class="topNav">
         <h:form id="menu">
+            <!--@elvariable id="controlAutorizacion" type="Beans.ControlAutorizacion"-->
             <ul class="menulist">
-                <li><h:commandLink action="inicio.xhtml" value="Inicio"/></li>
-                <li><!--@elvariable id="controlAutorizacion" type="Beans.ControlAutorizacion"-->
-                    <h:commandLink action="#{controlAutorizacion.logout()}" value="Cerrar Sesion"/></li>
+                <li><h:commandLink action="#{controlAutorizacion.home()}" value="Inicio"/></li>
+                <li><h:commandLink action="#{controlAutorizacion.logout()}" value="Cerrar Sesion"/></li>
+                <c:choose>
+                    <c:when test="#{!empty controlAutorizacion.usuario}">
+                        <li><h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"/></li>
+                    </c:when>
+                </c:choose>
+
             </ul>
         </h:form>
     </div>

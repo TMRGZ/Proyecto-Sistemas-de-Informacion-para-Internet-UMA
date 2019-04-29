@@ -1,8 +1,7 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
->
-    <ui:define name="contenido">
-
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="contenido"><!--@elvariable id="ctrlproyectos" type="Beans.ControlProyecto"-->
+        #{ctrlproyectos.proyecto.nombre}
 
     </ui:define>
 </ui:composition>

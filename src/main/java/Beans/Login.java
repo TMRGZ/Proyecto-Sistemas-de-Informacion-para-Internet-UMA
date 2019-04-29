@@ -17,9 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author francis
- */
+
 @Named(value = "login")
 @RequestScoped
 public class Login {

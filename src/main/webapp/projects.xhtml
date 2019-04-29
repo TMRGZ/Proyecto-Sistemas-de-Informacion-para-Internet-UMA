@@ -1,6 +1,7 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="contenido">
         <!--@elvariable id="register" type="Beans.Registro"-->
 
@@ -14,13 +15,17 @@
 
                 Lista proyectos
 
-                <!--@elvariable id="listaProyectos" type="Beans.CatalogoProyectos"-->
-                <ui:repeat value="#{listaProyectos.proyectos}" var="proyecto">
+                <!--@elvariable id="ctrlproyectos" type="Beans.ControlProyecto"-->
+                <h:form id="listaproyectos">
+                    <ui:repeat value="#{ctrlproyectos.proyectos}" var="proyecto">
                     <li>
-                        #{proyecto.nombre}
+                        #{proyecto.nombre} <h:commandButton value="Borrar"
+                                                            action="#{ctrlproyectos.remProyecto(proyecto.codigo)}"/>
+                        <h:commandButton value="Modificar" action="adminproject.xhtml"/>
                     </li>
                 </ui:repeat>
-
+                    <h:commandButton value="Añadir" action="adminproject.xhtml"/>
+                </h:form>
             </c:otherwise>
 
         </c:choose>

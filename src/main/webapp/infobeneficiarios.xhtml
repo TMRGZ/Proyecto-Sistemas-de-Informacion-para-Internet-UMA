@@ -5,20 +5,22 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns:h="http://java.sun.com/jsf/html"
->
-<head>
-    <title>TODO supply a title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body>
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="contenido">
+        <head>
+            <link rel="stylesheet" href="css/tabla.css"/>
+        </head>
+        <body>
 <h:form>
-    <p>Nombre: <h:inputText size="40"/></p>
-    <p>Año de nacimiento: <h:inputText size="40"/></p>
+    <p>Nombre: <h:inputText size="40" value="#{controlben.nombre}"/></p>
     <p>
-        <h:commandButton value="Enviar"/>
-        <h:commandButton value="Borrar"/>
+        <h:commandButton value="Enviar" action="#{controlben.modificar()}"/>
     </p>
 </h:form>
 </body>
-</html>
+    </ui:define>
+</ui:composition>

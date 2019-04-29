@@ -37,7 +37,7 @@ and open the template in the editor.
                             <td>#{beneficiario.nombre}</td>
                             <td>#{beneficiario.apellidos}</td>
                             <td>#{beneficiario.tipo}</td>
-                            <td><h:commandButton value="Modificar" action="#{controlben.buscar()}"/>
+                            <td><h:commandButton value="Modificar" action="#{controlben.buscar(beneficiario)}"/>
                             </td> <!-- El actioncommandButton value = "Modificar" action =  debe comprobar si es un usuario o admin para poder dejar que se modifique-->
                         </tr>
                     </ui:repeat>

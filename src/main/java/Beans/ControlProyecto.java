@@ -29,6 +29,7 @@ public class ControlProyecto implements Serializable {
 
     public String uploadProyecto() {
         if (proyectos.indexOf(proyecto) >= 0) {
+
             updProyecto(proyectos.get(proyectos.indexOf(proyecto)), proyecto.getNombre(), proyecto.getPresupuesto(), proyecto.getCombustible(),
                     proyecto.getContenedor(), proyecto.getMantenimiento(), proyecto.getDescripcion());
         } else {
@@ -67,6 +68,6 @@ public class ControlProyecto implements Serializable {
     }
 
     public void setProyectoVacio() {
-        setProyecto(new Proyecto(new BigDecimal(proyectos.size())));
+        setProyecto(new Proyecto());
     }
 }

@@ -1,17 +1,24 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="contenido">
 
         <h:form id="addp">
 
-
-            <li>
-
-                código: <input type="text" name="código" id="codigo" readonly="readonly"
-                               value="#{ctrlproyectos.getProyecto().codigo}"/>
-            </li>
+            <c:choose>
+                <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
+                    <li>
+                        código: <h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li>
+                        código: <input value="#{ctrlproyectos.proyecto.codigo}" readonly="true"/>
+                    </li>
+                </c:otherwise>
+            </c:choose>
 
             <li>
                 nombre: <h:inputText value="#{ctrlproyectos.proyecto.nombre}"/>

@@ -26,7 +26,6 @@ public class ControlProyecto implements Serializable {
         proyectos = new ArrayList<>();
         proyectos.add(new Proyecto(new BigDecimal(1), "Charla en la UMA"));
         proyectos.add(new Proyecto(new BigDecimal(2), "Adaptarse al sistema de los alumnos"));
-
     }
 
     public String AddOrModify(boolean add) {

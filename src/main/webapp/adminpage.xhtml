@@ -7,11 +7,15 @@
             Lista de usuarios
 
             <!--@elvariable id="listaUsuarios" type="Beans.CatalogoUsuarios"-->
-            <ui:repeat value="#{listaUsuarios.usuarios}" var="usuario">
-                <li>
-                    #{usuario.nombreUsuario}
-                </li>
-            </ui:repeat>
+            <ol id="lista">
+                <ui:repeat value="#{listaUsuarios.usuarios}" var="usuario">
+
+                    <li>
+                        #{usuario.nombreUsuario}
+                    </li>
+
+                </ui:repeat>
+            </ol>
             <a href="projects.xhtml">Proyectos</a>
 
             <a href="listabeneficiarios.xhtml"> Beneficiarios </a>

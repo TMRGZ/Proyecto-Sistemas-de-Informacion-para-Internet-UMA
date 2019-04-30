@@ -12,7 +12,7 @@
                 <c:choose>
                     <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
                         <li>
-                            código: <h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>
+                            <label>código:</label><h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>
                         </li>
                     </c:when>
                     <c:otherwise>
@@ -42,7 +42,7 @@
                 </li>
             </ol>
 
-            <h:commandButton value="Enviar" action="#{ctrlproyectos.uploadProyecto()}"/>
+            <h:commandButton value="Enviar" action="#{ctrlproyectos.uploadProyecto()}" styleClass="btn-borde"/>
         </h:form>
         <a href="projects.xhtml">Volver</a>
 

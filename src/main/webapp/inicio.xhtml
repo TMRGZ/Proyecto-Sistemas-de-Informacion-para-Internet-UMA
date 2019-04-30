@@ -27,11 +27,12 @@
                         <tr>
                             <td colspan="1">
                                 <!--@elvariable id="login" type="Beans.Login"-->
-                                <h:commandButton value="Autenticar" action="#{login.autenticar()}"/>
+                                <h:commandButton value="Autenticar" action="#{login.autenticar()}"
+                                                 styleClass="btn-borde"/>
                             </td>
 
                             <td>
-                                <a href="register.xhtml">Registrarse</a>
+                                <h:commandButton value="Registrar" action="register.xhtml" styleClass="btn-borde"/>
                             </td>
                         </tr>
                     </table>

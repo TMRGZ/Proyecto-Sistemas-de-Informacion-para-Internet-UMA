@@ -26,11 +26,14 @@
                                 #{proyecto.nombre}
                                 <div align="right">
                                     <h:commandButton value="Borrar"
-                                                     action="#{ctrlproyectos.remProyecto(proyecto)}" align="rigth"/>
-                                    <h:commandButton value="Modificar" action="adminproject.xhtml">
+                                                     action="#{ctrlproyectos.remProyecto(proyecto)}" align="rigth"
+                                                     styleClass="btn-borde"/>
+                                    <h:commandButton value="Modificar" action="adminproject.xhtml"
+                                                     styleClass="btn-borde">
                                         <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
                                     </h:commandButton>
-                                    <h:commandButton value="Detalles" action="detailsproject.xhtml">
+                                    <h:commandButton value="Detalles" action="detailsproject.xhtml"
+                                                     styleClass="btn-borde">
                                         <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
                                     </h:commandButton>
                                 </div>
@@ -38,7 +41,7 @@
                         </ui:repeat>
                     </ol>
                     <div align="center">
-                        <h:commandButton value="Añadir" action="adminproject.xhtml">
+                        <h:commandButton value="Añadir" action="adminproject.xhtml" styleClass="btn-borde">
                             <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
                         </h:commandButton>
                     </div>

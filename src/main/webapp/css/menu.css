@@ -1,0 +1,29 @@
+#top-panel {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+
+#top-panel li {
+    display: inline;
+}
+
+#top-panel li a {
+    font-family: Arial;
+    font-size: 11px;
+    text-decoration: none;
+    float: left;
+    padding: 10px;
+    background-color: #2175bc;
+    color: #fff;
+}
+
+#top-panel li a:hover {
+    background-color: #2586d7;
+    margin-top: -2px;
+    padding-bottom: 12px;
+}
+
+#content-panel {
+    display: block;
+}

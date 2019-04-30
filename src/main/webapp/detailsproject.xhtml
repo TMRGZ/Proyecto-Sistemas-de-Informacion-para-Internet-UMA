@@ -2,32 +2,35 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
+
     <ui:define name="contenido">
 
+        <ol id="lista">
+            <li>
 
-        <li>
+                <label>código:</label>#{ctrlproyectos.getProyecto().codigo}
 
-            código: #{ctrlproyectos.getProyecto().codigo}
-        </li>
+            </li>
 
-        <li>
-            nombre: #{ctrlproyectos.getProyecto().nombre}
-        </li>
-        <li>
-            presupuesto: #{ctrlproyectos.getProyecto().presupuesto}
-        </li>
-        <li>
-            combustible: #{ctrlproyectos.getProyecto().combustible}
-        </li>
-        <li>
-            contenedor: #{ctrlproyectos.getProyecto().contenedor}
-        </li>
-        <li>
-            descripción: #{ctrlproyectos.getProyecto().descripcion}
-        </li>
-        <li>
-            mantenimiento: #{ctrlproyectos.getProyecto().mantenimiento}
-        </li>
+            <li>
+                <label>nombre:</label>#{ctrlproyectos.getProyecto().nombre}
+            </li>
+            <li>
+                <label>presupuesto:</label>#{ctrlproyectos.getProyecto().presupuesto}
+            </li>
+            <li>
+                <label>combustible:</label>#{ctrlproyectos.getProyecto().combustible}
+            </li>
+            <li>
+                <label>contenedor:</label>#{ctrlproyectos.getProyecto().contenedor}
+            </li>
+            <li>
+                <label>descripción:</label>#{ctrlproyectos.getProyecto().descripcion}
+            </li>
+            <li>
+                <label>mantenimiento:</label>#{ctrlproyectos.getProyecto().mantenimiento}
+            </li>
+        </ol>
 
         <a href="projects.xhtml">Volver</a>
     </ui:define>

@@ -20,21 +20,28 @@
 
                 <!--@elvariable id="ctrlproyectos" type="Beans.ControlProyecto"-->
                 <h:form id="listaproyectos">
-                    <ui:repeat value="#{ctrlproyectos.proyectos}" var="proyecto">
-                        <li>
-                            #{proyecto.nombre} <h:commandButton value="Borrar"
-                                                                action="#{ctrlproyectos.remProyecto(proyecto)}"/>
-                            <h:commandButton value="Modificar" action="adminproject.xhtml">
-                                <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
-                            </h:commandButton>
-                            <h:commandButton value="Detalles" action="detailsproject.xhtml">
-                                <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
-                            </h:commandButton>
-                        </li>
-                    </ui:repeat>
-                    <h:commandButton value="Añadir" action="adminproject.xhtml">
-                        <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
-                    </h:commandButton>
+                    <ol id="lista">
+                        <ui:repeat value="#{ctrlproyectos.proyectos}" var="proyecto">
+                            <li>
+                                #{proyecto.nombre}
+                                <div align="right">
+                                    <h:commandButton value="Borrar"
+                                                     action="#{ctrlproyectos.remProyecto(proyecto)}" align="rigth"/>
+                                    <h:commandButton value="Modificar" action="adminproject.xhtml">
+                                        <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                                    </h:commandButton>
+                                    <h:commandButton value="Detalles" action="detailsproject.xhtml">
+                                        <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                                    </h:commandButton>
+                                </div>
+                            </li>
+                        </ui:repeat>
+                    </ol>
+                    <div align="center">
+                        <h:commandButton value="Añadir" action="adminproject.xhtml">
+                            <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
+                        </h:commandButton>
+                    </div>
 
                 </h:form>
             </c:otherwise>

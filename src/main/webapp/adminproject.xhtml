@@ -5,42 +5,46 @@
 
     <ui:define name="contenido">
 
+
         <h:form id="addp">
 
-            <c:choose>
-                <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
-                    <li>
-                        código: <h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li>
-                        código: <input value="#{ctrlproyectos.proyecto.codigo}" readonly="true"/>
-                    </li>
-                </c:otherwise>
-            </c:choose>
+            <ol id="lista">
+                <c:choose>
+                    <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
+                        <li>
+                            código: <h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <label>código:</label><input value="#{ctrlproyectos.proyecto.codigo}" readonly="true"/>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
 
-            <li>
-                nombre: <h:inputText value="#{ctrlproyectos.proyecto.nombre}"/>
-            </li>
-            <li>
-                presupuesto: <h:inputText value="#{ctrlproyectos.proyecto.presupuesto}"/>
-            </li>
-            <li>
-                combustible: <h:inputText value="#{ctrlproyectos.proyecto.combustible}"/>
-            </li>
-            <li>
-                contenedor: <h:inputText value="#{ctrlproyectos.proyecto.contenedor}"/>
-            </li>
-            <li>
-                descripción: <h:inputText value="#{ctrlproyectos.proyecto.descripcion}"/>
-            </li>
-            <li>
-                mantenimiento: <h:inputText value="#{ctrlproyectos.proyecto.mantenimiento}"/>
-            </li>
+                <li>
+                    <label>nombre:</label><h:inputText value="#{ctrlproyectos.proyecto.nombre}"/>
+                </li>
+                <li>
+                    <label>presupuesto:</label><h:inputText value="#{ctrlproyectos.proyecto.presupuesto}"/>
+                </li>
+                <li>
+                    <label>combustible:</label><h:inputText value="#{ctrlproyectos.proyecto.combustible}"/>
+                </li>
+                <li>
+                    <label>contenedor:</label><h:inputText value="#{ctrlproyectos.proyecto.contenedor}"/>
+                </li>
+                <li>
+                    <label>descripción:</label><h:inputText value="#{ctrlproyectos.proyecto.descripcion}"/>
+                </li>
+                <li>
+                    <label>mantenimiento:</label><h:inputText value="#{ctrlproyectos.proyecto.mantenimiento}"/>
+                </li>
+            </ol>
 
             <h:commandButton value="Enviar" action="#{ctrlproyectos.uploadProyecto()}"/>
         </h:form>
         <a href="projects.xhtml">Volver</a>
+
     </ui:define>
 </ui:composition>

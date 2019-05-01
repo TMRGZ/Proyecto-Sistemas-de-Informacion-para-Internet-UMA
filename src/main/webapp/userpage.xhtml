@@ -3,18 +3,48 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="titulo">Usuario normal</ui:define>
     <ui:define name="contenido">
-        Notificaciones
-
         <c:choose>
             <c:when test="#{true}">
                 <h:form id="apadrinar">
                     Aún no has apadrinado ¿Quieres?
-                    <h:commandButton value="Comenzar" action="userpage.xhtml">APADRINAR</h:commandButton>
+                    <h:commandButton value="Comenzar" action="ctrlsocio.apadrinar(controlben.getBeneficiarios())">APADRINAR</h:commandButton>
                 </h:form>
             </c:when>
             <c:otherwise>
-                Notificaciones
+            <ui:repeat value="ctrlsocio.getBeneficiados()" var="niño">
 
+                <ol id="lista">
+                    <li>
+                        <label>Foto:</label>#{niño.foto}
+                    </li>
+                    <li>
+                        <label>Nombre:</label>#{niño.nombre}
+                    </li>
+                </ol>
+            </ui:repeat>
+            <h:form id="apadrinar">    
+                    <h:commandButton value="Apadrina" action="ctrlsocio.apadrinar(controlben.getBeneficiarios())"></h:commandButton>
+            </h:form>
+    </ui:define>
+                Notificaciones
+                <div id="main-container">
+                    <h:form>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Autor</th>
+                                </tr>
+                            </thead>
+                            <ui:repeat value="ctrlsocio.getNotificaciones(controlAutorizacion.usuario,controlben.getBeneficiarios())" var="notificacion">
+                                <tr>    
+                                    <td> </td>     
+                                    <td> </td>  
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </h:form>
+                </div>
 
             </c:otherwise>
         </c:choose>

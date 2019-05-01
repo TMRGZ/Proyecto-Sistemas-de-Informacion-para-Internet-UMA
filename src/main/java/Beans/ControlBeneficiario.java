@@ -6,8 +6,9 @@
 package Beans;
 
 import Entidades.Beneficiario;
+import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.*;
 import javax.inject.Named;
 import java.util.ArrayList;
 
@@ -16,46 +17,42 @@ import java.util.ArrayList;
  */
 @Named(value = "controlben")
 @RequestScoped
-public class ControlBeneficiario {
+public class ControlBeneficiario implements Serializable {
 
     private ArrayList<Beneficiario> beneficiarios = new ArrayList<>();
 
-    private Beneficiario ben = new Beneficiario();
-    private String nombre;
+    private Beneficiario beneficiario;
+    private Beneficiario beneficiarioadd = new Beneficiario();
     public ControlBeneficiario() {
-        beneficiarios.add(new Beneficiario("1", "1-1", "paco", "N"));
-        beneficiarios.add(new Beneficiario("2", "1-2", "Julian Muñoz", "S"));
+        beneficiarios.add(new Beneficiario("1", "1-1", "paco", "Niño"));
+        beneficiarios.add(new Beneficiario("2", "1-2", "Julian Muñoz", "Socio"));
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
     public String buscar(Beneficiario ben) {
-        this.ben.setCodigo(ben.getCodigo());
+        this.beneficiario = ben;
         return "infobeneficiarios.xhtml";
     }
 
     public ArrayList<Beneficiario> getBeneficiarios() {
         return beneficiarios;
     }
-    
     public Beneficiario getBeneficiario(){
-        return ben;
+        return beneficiario;
     }
-    public String modificar(){
-        for (Beneficiario b : beneficiarios){
-            if(b.getCodigo().equals(ben.getCodigo())){
-                b.setNombre(nombre);
-            }
-        }
+    public String modificar (){
         return "listabeneficiarios.xhtml";
     }
-    public void setBeneficiario(Beneficiario ben){
-        this.ben = ben;
+    public String borrar(Beneficiario ben){
+        beneficiarios.remove(ben);
+       return "listabeneficiarios.xhtml";
     }
-    public String getNombre(){
-        return nombre;
+    public Beneficiario getbeneficiarioadd(){
+        return beneficiarioadd;
     }
-    public void setNombre(String nombre){
-        this.nombre = nombre;
+    public String add(){
+        beneficiarios.add(beneficiarioadd);
+        return "listabeneficiarios.xhtml";
     }
 }

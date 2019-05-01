@@ -12,13 +12,36 @@ and open the template in the editor.
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="contenido">
         <head>
-            <link rel="stylesheet" href="css/tabla.css"/>
+            <link rel="stylesheet" href="css/botones.css"/>
+            <link rel="stylesheet" href="css/lista.css"/>
         </head>
         <body>
 <h:form>
-    <p>Nombre: <h:inputText size="40" value="#{controlben.nombre}"/></p>
+ <ol id="lista">
+            <li>
+                <label>Identificador: </label> 
+                <h:inputText value="#{controlben.beneficiario.identificador}"/>
+            </li>
+            <li>
+                <label>Nombre: </label>
+                <h:inputText value="#{controlben.beneficiario.nombre}"/>
+            </li>
+                 <li>
+                <label>Apellido: </label>
+                <h:inputText value="#{controlben.beneficiario.apellidos}"/>
+            </li>
+            <li>
+                <label>Numero de cuenta </label>
+                <h:inputText value="#{controlben.beneficiario.numeroCuenta}"/>
+            </li>
+                 <li>
+                <label>Tipo: </label> 
+                <h:inputText value="#{controlben.beneficiario.tipo}"/>
+            </li>
+
+        </ol>
     <p>
-        <h:commandButton value="Enviar" action="#{controlben.modificar()}"/>
+        <h:commandButton value="Enviar" action="#{controlben.modificar()}" styleClass="btn-borde"/>
     </p>
 </h:form>
 </body>

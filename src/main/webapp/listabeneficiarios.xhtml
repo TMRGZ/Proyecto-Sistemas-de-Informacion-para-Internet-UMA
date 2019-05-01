@@ -12,7 +12,7 @@ and open the template in the editor.
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="contenido">
         <head>
-            <link rel="stylesheet" href="css/tabla.css"/>
+            <link rel="stylesheet" href="css/tabla.css"/> <link rel="stylesheet" href="css/botones.css"/>
         </head>
         <body>
         <div id="main-container">
@@ -26,6 +26,8 @@ and open the template in the editor.
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Tipo</th>
+                        <th>Numero de Cuenta</th>
+                        <th>Observaciones</th>
                         <th>Ver Mas</th>
                     </tr>
                     </thead>
@@ -37,13 +39,16 @@ and open the template in the editor.
                             <td>#{beneficiario.nombre}</td>
                             <td>#{beneficiario.apellidos}</td>
                             <td>#{beneficiario.tipo}</td>
-                            <td><h:commandButton value="Modificar" action="#{controlben.buscar(beneficiario)}"/>
+                            <td>#{beneficiario.numeroCuenta}</td>
+                            <td>#{beneficiario.observaciones}</td>
+                            <td><h:commandButton value="Modificar" action="#{controlben.buscar(beneficiario)}" styleClass="btn-borde"/>
+                                <h:commandButton value="Borrar" action="#{controlben.borrar(beneficiario)}" styleClass="btn-borde"/>
                             </td> <!-- El actioncommandButton value = "Modificar" action =  debe comprobar si es un usuario o admin para poder dejar que se modifique-->
                         </tr>
                     </ui:repeat>
                 </table>
-
-
+               <a href="adminpage.xhtml">Volver</a>
+               <br> <h:commandButton value="Añadir" action="nuevobeneficiario.xhtml" styleClass="btn-borde"/></br>
             </h:form>
         </div>
         </body>

@@ -1,5 +1,6 @@
 package Beans;
 
+import Entidades.Beneficiario;
 import Entidades.Proyecto;
 
 import javax.annotation.ManagedBean;
@@ -18,14 +19,46 @@ public class ControlProyecto implements Serializable {
     private List<Proyecto> proyectos;
 
     private Proyecto proyecto;
-
+    private String nombre;
+    private String codigo;
     public ControlProyecto() {
         proyectos = new ArrayList<>();
         proyectos.add(new Proyecto(new BigDecimal(0), "Charla en la UMA"));
         proyectos.add(new Proyecto(new BigDecimal(1), "Adaptarse al sistema de los alumnos"));
 
     }
-
+    
+    public String buscar(Proyecto pro) {
+        this.proyecto.setCodigo(pro.getCodigo());
+        return "añadirmiembro.xhtml";
+    }
+    
+    public String buscar2(Proyecto pro) {
+        this.proyecto.setCodigo(pro.getCodigo());
+        return "eliminarmiembro.xhtml";
+    }
+    
+    public String añadir(){
+        for (Proyecto p : proyectos){
+            if(p.getCodigo().equals(proyecto.getCodigo())){
+                p.getBeneficiarioList().add(new Beneficiario(nombre));
+            }
+        }
+        return "listabeneficiarios.xhtml";
+    }
+    
+    public String elimiar(){
+        for (Proyecto p : proyectos){
+            if(p.getCodigo().equals(proyecto.getCodigo())){
+                for (Beneficiario b : p.getBeneficiarioList()){
+                    if(b.getCodigo().equals(codigo)){
+                        p.getBeneficiarioList().remove(b);
+                    }
+                }
+            }
+        }
+        return "listabeneficiarios.xhtml";
+    }
 
     public String uploadProyecto() {
         if (proyectos.indexOf(proyecto) >= 0) {

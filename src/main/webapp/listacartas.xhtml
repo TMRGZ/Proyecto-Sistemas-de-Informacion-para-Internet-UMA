@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="contenido">
+        <head>
+            <link rel="stylesheet" href="css/tabla.css"/>
+        </head>
+        <body>
+        <div id="main-container">
+            <h:form id="beneficiarios">
+
+                <table>
+                    <thead>
+                    <tr>
+                       <th>Fecha</th>
+                       <th>Autor</th>
+                    </tr>
+                    </thead>
+                    <ui:repeat value="#{}" var="niño">
+                        <tr>
+                            
+                            <td>
+                                
+                            </td>                          
+                        </tr>
+                    </ui:repeat>
+                </table>
+
+
+            </h:form>
+        </div>
+        </body>
+    </ui:define>
+</ui:composition>
+
+

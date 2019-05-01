@@ -11,9 +11,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -21,7 +21,6 @@ import java.util.Set;
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "SOCIO")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Socio.findAll", query = "SELECT s FROM Socio s"),
@@ -50,33 +49,26 @@ public class Socio implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "NUMERO")
-    private BigDecimal numero;
+    private Integer numero;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "NOMBRE")
     private String nombre;
     @Size(max = 30)
-    @Column(name = "APELLIDOS")
     private String apellidos;
     @Size(max = 30)
-    @Column(name = "ESTADO")
     private String estado;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "NIF")
     private String nif;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
-    @Column(name = "DIRECCION")
     private String direccion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
-    @Column(name = "POBLACION")
     private String poblacion;
     @Basic(optional = false)
     @NotNull
@@ -85,11 +77,9 @@ public class Socio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "PROVINCIA")
     private String provincia;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "TELEFONO")
     private BigInteger telefono;
     @Column(name = "TELEFONO_MOVIL")
     private BigInteger telefonoMovil;
@@ -99,16 +89,12 @@ public class Socio implements Serializable {
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
     @Size(max = 40)
-    @Column(name = "AGENTE")
     private String agente;
     @Size(max = 40)
-    @Column(name = "RELACION")
     private String relacion;
     @Size(max = 40)
-    @Column(name = "CERTIFICADO")
     private String certificado;
     @Size(max = 40)
-    @Column(name = "SECTOR")
     private String sector;
     @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.TIMESTAMP)
@@ -117,21 +103,23 @@ public class Socio implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
     @Size(max = 80)
-    @Column(name = "OBSERVACIONES")
     private String observaciones;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioNumero")
+    @OneToMany(mappedBy = "socioNumero")
     private Set<Becado> becadoSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socioNumero")
+    @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO")
+    @OneToOne
+    private Usuario usuarioNombreUsuario;
+    @OneToOne(mappedBy = "socioNumero")
     private Usuario usuario;
 
     public Socio() {
     }
 
-    public Socio(BigDecimal numero) {
+    public Socio(int numero) {
         this.numero = numero;
     }
 
-    public Socio(BigDecimal numero, String nombre, String nif, String direccion, String poblacion, BigInteger codigoPostal, String provincia, BigInteger telefono, String correoElectronico) {
+    public Socio(int numero, String nombre, String nif, String direccion, String poblacion, BigInteger codigoPostal, String provincia, BigInteger telefono, String correoElectronico) {
         this.numero = numero;
         this.nombre = nombre;
         this.nif = nif;
@@ -143,11 +131,11 @@ public class Socio implements Serializable {
         this.correoElectronico = correoElectronico;
     }
 
-    public BigDecimal getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(BigDecimal numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 
@@ -304,6 +292,14 @@ public class Socio implements Serializable {
         this.becadoSet = becadoSet;
     }
 
+    public Usuario getUsuarioNombreUsuario() {
+        return usuarioNombreUsuario;
+    }
+
+    public void setUsuarioNombreUsuario(Usuario usuarioNombreUsuario) {
+        this.usuarioNombreUsuario = usuarioNombreUsuario;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -313,20 +309,16 @@ public class Socio implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (numero != null ? numero.hashCode() : 0);
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Socio socio = (Socio) o;
+        return Objects.equals(numero, socio.numero);
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Socio)) {
-            return false;
-        }
-        Socio other = (Socio) object;
-        return (this.numero != null || other.numero == null) && (this.numero == null || this.numero.equals(other.numero));
+    public int hashCode() {
+        return Objects.hash(numero);
     }
 
     @Override

@@ -10,16 +10,15 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "NOTIFICACION")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n"),
@@ -33,62 +32,60 @@ public class Notificacion implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID")
-    private BigDecimal id;
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "USUARIO_RECEPTOR")
-    private BigInteger usuarioReceptor;
+    private Integer usuarioReceptor;
     @Basic(optional = false)
     @NotNull
     @Column(name = "USUARIO_EMISOR")
-    private BigInteger usuarioEmisor;
+    private Integer usuarioEmisor;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @JoinTable(name = "USUARIO_NOTIFICACION", joinColumns = {
             @JoinColumn(name = "NOTIFICACION_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
-            @JoinColumn(name = "USUARIO_ID_USUARIO", referencedColumnName = "ID_USUARIO")})
+            @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO")})
     @ManyToMany
     private Set<Usuario> usuarioSet;
 
     public Notificacion() {
     }
 
-    public Notificacion(BigDecimal id) {
+    public Notificacion(int id) {
         this.id = id;
     }
 
-    public Notificacion(BigDecimal id, BigInteger usuarioReceptor, BigInteger usuarioEmisor, Date fecha) {
+    public Notificacion(int id, int usuarioReceptor, int usuarioEmisor, Date fecha) {
         this.id = id;
         this.usuarioReceptor = usuarioReceptor;
         this.usuarioEmisor = usuarioEmisor;
         this.fecha = fecha;
     }
 
-    public BigDecimal getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public BigInteger getUsuarioReceptor() {
+    public Integer getUsuarioReceptor() {
         return usuarioReceptor;
     }
 
-    public void setUsuarioReceptor(BigInteger usuarioReceptor) {
+    public void setUsuarioReceptor(Integer usuarioReceptor) {
         this.usuarioReceptor = usuarioReceptor;
     }
 
-    public BigInteger getUsuarioEmisor() {
+    public Integer getUsuarioEmisor() {
         return usuarioEmisor;
     }
 
-    public void setUsuarioEmisor(BigInteger usuarioEmisor) {
+    public void setUsuarioEmisor(Integer usuarioEmisor) {
         this.usuarioEmisor = usuarioEmisor;
     }
 
@@ -110,20 +107,16 @@ public class Notificacion implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Notificacion that = (Notificacion) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Notificacion)) {
-            return false;
-        }
-        Notificacion other = (Notificacion) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

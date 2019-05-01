@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +23,8 @@ public class CatalogoUsuarios implements Serializable {
     @PostConstruct
     public void init() {
         usuarios = new ArrayList<>();
-        usuarios.add(new Usuario(new BigDecimal(1), "user", "user"));
-        usuarios.add(new Usuario(new BigDecimal(2), "admin", "admin"));
+        usuarios.add(new Usuario("user", 0, "user", '0'));
+        usuarios.add(new Usuario("admin", 1, "admin", '1'));
     }
 
     public List<Usuario> getUsuarios() {

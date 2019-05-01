@@ -7,8 +7,6 @@ import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +20,8 @@ public class ControlProyecto implements Serializable {
 
     public ControlProyecto() {
         proyectos = new ArrayList<>();
-        proyectos.add(new Proyecto(new BigDecimal(0), "Charla en la UMA"));
-        proyectos.add(new Proyecto(new BigDecimal(1), "Adaptarse al sistema de los alumnos"));
+        proyectos.add(new Proyecto(0, "Charla en la UMA"));
+        proyectos.add(new Proyecto(0, "Adaptarse al sistema de los alumnos"));
 
     }
 
@@ -44,7 +42,7 @@ public class ControlProyecto implements Serializable {
         return null;
     }
 
-    public void updProyecto(Proyecto p, String nombre, BigInteger presupuesto, BigInteger combustible, BigInteger contenedor, BigInteger mantenimiento, String descripcion) {
+    public void updProyecto(Proyecto p, String nombre, Integer presupuesto, Integer combustible, Integer contenedor, Integer mantenimiento, String descripcion) {
         Proyecto upd = proyectos.get(proyectos.indexOf(p));
 
         if (nombre != null) upd.setNombre(nombre);

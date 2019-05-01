@@ -12,9 +12,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +20,6 @@ import java.util.List;
 @RequestScoped
 public class Registro {
 
-    EntityManagerFactory emf;
-    EntityManager em;
     private String usuario;
     private String password;
     private String nPassword;
@@ -46,18 +41,12 @@ public class Registro {
      * Creates a new instance of Login
      */
     public Registro() {
-        //emf = Persistence.createEntityManagerFactory("ACOES");
-        //em = emf.createEntityManager();
-        //usuarios = em.createQuery("select a from Usuario a", Usuario.class).getResultList();
         usuarios = new ArrayList<>();
-        usuarios.add(new Usuario(new BigDecimal(1), "user", "user"));
-        usuarios.add(new Usuario(new BigDecimal(2), "admin", "admin"));
-        //usuarios.add(new Usuario(new BigDecimal(2), "user", "user"));
-
+        usuarios.add(new Usuario("user", 0, "user", '0'));
+        usuarios.add(new Usuario("admin", 1, "admin", '1'));
     }
 
     public String registrar() {
-        // Implementar este método
         FacesContext ctx = FacesContext.getCurrentInstance();
 
         if (usuario.length() == 0 || password.length() == 0 || nPassword.length() == 0 || Apellido.length() == 0 || estado.length() == 0 || NIF.length() == 0 || direccion.length() == 0 || CP.length() == 0 || provincia.length() == 0 || poblacion.length() == 0 || telefono.length() == 0 || telMovil.length() == 0 || email.length() == 0) {
@@ -72,21 +61,9 @@ public class Registro {
             }
         }
 
-        Usuario nuevoUsuario = new Usuario(new BigDecimal(usuarios.size()), usuario, password);
+        Usuario nuevoUsuario = new Usuario(usuario, usuarios.size(), password, '0');
         Socio nuevoSocio = new Socio(nuevoUsuario.getIdUsuario(), nombre, NIF, direccion, poblacion, new BigInteger(CP), provincia, new BigInteger(telefono), email);
         nuevoSocio.setUsuario(nuevoUsuario);
-
-
-        //try {
-        //    em.persist(nuevoUsuario);
-        //    em.persist(nuevoSocio);
-
-        //} catch (Exception e) {
-        //    ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al registrar", "Error al registrar"));
-        //    return null;
-        //}
-
-
         usuarios.add(nuevoUsuario);
 
 

@@ -67,7 +67,7 @@ public class Login {
         FacesContext ctx = FacesContext.getCurrentInstance();
 
         for (Usuario usuario1 : usuarios) {
-            if (usuario1.getNombreUsuario().equalsIgnoreCase(usuario) && usuario1.getContrasena().equals(password)) {
+            if (usuario1.getNombreUsuario().equalsIgnoreCase(usuario) && usuario1.getContrasenna().equals(password)) {
                 ctrl.setUsuario(usuario1);
             }
         }

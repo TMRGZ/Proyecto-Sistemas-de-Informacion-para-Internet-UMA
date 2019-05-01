@@ -4,26 +4,24 @@
     <ui:define name="titulo">Usuario normal</ui:define>
     <ui:define name="contenido">
         <c:choose>
-            <c:when test="#{empty ctrlsocio.becados}">
+            <c:when test="#{empty ctrlsocio.buscar(u)}">
                 <h:form id="apadrinar">
                     Aún no has apadrinado ¿Quieres?
-                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlben.beneficiarios)}">APADRINAR</h:commandButton>
+                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}">APADRINAR</h:commandButton>
                 </h:form>
             </c:when>
             <c:otherwise>
-            <ui:repeat value="ctrlsocio.getBeneficiados()" var="niño">
-
-                <ol id="lista">
-                    <li>
-                        <label>Foto:</label>#{niño.foto}
-                    </li>
-                    <li>
-                        <label>Nombre:</label>#{niño.nombre}
-                    </li>
-                </ol>
-            </ui:repeat> 
-            <h:commandButton value="Apadrina" action="#{ctrlsocio.apadrinar(controlben.getBeneficiarios())}"></h:commandButton>
-
+                <ui:repeat value="#{ctrlsocio.buscar(controlAutorizacion.usuario)}" var="niño">
+                    <ol id="lista">
+                        <li>
+                            <label>Identificador:#{niño.beneficiario.nombre} </label> 
+                        </li>
+                    </ol>
+                </ui:repeat> 
+            <h:form id="apadrinar">
+            <h:commandButton value="Apadrina" action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"></h:commandButton>
+            </h:form>
+            <!--
                 Notificaciones
                 <div id="main-container">
                     <h:form>
@@ -34,7 +32,7 @@
                                     <th>Autor</th>
                                 </tr>
                             </thead>
-                            <ui:repeat value="#{ctrlsocio.getNotificaciones(controlAutorizacion.usuario,controlben.getBeneficiarios())}" var="notificacion">
+                            <ui:repeat value="{ctrlsocio.getNotificaciones(controlAutorizacion.usuario,controlben.getBeneficiarios())}" var="notificacion">
                                 <tr>    
                                     <td> </td>     
                                     <td> </td>  
@@ -43,6 +41,7 @@
                         </table>
                     </h:form>
                 </div>
+            -->
             </c:otherwise>
         </c:choose>
     </ui:define>

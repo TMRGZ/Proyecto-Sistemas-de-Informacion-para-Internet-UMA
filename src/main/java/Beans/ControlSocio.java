@@ -21,13 +21,12 @@ import javax.inject.Named;
 public class ControlSocio implements Serializable {
      
     private ArrayList<Socio> socios = new ArrayList<>();
-    private Socio socio;
+    private Socio socio=new Socio();
     
     public ControlSocio() {
         socios = new ArrayList<>();
-        socio=new Socio();
         socio.setUsuario(new Usuario(new BigDecimal(1), "user", "user"));
-        
+        socios.add(socio);
     }
      
     /*public ArrayList<Notificaciones> getNotificaciones(Usuario u) {
@@ -45,13 +44,34 @@ public class ControlSocio implements Serializable {
         for(Socio s : socios){
              if(s.getUsuario().equals(u)){
                  socio=s;
+                 
              }
         }
-
+        if(socio.getBecadoList()==null){
+                    socio.setBecadoList(new ArrayList<>());
+                    
+                }
+        while(!apadrinar && i<listben.size()){
+            if(listben.get(i).getTipo()=="Niño"){
+                Becado b= new Becado();
+                b.setBeneficiario(listben.get(i));
+                if(!socio.getBecadoList().contains(b)){
+                    socio.getBecadoList().add(b);
+                    apadrinar=true;
+                }
+            }
+                    
+            i++;
+        }
         return "userpage.xhtml";
     }
     
-    public List<Becado> getBecados(){
+    public List<Becado> buscar(Usuario u){
+        for(Socio s : socios){
+             if(s.getUsuario().equals(u)){
+                 socio=s;
+             }
+        }
         return socio.getBecadoList();
     }
     

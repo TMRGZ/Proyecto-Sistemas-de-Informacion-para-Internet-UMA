@@ -9,6 +9,10 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@olimpia.lcc.uma.es:1521:APOLO"/>
+            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+            <property name="eclipselink.jdbc.user" value="UBD744"/>
+            <property name="eclipselink.jdbc.password" value="3695147"/>
         </properties>
     </persistence-unit>
 </persistence>

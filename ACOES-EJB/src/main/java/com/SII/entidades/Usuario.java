@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Set;
 
 /**
@@ -49,7 +48,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ROL")
-    private BigInteger rol;
+    private Rol rol;
     @ManyToMany(mappedBy = "usuarioSet")
     private Set<Notificacion> notificacionSet;
     @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
@@ -59,6 +58,13 @@ public class Usuario implements Serializable {
     @OneToOne(optional = false)
     private Socio socioNumero;
 
+    public Usuario(BigDecimal idUsuario, String nombreUsuario, String contrasenna, Rol rol) {
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenna = contrasenna;
+        this.rol = rol;
+    }
+
     public Usuario() {
     }
 
@@ -66,11 +72,15 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(BigDecimal idUsuario, String nombreUsuario, String contrasenna, BigInteger rol) {
+    public Usuario(BigDecimal idUsuario, String nombreUsuario, String contrasenna) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.contrasenna = contrasenna;
-        this.rol = rol;
+        this.rol = null;
+    }
+
+    public Rol getRol() {
+        return rol;
     }
 
     public BigDecimal getIdUsuario() {
@@ -97,12 +107,13 @@ public class Usuario implements Serializable {
         this.contrasenna = contrasenna;
     }
 
-    public BigInteger getRol() {
-        return rol;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
-    public void setRol(BigInteger rol) {
-        this.rol = rol;
+    public enum Rol {
+        ADMINISTRADOR,
+        NORMAL
     }
 
     @XmlTransient

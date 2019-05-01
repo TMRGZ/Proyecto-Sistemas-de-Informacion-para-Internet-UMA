@@ -8,7 +8,7 @@
     text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 }
 
-#lista ol {
+#lista ol, ul {
     margin: 0 0 0 2em;
 }
 
@@ -16,7 +16,6 @@
     position: relative;
     display: block;
     padding: .4em .4em .4em .8em;
-    *padding: .4em;
     margin: .5em 0 .5em 2.5em;
     background: #ddd;
     color: #444;
@@ -29,7 +28,7 @@
 }
 
 #lista li:before {
-    content: counter(li);
+
     counter-increment: li;
     position: absolute;
     left: -2.5em;

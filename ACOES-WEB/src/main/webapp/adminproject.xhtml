@@ -5,6 +5,7 @@
 
     <ui:define name="contenido">
 
+        <a href="projects.xhtml" class="atras"/>
 
         <h:form id="addp"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
             <ol id="lista">
@@ -44,7 +45,6 @@
 
             <h:commandButton value="Enviar" action="#{ctrlproyectos.uploadProyecto()}" styleClass="btn-borde"/>
         </h:form>
-        <a href="projects.xhtml">Volver</a>
 
     </ui:define>
 </ui:composition>

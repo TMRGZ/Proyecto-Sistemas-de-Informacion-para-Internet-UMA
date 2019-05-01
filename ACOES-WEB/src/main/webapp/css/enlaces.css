@@ -1,0 +1,11 @@
+
+a.atras {
+    width: 35px;
+    height: 35px;
+    background: transparent url('flecha.svg') center top no-repeat;
+    display: block;
+}
+
+a.atras:hover {
+    background-image: url('flecha2.svg');
+}

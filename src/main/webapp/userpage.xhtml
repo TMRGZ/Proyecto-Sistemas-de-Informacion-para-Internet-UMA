@@ -7,7 +7,7 @@
             <c:when test="#{true}">
                 <h:form id="apadrinar">
                     Aún no has apadrinado ¿Quieres?
-                    <h:commandButton value="Comenzar" action="ctrlsocio.apadrinar(controlben.getBeneficiarios())">APADRINAR</h:commandButton>
+                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlben.getBeneficiarios())}">APADRINAR</h:commandButton>
                 </h:form>
             </c:when>
             <c:otherwise>
@@ -21,11 +21,9 @@
                         <label>Nombre:</label>#{niño.nombre}
                     </li>
                 </ol>
-            </ui:repeat>
-            <h:form id="apadrinar">    
-                    <h:commandButton value="Apadrina" action="ctrlsocio.apadrinar(controlben.getBeneficiarios())"></h:commandButton>
-            </h:form>
-    </ui:define>
+            </ui:repeat> 
+            <h:commandButton value="Apadrina" action="#{ctrlsocio.apadrinar(controlben.getBeneficiarios())}"></h:commandButton>
+
                 Notificaciones
                 <div id="main-container">
                     <h:form>
@@ -36,7 +34,7 @@
                                     <th>Autor</th>
                                 </tr>
                             </thead>
-                            <ui:repeat value="ctrlsocio.getNotificaciones(controlAutorizacion.usuario,controlben.getBeneficiarios())" var="notificacion">
+                            <ui:repeat value="#{ctrlsocio.getNotificaciones(controlAutorizacion.usuario,controlben.getBeneficiarios())}" var="notificacion">
                                 <tr>    
                                     <td> </td>     
                                     <td> </td>  
@@ -45,11 +43,8 @@
                         </table>
                     </h:form>
                 </div>
-
             </c:otherwise>
         </c:choose>
-
-
     </ui:define>
 </ui:composition>
 

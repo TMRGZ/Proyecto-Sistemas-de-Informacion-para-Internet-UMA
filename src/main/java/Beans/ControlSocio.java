@@ -24,6 +24,8 @@ public class ControlSocio implements Serializable {
     
     public ControlSocio() {
         socios = new ArrayList<>();
+        
+        
     }
      
     /*public ArrayList<Notificaciones> getNotificaciones(Usuario u) {
@@ -35,7 +37,7 @@ public class ControlSocio implements Serializable {
          return socio.getNotificaciones;
     } */
     
-    public void apadrinar(Usuario u, ArrayList<Beneficiario> listben){
+    public String apadrinar(Usuario u, ArrayList<Beneficiario> listben){
         boolean apadrinar=false;
         int i=0;
         for(Socio s : socios){
@@ -43,13 +45,16 @@ public class ControlSocio implements Serializable {
                  socio=s;
              }
         }
-        while(!apadrinar){
+        while(!apadrinar && i<listben.size()){
             if(!socio.getBecadoList().contains(listben.get(i))){
                 Becado b = new Becado();
                 b.setBeneficiario(listben.get(i));
                 socio.getBecadoList().add(b);
+                apadrinar=true;
             }
+            i++;
         }
+        return "userpage.xhtml";
     }
     
     public List<Becado> getBecados(){

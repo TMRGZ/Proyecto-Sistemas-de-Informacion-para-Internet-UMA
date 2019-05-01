@@ -1,0 +1,24 @@
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+    <ui:define name="titulo">Usuario admin</ui:define>
+    <ui:define name="contenido">
+        <ul>
+            Lista de usuarios
+
+            <!--@elvariable id="listaUsuarios" type="Beans.CatalogoUsuarios"-->
+            <ol id="lista">
+                <ui:repeat value="#{listaUsuarios.usuarios}" var="usuario">
+
+                    <li>
+                        #{usuario.nombreUsuario}
+                    </li>
+
+                </ui:repeat>
+            </ol>
+            <a href="projects.xhtml">Proyectos</a>
+
+            <a href="listabeneficiarios.xhtml"> Beneficiarios </a>
+        </ul>
+    </ui:define>
+</ui:composition>

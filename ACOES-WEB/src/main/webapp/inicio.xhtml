@@ -1,0 +1,48 @@
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="contenido">
+        <c:choose>
+            <!--@elvariable id="controlAutorizacion" type="Beans.ControlAutorizacion"-->
+            <c:when test="#{empty controlAutorizacion.usuario}">
+                <h:form id="login">
+                    <table>
+                        <tr>
+                            <td>Usuario:</td>
+                            <td>
+                                <!--@elvariable id="login" type="Beans.Login"-->
+                                <h:inputText value="#{login.usuario}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Contraseña</td>
+                            <td>
+                                <!--@elvariable id="login" type="Beans.Login"-->
+                                <h:inputSecret value="#{login.password}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">
+                                <!--@elvariable id="login" type="Beans.Login"-->
+                                <h:commandButton value="Autenticar" action="#{login.autenticar()}"
+                                                 styleClass="btn-borde"/>
+                            </td>
+
+                            <td>
+                                <h:commandButton value="Registrar" action="register.xhtml" styleClass="btn-borde"/>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                <p>Debe salir de la aplicación si quiere entrar como otro usuario</p>
+            </c:otherwise>
+        </c:choose>
+        <h:messages/>
+    </ui:define>
+</ui:composition>
+

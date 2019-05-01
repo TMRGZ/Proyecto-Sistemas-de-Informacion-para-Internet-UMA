@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: miguelangelruiz
+  Date: 2019-04-26
+  Time: 19:04
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml">
+
+    <h:head>
+        <title>
+            <ui:define name="titulo">Titulo de pagina</ui:define>
+        </title>
+        <link rel="stylesheet" href="css/lista.css"/>
+        <link rel="stylesheet" href="css/menu.css"/>
+        <link rel="stylesheet" href="css/botones.css"/>
+    </h:head>
+
+    <h:body>
+        <header>
+            <nav id="top-panel">
+
+                <h:form id="menu">
+                    <!--@elvariable id="controlAutorizacion" type="vista.ControlAutorizacion"-->
+                    <ul class="menulist">
+                        <li><h:commandLink action="#{controlAutorizacion.home()}" value="Inicio"/></li>
+                        <li><h:commandLink action="#{controlAutorizacion.logout()}" value="Cerrar Sesion"/></li>
+                        <c:choose>
+                            <c:when test="#{!empty controlAutorizacion.usuario}">
+                                <li><h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"/></li>
+                            </c:when>
+                        </c:choose>
+
+                    </ul>
+                </h:form>
+            </nav>
+        </header>
+        <section id="content-panel" class="contenido wrapper">
+            <ui:insert name="contenido">Contenido</ui:insert>
+        </section>
+    </h:body>
+
+</ui:composition>
+</html>

@@ -5,7 +5,8 @@
  */
 package com.SII.vista;
 
-import Entidades.Beneficiario;
+
+import com.SII.entidades.Beneficiario;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

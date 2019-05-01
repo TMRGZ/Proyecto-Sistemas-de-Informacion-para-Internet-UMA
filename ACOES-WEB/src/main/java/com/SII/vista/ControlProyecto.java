@@ -1,6 +1,7 @@
 package com.SII.vista;
 
-import Entidades.Proyecto;
+
+import com.SII.entidades.Proyecto;
 
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;

@@ -5,7 +5,7 @@
 package com.SII.vista;
 
 
-import Entidades.Usuario;
+import com.SII.entidades.Usuario;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;

@@ -1,7 +1,8 @@
 package com.SII.vista;
 
-import Entidades.Proyecto;
-import Entidades.Usuario;
+
+import com.SII.entidades.Proyecto;
+import com.SII.entidades.Usuario;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;

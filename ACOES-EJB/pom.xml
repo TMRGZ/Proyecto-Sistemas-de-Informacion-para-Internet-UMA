@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.SII</groupId>
     <artifactId>ACOES-EJB</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>ejb</packaging>

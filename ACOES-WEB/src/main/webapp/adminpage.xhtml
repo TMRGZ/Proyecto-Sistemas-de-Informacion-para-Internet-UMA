@@ -3,11 +3,12 @@
 >
     <ui:define name="titulo">Usuario admin</ui:define>
     <ui:define name="contenido">
-        <ul>
+        <ul><!--@elvariable id="listaUsuarios" type="com.SII.vista.CatalogoUsuarios"-->
             Lista de usuarios
 
-            <!--@elvariable id="listaUsuarios" type="Beans.CatalogoUsuarios"-->
+
             <ol id="lista">
+
                 <ui:repeat value="#{listaUsuarios.usuarios}" var="usuario">
 
                     <li>

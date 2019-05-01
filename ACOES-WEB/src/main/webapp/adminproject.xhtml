@@ -6,10 +6,10 @@
     <ui:define name="contenido">
 
 
-        <h:form id="addp">
-
+        <h:form id="addp"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
             <ol id="lista">
                 <c:choose>
+
                     <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
                         <li>
                             <label>código:</label><h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>

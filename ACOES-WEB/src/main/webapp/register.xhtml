@@ -2,12 +2,13 @@
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Registro</ui:define>
     <ui:define name="contenido">
-        <!--@elvariable id="register" type="Beans.Registro"-->
-        <h:form id="registro">
+
+        <h:form id="registro"><!--@elvariable id="register" type="com.SII.vista.Registro"-->
             <table>
                 <tr>
                     <td>Nombre</td>
                     <td>
+
                         <h:inputText value="#{register.nombre}"/></td>
                 </tr>
                 <tr>

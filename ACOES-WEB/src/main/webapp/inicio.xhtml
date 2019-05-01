@@ -6,27 +6,29 @@
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="contenido">
         <c:choose>
-            <!--@elvariable id="controlAutorizacion" type="Beans.ControlAutorizacion"-->
-            <c:when test="#{empty controlAutorizacion.usuario}">
+
+            <!--@elvariable id="controlAutorizacion" type="com.SII.vista.ControlAutorizacion"-->
+            <c:when test="#{empty controlAutorizacion.usuario}"><!--@elvariable id="login" type="com.SII.vista.Login"-->
                 <h:form id="login">
                     <table>
                         <tr>
                             <td>Usuario:</td>
                             <td>
-                                <!--@elvariable id="login" type="Beans.Login"-->
+
+
                                 <h:inputText value="#{login.usuario}"/>
                             </td>
                         </tr>
                         <tr>
                             <td>Contraseña</td>
                             <td>
-                                <!--@elvariable id="login" type="Beans.Login"-->
+
                                 <h:inputSecret value="#{login.password}"/>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">
-                                <!--@elvariable id="login" type="Beans.Login"-->
+
                                 <h:commandButton value="Autenticar" action="#{login.autenticar()}"
                                                  styleClass="btn-borde"/>
                             </td>

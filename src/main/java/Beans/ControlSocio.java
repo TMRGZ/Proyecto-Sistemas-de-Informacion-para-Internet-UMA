@@ -10,6 +10,7 @@ import Entidades.Usuario;
 import Entidades.Becado;
 import Entidades.Beneficiario;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -24,7 +25,8 @@ public class ControlSocio implements Serializable {
     
     public ControlSocio() {
         socios = new ArrayList<>();
-        
+        socio=new Socio();
+        socio.setUsuario(new Usuario(new BigDecimal(1), "user", "user"));
         
     }
      
@@ -45,15 +47,7 @@ public class ControlSocio implements Serializable {
                  socio=s;
              }
         }
-        while(!apadrinar && i<listben.size()){
-            if(!socio.getBecadoList().contains(listben.get(i))){
-                Becado b = new Becado();
-                b.setBeneficiario(listben.get(i));
-                socio.getBecadoList().add(b);
-                apadrinar=true;
-            }
-            i++;
-        }
+
         return "userpage.xhtml";
     }
     

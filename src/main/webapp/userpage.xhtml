@@ -4,10 +4,10 @@
     <ui:define name="titulo">Usuario normal</ui:define>
     <ui:define name="contenido">
         <c:choose>
-            <c:when test="#{true}">
+            <c:when test="#{empty ctrlsocio.becados}">
                 <h:form id="apadrinar">
                     Aún no has apadrinado ¿Quieres?
-                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlben.getBeneficiarios())}">APADRINAR</h:commandButton>
+                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlben.beneficiarios)}">APADRINAR</h:commandButton>
                 </h:form>
             </c:when>
             <c:otherwise>

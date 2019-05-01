@@ -9,10 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Set;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
@@ -22,7 +26,8 @@ import java.math.BigDecimal;
         @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
         @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
         @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
-        @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena")})
+        @NamedQuery(name = "Usuario.findByContrasenna", query = "SELECT u FROM Usuario u WHERE u.contrasenna = :contrasenna"),
+        @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -39,14 +44,20 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
-    @Column(name = "CONTRASENA")
-    private String contrasena;
+    @Column(name = "CONTRASENNA")
+    private String contrasenna;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ROL")
+    private BigInteger rol;
+    @ManyToMany(mappedBy = "usuarioSet")
+    private Set<Notificacion> notificacionSet;
     @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
-    @JoinColumn(name = "SOCIOS_NUMERO", referencedColumnName = "NUMERO")
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
     @OneToOne(optional = false)
-    private Socio sociosNumero;
+    private Socio socioNumero;
 
     public Usuario() {
     }
@@ -55,10 +66,11 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(BigDecimal idUsuario, String nombreUsuario, String contrasena) {
+    public Usuario(BigDecimal idUsuario, String nombreUsuario, String contrasenna, BigInteger rol) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
-        this.contrasena = contrasena;
+        this.contrasenna = contrasenna;
+        this.rol = rol;
     }
 
     public BigDecimal getIdUsuario() {
@@ -77,12 +89,29 @@ public class Usuario implements Serializable {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getContrasenna() {
+        return contrasenna;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setContrasenna(String contrasenna) {
+        this.contrasenna = contrasenna;
+    }
+
+    public BigInteger getRol() {
+        return rol;
+    }
+
+    public void setRol(BigInteger rol) {
+        this.rol = rol;
+    }
+
+    @XmlTransient
+    public Set<Notificacion> getNotificacionSet() {
+        return notificacionSet;
+    }
+
+    public void setNotificacionSet(Set<Notificacion> notificacionSet) {
+        this.notificacionSet = notificacionSet;
     }
 
     public Beneficiario getBeneficiarioCodigo() {
@@ -93,12 +122,12 @@ public class Usuario implements Serializable {
         this.beneficiarioCodigo = beneficiarioCodigo;
     }
 
-    public Socio getSociosNumero() {
-        return sociosNumero;
+    public Socio getSocioNumero() {
+        return socioNumero;
     }
 
-    public void setSociosNumero(Socio sociosNumero) {
-        this.sociosNumero = sociosNumero;
+    public void setSocioNumero(Socio socioNumero) {
+        this.socioNumero = socioNumero;
     }
 
     @Override

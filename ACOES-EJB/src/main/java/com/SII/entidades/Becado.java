@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
@@ -91,9 +92,9 @@ public class Becado implements Serializable {
     @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiario;
-    @JoinColumn(name = "SOCIOS_NUMERO", referencedColumnName = "NUMERO")
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
     @ManyToOne(optional = false)
-    private Socio sociosNumero;
+    private Socio socioNumero;
 
     public Becado() {
     }
@@ -238,12 +239,12 @@ public class Becado implements Serializable {
         this.beneficiario = beneficiario;
     }
 
-    public Socio getSociosNumero() {
-        return sociosNumero;
+    public Socio getSocioNumero() {
+        return socioNumero;
     }
 
-    public void setSociosNumero(Socio sociosNumero) {
-        this.sociosNumero = sociosNumero;
+    public void setSocioNumero(Socio socioNumero) {
+        this.socioNumero = socioNumero;
     }
 
     @Override

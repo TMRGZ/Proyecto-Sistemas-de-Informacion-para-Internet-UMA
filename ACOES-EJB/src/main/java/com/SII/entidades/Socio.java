@@ -14,9 +14,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
@@ -118,9 +119,9 @@ public class Socio implements Serializable {
     @Size(max = 80)
     @Column(name = "OBSERVACIONES")
     private String observaciones;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sociosNumero")
-    private List<Becado> becadoList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "sociosNumero")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioNumero")
+    private Set<Becado> becadoSet;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socioNumero")
     private Usuario usuario;
 
     public Socio() {
@@ -295,12 +296,12 @@ public class Socio implements Serializable {
     }
 
     @XmlTransient
-    public List<Becado> getBecadoList() {
-        return becadoList;
+    public Set<Becado> getBecadoSet() {
+        return becadoSet;
     }
 
-    public void setBecadoList(List<Becado> becadoList) {
-        this.becadoList = becadoList;
+    public void setBecadoSet(Set<Becado> becadoSet) {
+        this.becadoSet = becadoSet;
     }
 
     public Usuario getUsuario() {

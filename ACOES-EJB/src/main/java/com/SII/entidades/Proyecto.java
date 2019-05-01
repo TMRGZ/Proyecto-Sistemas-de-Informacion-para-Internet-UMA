@@ -13,9 +13,10 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Set;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
@@ -54,8 +55,8 @@ public class Proyecto implements Serializable {
     @Size(max = 80)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @ManyToMany(mappedBy = "proyectoList")
-    private List<Beneficiario> beneficiarioList;
+    @ManyToMany(mappedBy = "proyectoSet")
+    private Set<Beneficiario> beneficiarioSet;
 
     public Proyecto() {
     }
@@ -126,12 +127,12 @@ public class Proyecto implements Serializable {
     }
 
     @XmlTransient
-    public List<Beneficiario> getBeneficiarioList() {
-        return beneficiarioList;
+    public Set<Beneficiario> getBeneficiarioSet() {
+        return beneficiarioSet;
     }
 
-    public void setBeneficiarioList(List<Beneficiario> beneficiarioList) {
-        this.beneficiarioList = beneficiarioList;
+    public void setBeneficiarioSet(Set<Beneficiario> beneficiarioSet) {
+        this.beneficiarioSet = beneficiarioSet;
     }
 
     @Override

@@ -12,9 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Set;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
@@ -64,7 +65,7 @@ public class Beneficiario implements Serializable {
             @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
             @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO")})
     @ManyToMany
-    private List<Proyecto> proyectoList;
+    private Set<Proyecto> proyectoSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiario")
     private Becado becado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
@@ -146,12 +147,12 @@ public class Beneficiario implements Serializable {
     }
 
     @XmlTransient
-    public List<Proyecto> getProyectoList() {
-        return proyectoList;
+    public Set<Proyecto> getProyectoSet() {
+        return proyectoSet;
     }
 
-    public void setProyectoList(List<Proyecto> proyectoList) {
-        this.proyectoList = proyectoList;
+    public void setProyectoSet(Set<Proyecto> proyectoSet) {
+        this.proyectoSet = proyectoSet;
     }
 
     public Becado getBecado() {

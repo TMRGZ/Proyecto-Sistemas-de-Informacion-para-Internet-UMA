@@ -11,7 +11,8 @@ import com.SII.entidades.Beneficiario;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author juan_
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 @RequestScoped
 public class ControlBeneficiario implements Serializable {
 
-    private ArrayList<Beneficiario> beneficiarios = new ArrayList<>();
+    private Set<Beneficiario> beneficiarios = new HashSet<>();
 
     private Beneficiario beneficiario;
     private Beneficiario beneficiarioadd = new Beneficiario();
@@ -37,7 +38,7 @@ public class ControlBeneficiario implements Serializable {
         return "infobeneficiarios.xhtml";
     }
 
-    public ArrayList<Beneficiario> getBeneficiarios() {
+    public Set<Beneficiario> getBeneficiarios() {
         return beneficiarios;
     }
 

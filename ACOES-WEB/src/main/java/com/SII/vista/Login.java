@@ -37,8 +37,6 @@ public class Login {
      * Creates a new instance of Login
      */
     public Login() {
-        long test = 0;
-
         usuarios = new ArrayList<>();
         usuarios.add(new Usuario("user", 0, "user", '0'));
         usuarios.add(new Usuario("admin", 1, "admin", '1'));

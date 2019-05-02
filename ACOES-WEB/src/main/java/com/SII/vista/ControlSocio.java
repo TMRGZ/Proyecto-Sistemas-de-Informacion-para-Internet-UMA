@@ -17,11 +17,11 @@ import java.util.*;
 @SessionScoped
 public class ControlSocio implements Serializable {
 
-    private ArrayList<Socio> socios;
+    private Set<Socio> socios;
     private Socio socio = new Socio();
 
     public ControlSocio() {
-        socios = new ArrayList<>();
+        socios = new HashSet<>();
         socio.setUsuario(new Usuario("user", 0, "user", '0'));
         socios.add(socio);
     }
@@ -39,20 +39,29 @@ public class ControlSocio implements Serializable {
         return new ArrayList<>(socio.getUsuario().getNotificacionSet());
     }
 
-    public String apadrinar(Usuario u, ArrayList<Beneficiario> listben) {
+    public String apadrinar(Usuario u, Set<Beneficiario> listben) {
         boolean apadrinar = false;
         int i = 0;
         for (Socio s : socios) {
             if (s.getUsuario().equals(u)) {
                 socio = s;
-
             }
         }
         if (socio.getBecadoSet() == null) {
             socio.setBecadoSet(new HashSet<>());
         }
 
-        while (!apadrinar && i < listben.size()) {
+
+        for (Beneficiario beneficiario : listben) {
+            if (beneficiario.getTipo().equals("Niño")) {
+                Becado b = new Becado();
+                b.setBeneficiario(beneficiario);
+                socio.getBecadoSet().add(b);
+            }
+        }
+
+
+        /*while (!apadrinar && i < listben.size()) {
             if (listben.get(i).getTipo().equals("Niño")) {
                 Becado b = new Becado();
                 b.setBeneficiario(listben.get(i));
@@ -61,9 +70,8 @@ public class ControlSocio implements Serializable {
                     apadrinar = true;
                 }
             }
-
             i++;
-        }
+        }*/
         return "userpage.xhtml";
     }
 

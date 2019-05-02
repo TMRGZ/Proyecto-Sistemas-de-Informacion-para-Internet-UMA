@@ -30,13 +30,12 @@
                 <c:choose>
                     <c:when test="#{!empty controlAutorizacion.usuario}">
                         <c:when test="#{controlAutorizacion.usuario.rol == '1'}">
-                            <ui:insert name="menuadmin">
-                               
-                            </ui:insert>
-                        
+                            <ui:insert name="menuadmin"/>
                         </c:when>
                         <div class="perfil">
-                        <li><h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"/></li>
+                            <li><!--@elvariable id="ctrlUsuario" type="com.SII.vista.ControlUsuario"-->
+                                <h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"
+                                               action="#{ctrlUsuario.verPerfil(controlAutorizacion.usuario)}"/></li>
                         </div>
                     </c:when>
                 </c:choose>

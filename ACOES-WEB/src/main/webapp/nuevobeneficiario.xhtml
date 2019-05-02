@@ -10,53 +10,49 @@ and open the template in the editor.
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="titulo">Iniciar sesion</ui:define>
-                    <ui:define name="menuadmin">
-                <li><a href="projects.xhtml">Proyectos</a></li>
-            <li><a href="listamiembros.xhtml">Miembros</a></li>
-          <li> <a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
-            </ui:define>
+    <ui:define name="menuadmin">
+        <li><a href="projects.xhtml">Proyectos</a></li>
+        <li><a href="listamiembros.xhtml">Miembros</a></li>
+        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+    </ui:define>
     <ui:define name="contenido">
-        <h:head>
-            <link rel="stylesheet" href="css/botones.css"/>
-            <link rel="stylesheet" href="css/lista.css"/>
-        </h:head>
         <h:body>
-        <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
-            <ol id="lista">
-                <li>
-                    <h:outputLabel>Identificador: </h:outputLabel>
+            <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
+                <ol class="lista">
+                    <li>
+                        <h:outputLabel>Identificador: </h:outputLabel>
 
-                    <h:inputText value="#{controlben.getbeneficiarioadd().identificador}"/>
-                </li>
-                <li>
-                    <h:outputLabel>Nombre: </h:outputLabel>
-                    <h:inputText value="#{controlben.getbeneficiarioadd().nombre}"/>
-                </li>
-                <li>
-                    <h:outputLabel>Apellido: </h:outputLabel>
-                    <h:inputText value="#{controlben.getbeneficiarioadd().apellidos}"/>
-                </li>
-                <li>
-                    <h:outputLabel>Numero de cuenta </h:outputLabel>
-                    <h:inputText value="#{controlben.getbeneficiarioadd().numeroCuenta}"/>
-                </li>
-                <li>
-                    <h:outputLabel>Tipo: </h:outputLabel>
-                    <h:selectOneMenu value="#{controlben.getbeneficiarioadd().tipo}">
-                        <f:selectItem itemValue="Niño" itemLabel="Niño"/>
-                        <f:selectItem itemValue="Socio" itemLabel="Socio"/>
-                    </h:selectOneMenu>
-                </li>
-                <li>
-                    <h:outputLabel>Observaciones: </h:outputLabel>
-                    <h:inputText value="#{controlben.getbeneficiarioadd().observaciones}"/>
-                </li>
+                        <h:inputText value="#{controlben.getbeneficiarioadd().identificador}"/>
+                    </li>
+                    <li>
+                        <h:outputLabel>Nombre: </h:outputLabel>
+                        <h:inputText value="#{controlben.getbeneficiarioadd().nombre}"/>
+                    </li>
+                    <li>
+                        <h:outputLabel>Apellido: </h:outputLabel>
+                        <h:inputText value="#{controlben.getbeneficiarioadd().apellidos}"/>
+                    </li>
+                    <li>
+                        <h:outputLabel>Numero de cuenta </h:outputLabel>
+                        <h:inputText value="#{controlben.getbeneficiarioadd().numeroCuenta}"/>
+                    </li>
+                    <li>
+                        <h:outputLabel>Tipo: </h:outputLabel>
+                        <h:selectOneMenu value="#{controlben.getbeneficiarioadd().tipo}">
+                            <f:selectItem itemValue="Niño" itemLabel="Niño"/>
+                            <f:selectItem itemValue="Socio" itemLabel="Socio"/>
+                        </h:selectOneMenu>
+                    </li>
+                    <li>
+                        <h:outputLabel>Observaciones: </h:outputLabel>
+                        <h:inputText value="#{controlben.getbeneficiarioadd().observaciones}"/>
+                    </li>
 
-            </ol>
-            <p>
-                <h:commandButton value="Enviar" action="#{controlben.add()}" styleClass="btn-borde"/>
-            </p>
-        </h:form>
+                </ol>
+                <p>
+                    <h:commandButton value="Enviar" action="#{controlben.add()}" styleClass="btn-borde"/>
+                </p>
+            </h:form>
         </h:body>
     </ui:define>
 </ui:composition>

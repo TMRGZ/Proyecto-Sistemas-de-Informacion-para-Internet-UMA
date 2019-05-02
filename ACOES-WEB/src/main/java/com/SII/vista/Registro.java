@@ -12,7 +12,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class Registro {
     private String CP;
     private String provincia;
     private String poblacion;
-    private String telefono;
+    private Integer telefono;
     private String telMovil;
     private String email;
     private List<Usuario> usuarios;
@@ -49,7 +48,7 @@ public class Registro {
     public String registrar() {
         FacesContext ctx = FacesContext.getCurrentInstance();
 
-        if (usuario.length() == 0 || password.length() == 0 || nPassword.length() == 0 || Apellido.length() == 0 || estado.length() == 0 || NIF.length() == 0 || direccion.length() == 0 || CP.length() == 0 || provincia.length() == 0 || poblacion.length() == 0 || telefono.length() == 0 || telMovil.length() == 0 || email.length() == 0) {
+        if (usuario.length() == 0 || password.length() == 0 || nPassword.length() == 0 || Apellido.length() == 0 || estado.length() == 0 || NIF.length() == 0 || direccion.length() == 0 || CP.length() == 0 || provincia.length() == 0 || poblacion.length() == 0 || telefono == null || telMovil.length() == 0 || email.length() == 0) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos requeridos vacios", "Campos requeridos vacios"));
             return null;
         }
@@ -62,7 +61,7 @@ public class Registro {
         }
 
         Usuario nuevoUsuario = new Usuario(usuario, usuarios.size(), password, '0');
-        Socio nuevoSocio = new Socio(nuevoUsuario.getIdUsuario(), nombre, NIF, direccion, poblacion, new BigInteger(CP), provincia, new BigInteger(telefono), email);
+        Socio nuevoSocio = new Socio(nuevoUsuario.getIdUsuario(), nombre, NIF, direccion, poblacion, CP, provincia, telefono, email);
         nuevoSocio.setUsuario(nuevoUsuario);
         usuarios.add(nuevoUsuario);
 
@@ -126,11 +125,11 @@ public class Registro {
         this.provincia = provincia;
     }
 
-    public String getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 

@@ -1,4 +1,4 @@
-#lista {
+.lista {
     counter-reset: li;
     list-style: none;
     *list-style: decimal;
@@ -8,11 +8,11 @@
     text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 }
 
-#lista ol, ul {
+.lista ol, ul {
     margin: 0 0 0 2em;
 }
 
-#lista li {
+.lista li {
     position: relative;
     display: block;
     padding: .4em .4em .4em .8em;
@@ -23,11 +23,11 @@
     transition: all .3s ease-out;
 }
 
-#lista li:hover {
+.lista li:hover {
     background: #eee;
 }
 
-#lista li:before {
+.lista li:before {
 
     counter-increment: li;
     position: absolute;
@@ -42,7 +42,7 @@
     font-weight: bold;
 }
 
-#lista li:after {
+.lista li:after {
     position: absolute;
     content: '';
     border: .5em solid transparent;
@@ -52,7 +52,7 @@
     transition: all .3s ease-out;
 }
 
-#lista li:hover:after {
+.lista li:hover:after {
     left: -.5em;
     border-left-color: #3ead47;
 }

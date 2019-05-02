@@ -7,7 +7,6 @@ package com.SII.vista;
 
 import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
-import java.math.BigDecimal;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -62,8 +61,8 @@ public class Registro {
             }
         }
 
-        Usuario nuevoUsuario = new Usuario(usuario, usuarios.size(), password, '0');        
-        Socio nuevoSocio = new Socio(new BigDecimal(nuevoUsuario.getIdUsuario()), nombre, NIF, direccion, poblacion, new BigInteger(CP), provincia, new BigInteger(telefono), email);
+        Usuario nuevoUsuario = new Usuario(usuario, usuarios.size(), password, '0');
+        Socio nuevoSocio = new Socio(nuevoUsuario.getIdUsuario(), nombre, NIF, direccion, poblacion, new BigInteger(CP), provincia, new BigInteger(telefono), email);
         nuevoSocio.setUsuario(nuevoUsuario);
         usuarios.add(nuevoUsuario);
 

@@ -11,15 +11,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "PROYECTO")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p"),
@@ -36,44 +35,37 @@ public class Proyecto implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODIGO")
-    private BigDecimal codigo;
+    private Integer codigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "PRESUPUESTO")
-    private BigInteger presupuesto;
-    @Column(name = "COMBUSTIBLE")
-    private BigInteger combustible;
-    @Column(name = "MANTENIMIENTO")
-    private BigInteger mantenimiento;
-    @Column(name = "CONTENEDOR")
-    private BigInteger contenedor;
+    private Integer presupuesto;
+    private Integer combustible;
+    private Integer mantenimiento;
+    private Integer contenedor;
     @Size(max = 80)
-    @Column(name = "DESCRIPCION")
     private String descripcion;
-    @ManyToMany(mappedBy = "proyectoList")
-    private List<Beneficiario> beneficiarioList;
+    @ManyToMany(mappedBy = "proyectoSet")
+    private Set<Beneficiario> beneficiarioSet;
 
     public Proyecto() {
     }
 
-    public Proyecto(BigDecimal codigo) {
+    public Proyecto(int codigo) {
         this.codigo = codigo;
     }
 
-    public Proyecto(BigDecimal codigo, String nombre) {
+    public Proyecto(int codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
     }
 
-    public BigDecimal getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(BigDecimal codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -85,35 +77,35 @@ public class Proyecto implements Serializable {
         this.nombre = nombre;
     }
 
-    public BigInteger getPresupuesto() {
+    public Integer getPresupuesto() {
         return presupuesto;
     }
 
-    public void setPresupuesto(BigInteger presupuesto) {
+    public void setPresupuesto(Integer presupuesto) {
         this.presupuesto = presupuesto;
     }
 
-    public BigInteger getCombustible() {
+    public Integer getCombustible() {
         return combustible;
     }
 
-    public void setCombustible(BigInteger combustible) {
+    public void setCombustible(Integer combustible) {
         this.combustible = combustible;
     }
 
-    public BigInteger getMantenimiento() {
+    public Integer getMantenimiento() {
         return mantenimiento;
     }
 
-    public void setMantenimiento(BigInteger mantenimiento) {
+    public void setMantenimiento(Integer mantenimiento) {
         this.mantenimiento = mantenimiento;
     }
 
-    public BigInteger getContenedor() {
+    public Integer getContenedor() {
         return contenedor;
     }
 
-    public void setContenedor(BigInteger contenedor) {
+    public void setContenedor(Integer contenedor) {
         this.contenedor = contenedor;
     }
 
@@ -126,29 +118,25 @@ public class Proyecto implements Serializable {
     }
 
     @XmlTransient
-    public List<Beneficiario> getBeneficiarioList() {
-        return beneficiarioList;
+    public Set<Beneficiario> getBeneficiarioSet() {
+        return beneficiarioSet;
     }
 
-    public void setBeneficiarioList(List<Beneficiario> beneficiarioList) {
-        this.beneficiarioList = beneficiarioList;
+    public void setBeneficiarioSet(Set<Beneficiario> beneficiarioSet) {
+        this.beneficiarioSet = beneficiarioSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Proyecto proyecto = (Proyecto) o;
+        return Objects.equals(codigo, proyecto.codigo);
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Proyecto)) {
-            return false;
-        }
-        Proyecto other = (Proyecto) object;
-        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
+        return Objects.hash(codigo);
     }
 
     @Override

@@ -1,16 +1,15 @@
 package com.SII.vista;
 
 
-
 import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Proyecto;
+
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Named(value = "ctrlproyectos")
@@ -23,12 +22,11 @@ public class ControlProyecto implements Serializable {
 
     public ControlProyecto() {
         proyectos = new ArrayList<>();
-        proyectos.add(new Proyecto(new BigDecimal(0), "Charla en la UMA"));
-        proyectos.get(0).setBeneficiarioList(new ArrayList<>());
-        proyectos.get(0).getBeneficiarioList().add(new Beneficiario("1", "1-1", "paco", "Niño"));
-        proyectos.get(0).getBeneficiarioList().add(new Beneficiario("2", "1-2", "Julian Muñoz", "Socio"));
-        proyectos.add(new Proyecto(new BigDecimal(1), "Adaptarse al sistema de los alumnos"));
-
+        proyectos.add(new Proyecto(0, "Charla en la UMA"));
+        proyectos.get(0).setBeneficiarioSet(new HashSet<>());
+        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario("1", "1-1", "paco", "Niño"));
+        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario("2", "1-2", "Julian Muñoz", "Socio"));
+        proyectos.add(new Proyecto(1, "Adaptarse al sistema de los alumnos"));
     }
 
 
@@ -48,7 +46,7 @@ public class ControlProyecto implements Serializable {
         return null;
     }
 
-    public void updProyecto(Proyecto p, String nombre, BigInteger presupuesto, BigInteger combustible, BigInteger contenedor, BigInteger mantenimiento, String descripcion) {
+    public void updProyecto(Proyecto p, String nombre, Integer presupuesto, Integer combustible, Integer contenedor, Integer mantenimiento, String descripcion) {
         Proyecto upd = proyectos.get(proyectos.indexOf(p));
 
         if (nombre != null) upd.setNombre(nombre);

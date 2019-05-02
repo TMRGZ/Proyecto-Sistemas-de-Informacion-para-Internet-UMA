@@ -7,44 +7,53 @@
             <link rel="stylesheet" href="css/tabla.css"/>
         </head>
         <c:choose>
+            <!--@elvariable id="ctrlsocio" type="com.SII.vista.ControlSocio"-->
+            <!--@elvariable id="controlAutorizacion" type="com.SII.vista.ControlAutorizacion"-->
+            <!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
+            <!--@elvariable id="u" type="com.SII.entidades.Usuario"-->
             <c:when test="#{empty ctrlsocio.buscar(u)}">
-                <h:form id="apadrinar">
+                <h:form id="apadrinarPrimeraVez">
                     Aún no has apadrinado ¿Quieres?
-                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}">APADRINAR</h:commandButton>
+
+
+                    <h:commandButton value="Comenzar"
+                                     action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"/>
                 </h:form>
             </c:when>
             <c:otherwise>
                 <ui:repeat value="#{ctrlsocio.buscar(controlAutorizacion.usuario)}" var="niño">
                     <ol id="lista">
                         <li>
-                            <label>Identificador:#{niño.beneficiario.nombre} </label> 
+                            <label>Identificador:#{niño.beneficiario.nombre} </label>
                         </li>
                     </ol>
-                </ui:repeat> 
-            <h:form id="apadrinar">
-            <h:commandButton value="Apadrina" action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"></h:commandButton>
-            </h:form>
-            
+                </ui:repeat>
+                <h:form id="apadrinar">
+                    <h:commandButton value="Apadrina"
+                                     action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"/>
+                </h:form>
+
                 Notificaciones
                 <div id="main-container">
                     <h:form>
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Codigo</th>
-                                    <th>Fecha</th>
-                                </tr>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Fecha</th>
+                            </tr>
                             </thead>
-                            <ui:repeat value="#{ctrlsocio.getNotificaciones(controlAutorizacion.usuario)}" var="notificacion">
-                                <tr>  
+                            <ui:repeat value="#{ctrlsocio.getNotificaciones(controlAutorizacion.usuario)}"
+                                       var="notificacion">
+                                <tr>
                                     <td>#{notificacion.id}</td>
-                                    <td>#{notificacion.fecha}</td>    
+                                    <td>#{notificacion.fecha}</td>
                                 </tr>
                             </ui:repeat>
                         </table>
                     </h:form>
                 </div>
-            
+
             </c:otherwise>
         </c:choose>
     </ui:define>

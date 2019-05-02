@@ -6,7 +6,6 @@ package com.SII.vista;
 
 
 import com.SII.entidades.Usuario;
-import java.math.BigDecimal;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;

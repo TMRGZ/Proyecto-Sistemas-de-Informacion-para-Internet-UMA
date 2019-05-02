@@ -13,10 +13,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "BECADO")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Becado.findAll", query = "SELECT b FROM Becado b"),
@@ -41,19 +41,14 @@ public class Becado implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "CODIGO")
     private String codigo;
     @Size(max = 30)
-    @Column(name = "ESTADO")
     private String estado;
     @Size(max = 30)
-    @Column(name = "BECA")
     private String beca;
     @Size(max = 30)
-    @Column(name = "AGENTE")
     private String agente;
     @Lob
-    @Column(name = "FOTO")
     private Serializable foto;
     @Column(name = "FECHA_NACIMIENTO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -62,7 +57,6 @@ public class Becado implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAcoes;
     @Size(max = 30)
-    @Column(name = "PROYECTO")
     private String proyecto;
     @Column(name = "FECHA_ALTA_PROYECTO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -86,14 +80,13 @@ public class Becado implements Serializable {
     @Column(name = "COLONIA_ACTUAL")
     private String coloniaActual;
     @Size(max = 80)
-    @Column(name = "OBSERVACIONES")
     private String observaciones;
     @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiario;
-    @JoinColumn(name = "SOCIOS_NUMERO", referencedColumnName = "NUMERO")
-    @ManyToOne(optional = false)
-    private Socio sociosNumero;
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
+    @ManyToOne
+    private Socio socioNumero;
 
     public Becado() {
     }
@@ -238,12 +231,12 @@ public class Becado implements Serializable {
         this.beneficiario = beneficiario;
     }
 
-    public Socio getSociosNumero() {
-        return sociosNumero;
+    public Socio getSocioNumero() {
+        return socioNumero;
     }
 
-    public void setSociosNumero(Socio sociosNumero) {
-        this.sociosNumero = sociosNumero;
+    public void setSocioNumero(Socio socioNumero) {
+        this.socioNumero = socioNumero;
     }
 
     @Override

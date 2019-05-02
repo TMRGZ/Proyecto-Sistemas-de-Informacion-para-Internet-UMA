@@ -1,0 +1,78 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="WEB-INF/Templates/menu.xhtml">
+    <ui:define name="titulo">Registro</ui:define>
+    <ui:define name="contenido">
+        <!--@elvariable id="register" type="Beans.Registro"-->
+        <h:form id="registro">
+            <table>
+                <tr>
+                    <td>Nombre</td>
+                    <td>
+                        <h:inputText value="#{register.nombre}"/></td>
+                </tr>
+                <tr>
+                    <td>Apellido</td>
+                    <td><h:inputText value="#{register.apellido}"/></td>
+                </tr>
+                <tr>
+                    <td>Estado</td>
+                    <td><h:inputText value="#{register.estado}"/></td>
+                </tr>
+                <tr>
+                    <td>NIF</td>
+                    <td><h:inputText value="#{register.NIF}"/></td>
+                </tr>
+                <tr>
+                    <td>Direccion</td>
+                    <td><h:inputText value="#{register.direccion}"/></td>
+                </tr>
+                <tr>
+                    <td>CP</td>
+                    <td><h:inputText value="#{register.CP}"/></td>
+                </tr>
+                <tr>
+                    <td>Provincia</td>
+                    <td><h:inputText value="#{register.provincia}"/></td>
+                </tr>
+                <tr>
+                    <td>Poblacion</td>
+                    <td><h:inputText value="#{register.poblacion}"/></td>
+                </tr>
+                <tr>
+                    <td>Telefono</td>
+                    <td><h:inputText value="#{register.telefono}"/></td>
+                </tr>
+                <tr>
+                    <td>Telefono Movil</td>
+                    <td><h:inputText value="#{register.telMovil}"/></td>
+                </tr>
+                <tr>
+                    <td>Correo Electronico</td>
+                    <td><h:inputText value="#{register.email}"/></td>
+                </tr>
+                <tr>
+                    <td>Nombre de Usuario</td>
+                    <td><h:inputText value="#{register.usuario}"/></td>
+                </tr>
+                <tr>
+                    <td>Contraseña</td>
+                    <td><h:inputSecret value="#{register.password}"/></td>
+                </tr>
+                <tr>
+                    <td>Repite contraseña</td>
+                    <td><h:inputSecret value="#{register.nPassword}"/></td>
+                </tr>
+                <tr>
+                    <td><h:commandButton value="Registrarse" action="#{register.registrar}"/></td>
+                </tr>
+
+
+            </table>
+
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

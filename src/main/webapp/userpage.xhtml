@@ -1,0 +1,50 @@
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="titulo">Usuario normal</ui:define>
+    <ui:define name="contenido">
+        <c:choose>
+            <c:when test="#{empty ctrlsocio.buscar(u)}">
+                <h:form id="apadrinar">
+                    Aún no has apadrinado ¿Quieres?
+                    <h:commandButton value="Comenzar" action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}">APADRINAR</h:commandButton>
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                <ui:repeat value="#{ctrlsocio.buscar(controlAutorizacion.usuario)}" var="niño">
+                    <ol id="lista">
+                        <li>
+                            <label>Identificador:#{niño.beneficiario.nombre} </label> 
+                        </li>
+                    </ol>
+                </ui:repeat> 
+            <h:form id="apadrinar">
+            <h:commandButton value="Apadrina" action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"></h:commandButton>
+            </h:form>
+            <!--
+                Notificaciones
+                <div id="main-container">
+                    <h:form>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Autor</th>
+                                </tr>
+                            </thead>
+                            <ui:repeat value="{ctrlsocio.getNotificaciones(controlAutorizacion.usuario,controlben.getBeneficiarios())}" var="notificacion">
+                                <tr>    
+                                    <td> </td>     
+                                    <td> </td>  
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </h:form>
+                </div>
+            -->
+            </c:otherwise>
+        </c:choose>
+    </ui:define>
+</ui:composition>
+
+

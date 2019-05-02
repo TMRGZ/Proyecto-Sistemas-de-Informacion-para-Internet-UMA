@@ -1,0 +1,55 @@
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="contenido">
+        <!--@elvariable id="register" type="Beans.Registro"-->
+
+
+        <c:choose>
+            <!--@elvariable id="controlAutorizacion" type="Beans.ControlAutorizacion"-->
+            <c:when test="#{empty controlAutorizacion.usuario || !controlAutorizacion.usuario.nombreUsuario.equals('admin')}">
+
+                No tiene permisos para ver esta información.
+
+            </c:when>
+            <c:otherwise>
+
+                Lista proyectos
+
+                <!--@elvariable id="ctrlproyectos" type="Beans.ControlProyecto"-->
+                <h:form id="listaproyectos">
+                    <ol id="lista">
+                        <ui:repeat value="#{ctrlproyectos.proyectos}" var="proyecto">
+                            <li>
+                                #{proyecto.nombre}
+                                <div align="right">
+                                    <h:commandButton value="Borrar"
+                                                     action="#{ctrlproyectos.remProyecto(proyecto)}" 
+                                                     styleClass="btn-borde"/>
+                                    <h:commandButton value="Modificar" action="adminproject.xhtml"
+                                                     styleClass="btn-borde">
+                                        <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                                    </h:commandButton>
+                                    <h:commandButton value="Detalles" action="detailsproject.xhtml"
+                                                     styleClass="btn-borde">
+                                        <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                                    </h:commandButton>
+                                </div>
+                            </li>
+                        </ui:repeat>
+                    </ol>
+                    <div align="center">
+                        <h:commandButton value="Añadir" action="adminproject.xhtml" styleClass="btn-borde">
+                            <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
+                        </h:commandButton>
+                    </div>
+
+                </h:form>
+            </c:otherwise>
+
+        </c:choose>
+        <a href="adminpage.xhtml">Volver</a>
+    </ui:define>
+</ui:composition>

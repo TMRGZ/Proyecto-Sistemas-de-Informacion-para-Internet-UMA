@@ -7,6 +7,7 @@
     <ui:define name="contenido">
         <head>
             <link rel="stylesheet" href="css/tabla.css"/>
+            <link rel="stylesheet" href="css/botones.css"/>
         </head>
         <c:choose>
             <!--@elvariable id="ctrlsocio" type="com.SII.vista.ControlSocio"-->
@@ -19,11 +20,11 @@
 
 
                     <h:commandButton value="Comenzar"
-                                     action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"/>
+                                     action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}" styleClass="btn-borde"/>
                 </h:form>
             </c:when>
             <c:otherwise>
-                <ui:repeat value="#{ctrlsocio.buscar(controlAutorizacion.usuario)}" var="niño">
+                <ui:repeat value="#{ctrlsocio.buscar(controlAutorizacion.usuario).toArray()}" var="niño">
                     <ol id="lista">
                         <li>
                             <label>Identificador:#{niño.beneficiario.nombre} </label>
@@ -32,7 +33,7 @@
                 </ui:repeat>
                 <h:form id="apadrinar">
                     <h:commandButton value="Apadrina"
-                                     action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}"/>
+                                     action="#{ctrlsocio.apadrinar(controlAutorizacion.usuario,controlben.beneficiarios)}" styleClass="btn-borde"/>
                 </h:form>
 
                 Notificaciones

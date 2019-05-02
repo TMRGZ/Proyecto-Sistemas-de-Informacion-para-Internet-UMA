@@ -29,13 +29,15 @@
                 <li><h:commandLink action="#{controlAutorizacion.logout()}" value="Cerrar Sesion"/></li>
                 <c:choose>
                     <c:when test="#{!empty controlAutorizacion.usuario}">
-                        <li><h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"/></li>
                         <c:when test="#{controlAutorizacion.usuario.rol == '1'}">
                             <ui:insert name="menuadmin">
-                                No se esta usando
+                               
                             </ui:insert>
                         
                         </c:when>
+                        <div class="perfil">
+                        <li><h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"/></li>
+                        </div>
                     </c:when>
                 </c:choose>
             </ul>

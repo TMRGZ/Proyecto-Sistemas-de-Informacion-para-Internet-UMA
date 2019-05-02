@@ -10,6 +10,11 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="titulo">Iniciar sesion</ui:define>
+                    <ui:define name="menuadmin">
+                <li><a href="projects.xhtml">Proyectos</a></li>
+            <li><a href="listamiembros.xhtml">Miembros</a></li>
+          <li> <a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+            </ui:define>
     <ui:define name="contenido">
         <head>
             <link rel="stylesheet" href="css/tabla.css"/>
@@ -34,7 +39,7 @@ and open the template in the editor.
                     </thead>
 
                     <!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
-                    <ui:repeat value="#{controlben.beneficiarios}" var="beneficiario">
+                    <ui:repeat value="#{controlben.beneficiarios.toArray()}" var="beneficiario">
                         <tr>
                             <td>#{beneficiario.codigo}</td>
                             <td>#{beneficiario.identificador}</td>
@@ -51,9 +56,9 @@ and open the template in the editor.
                         </tr>
                     </ui:repeat>
                 </table>
-                     <div align="center">
+                    
                 <br> <h:commandButton value="Añadir" action="nuevobeneficiario.xhtml" styleClass="btn-borde" /></br>
-                </div>
+                
             </h:form>
         </div>
         </body>

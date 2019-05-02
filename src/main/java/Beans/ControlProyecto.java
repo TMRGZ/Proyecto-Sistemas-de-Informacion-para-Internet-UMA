@@ -1,5 +1,6 @@
 package Beans;
 
+import Entidades.Beneficiario;
 import Entidades.Proyecto;
 
 import javax.annotation.ManagedBean;
@@ -22,6 +23,9 @@ public class ControlProyecto implements Serializable {
     public ControlProyecto() {
         proyectos = new ArrayList<>();
         proyectos.add(new Proyecto(new BigDecimal(0), "Charla en la UMA"));
+        proyectos.get(0).setBeneficiarioList(new ArrayList<>());
+        proyectos.get(0).getBeneficiarioList().add(new Beneficiario("1", "1-1", "paco", "Niño"));
+        proyectos.get(0).getBeneficiarioList().add(new Beneficiario("2", "1-2", "Julian Muñoz", "Socio"));
         proyectos.add(new Proyecto(new BigDecimal(1), "Adaptarse al sistema de los alumnos"));
 
     }

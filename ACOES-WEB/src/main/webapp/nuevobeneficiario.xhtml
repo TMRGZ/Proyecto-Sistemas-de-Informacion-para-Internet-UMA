@@ -6,44 +6,44 @@ and open the template in the editor.
 -->
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="contenido">
-        <head>
+        <h:head>
             <link rel="stylesheet" href="css/botones.css"/>
             <link rel="stylesheet" href="css/lista.css"/>
-        </head>
-        <body>
+        </h:head>
+        <h:body>
         <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
             <ol id="lista">
                 <li>
-                    <label>Identificador: </label>
+                    <h:outputLabel>Identificador: </h:outputLabel>
 
                     <h:inputText value="#{controlben.getbeneficiarioadd().identificador}"/>
                 </li>
                 <li>
-                    <label>Nombre: </label>
+                    <h:outputLabel>Nombre: </h:outputLabel>
                     <h:inputText value="#{controlben.getbeneficiarioadd().nombre}"/>
                 </li>
                 <li>
-                    <label>Apellido: </label>
+                    <h:outputLabel>Apellido: </h:outputLabel>
                     <h:inputText value="#{controlben.getbeneficiarioadd().apellidos}"/>
                 </li>
                 <li>
-                    <label>Numero de cuenta </label>
+                    <h:outputLabel>Numero de cuenta </h:outputLabel>
                     <h:inputText value="#{controlben.getbeneficiarioadd().numeroCuenta}"/>
                 </li>
                 <li>
-                    <label>Tipo: </label>
+                    <h:outputLabel>Tipo: </h:outputLabel>
                     <h:selectOneMenu value="#{controlben.getbeneficiarioadd().tipo}">
                         <f:selectItem itemValue="Niño" itemLabel="Niño"/>
                         <f:selectItem itemValue="Socio" itemLabel="Socio"/>
                     </h:selectOneMenu>
                 </li>
                 <li>
-                    <label>Observaciones: </label>
+                    <h:outputLabel>Observaciones: </h:outputLabel>
                     <h:inputText value="#{controlben.getbeneficiarioadd().observaciones}"/>
                 </li>
 
@@ -52,6 +52,6 @@ and open the template in the editor.
                 <h:commandButton value="Enviar" action="#{controlben.add()}" styleClass="btn-borde"/>
             </p>
         </h:form>
-        </body>
+        </h:body>
     </ui:define>
 </ui:composition>

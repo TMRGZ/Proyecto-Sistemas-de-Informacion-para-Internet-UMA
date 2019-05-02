@@ -1,7 +1,7 @@
 
 a.atras {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     background: transparent url('flecha.svg') center top no-repeat;
     display: block;
 }

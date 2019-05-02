@@ -1,9 +1,8 @@
-<ui:composition template="WEB-INF/Templates/menu.xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Usuario admin</ui:define>
     <ui:define name="contenido">
-        <ul><!--@elvariable id="listaUsuarios" type="com.SII.vista.CatalogoUsuarios"-->
             Lista de usuarios
 
 
@@ -20,6 +19,5 @@
             <a href="projects.xhtml">Proyectos</a>
             <a href="listamiembros.xhtml">Miembros</a>
             <a href="listabeneficiarios.xhtml"> Beneficiarios </a>
-        </ul>
     </ui:define>
 </ui:composition>

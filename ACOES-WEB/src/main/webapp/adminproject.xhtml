@@ -1,11 +1,13 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="contenido">
 
-        <a href="projects.xhtml" class="atras"/>
+        <h:link outcome="projects.xhtml" class="atras"/>
+
 
         <h:form id="addp"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
             <ol id="lista">
@@ -13,33 +15,40 @@
 
                     <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
                         <li>
-                            <label>código:</label><h:inputText value="#{ctrlproyectos.proyecto.codigo}"/>
+                            <h:outputLabel>código:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.proyecto.codigo}"/>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <label>código:</label><input value="#{ctrlproyectos.proyecto.codigo}" readonly="true"/>
+                            <h:outputLabel>código:</h:outputLabel><input value="#{ctrlproyectos.proyecto.codigo}"
+                                                                         readonly="true"/>
                         </li>
                     </c:otherwise>
                 </c:choose>
 
                 <li>
-                    <label>nombre:</label><h:inputText value="#{ctrlproyectos.proyecto.nombre}"/>
+                    <h:outputLabel>nombre:</h:outputLabel><h:inputText value="#{ctrlproyectos.proyecto.nombre}"/>
                 </li>
                 <li>
-                    <label>presupuesto:</label><h:inputText value="#{ctrlproyectos.proyecto.presupuesto}"/>
+                    <h:outputLabel>presupuesto:</h:outputLabel><h:inputText
+                        value="#{ctrlproyectos.proyecto.presupuesto}"/>
                 </li>
                 <li>
-                    <label>combustible:</label><h:inputText value="#{ctrlproyectos.proyecto.combustible}"/>
+                    <h:outputLabel>combustible:</h:outputLabel><h:inputText
+                        value="#{ctrlproyectos.proyecto.combustible}"/>
                 </li>
                 <li>
-                    <label>contenedor:</label><h:inputText value="#{ctrlproyectos.proyecto.contenedor}"/>
+                    <h:outputLabel>contenedor:</h:outputLabel><h:inputText
+                        value="#{ctrlproyectos.proyecto.contenedor}"/>
                 </li>
                 <li>
-                    <label>descripción:</label><h:inputText value="#{ctrlproyectos.proyecto.descripcion}"/>
+                    <h:outputLabel>descripción:</h:outputLabel><h:inputText
+                        value="#{ctrlproyectos.proyecto.descripcion}"/>
                 </li>
                 <li>
-                    <label>mantenimiento:</label><h:inputText value="#{ctrlproyectos.proyecto.mantenimiento}"/>
+                    <h:outputLabel>mantenimiento:</h:outputLabel><h:inputText
+                        value="#{ctrlproyectos.proyecto.mantenimiento}"/>
                 </li>
             </ol>
 

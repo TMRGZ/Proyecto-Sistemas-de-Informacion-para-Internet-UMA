@@ -34,7 +34,7 @@
     left: -2.5em;
     top: 50%;
     margin-top: -1em;
-    background: #fa8072;
+    background: #3ead47;
     height: 2em;
     width: 2em;
     line-height: 2em;
@@ -54,22 +54,10 @@
 
 #lista li:hover:after {
     left: -.5em;
-    border-left-color: #fa8072;
+    border-left-color: #3ead47;
 }
 
 label {
     display: inline-block;
     width: 160px;
-}
-
-.alignmentLeft {
-    text-align: left;
-}
-
-.alignmentRight {
-    text-align: right;
-}
-
-.alignmentCenter {
-    text-align: center;
 }

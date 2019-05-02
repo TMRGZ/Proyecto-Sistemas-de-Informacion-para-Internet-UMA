@@ -28,7 +28,7 @@
                         <ui:repeat value="#{ctrlproyectos.proyectos}" var="proyecto">
                             <li>
                                 #{proyecto.nombre}
-                                <h:panelGroup layout="block" styleClass="alignmentRight">
+                                <div align="right">
                                     <h:commandButton value="Borrar"
                                                      action="#{ctrlproyectos.remProyecto(proyecto)}"
                                                      styleClass="btn-borde"/>
@@ -40,15 +40,15 @@
                                                      styleClass="btn-borde">
                                         <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
                                     </h:commandButton>
-                                </h:panelGroup>
+                                </div>
                             </li>
                         </ui:repeat>
                     </ol>
-                    <h:panelGroup layout="block" styleClass="alignmentCenter">
+                    <div align="center">
                         <h:commandButton value="Añadir" action="adminproject.xhtml" styleClass="btn-borde">
                             <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
                         </h:commandButton>
-                    </h:panelGroup>
+                    </div>
 
                 </h:form>
             </c:otherwise>

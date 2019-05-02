@@ -34,7 +34,7 @@ public class ControlAutorizacion implements Serializable {
     }
 
     public String home() {
-        return usuario == null ? null : usuario.getRol() == '1' ? "adminpage.xhtml" : "userpage.xhtml";
+        return usuario == null ? null : usuario.getNombreUsuario().equals("admin") ? "adminpage.xhtml" : "userpage.xhtml";
     }
 
     public String logout() {

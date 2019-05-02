@@ -6,6 +6,7 @@ package com.SII.vista;
 
 
 import com.SII.entidades.Usuario;
+import java.math.BigDecimal;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -61,6 +62,7 @@ public class Login {
     }
 
     public String autenticar() {
+        // Implementar este método
         FacesContext ctx = FacesContext.getCurrentInstance();
 
         for (Usuario usuario1 : usuarios) {

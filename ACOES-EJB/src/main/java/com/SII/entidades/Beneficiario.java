@@ -11,13 +11,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.util.Set;
+import java.math.BigInteger;
+import java.util.List;
 
 /**
- *
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "BENEFICIARIO")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b"),
@@ -34,30 +35,36 @@ public class Beneficiario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(name = "CODIGO")
     private String codigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "IDENTIFICADOR")
     private String identificador;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
+    @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "TIPO")
     private String tipo;
     @Size(max = 40)
+    @Column(name = "APELLIDOS")
     private String apellidos;
     @Size(max = 80)
+    @Column(name = "OBSERVACIONES")
     private String observaciones;
     @Column(name = "NUMERO_CUENTA")
-    private Integer numeroCuenta;
+    private BigInteger numeroCuenta;
     @JoinTable(name = "PROYECTO_BENEFICIARIO", joinColumns = {
             @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
             @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO")})
     @ManyToMany
-    private Set<Proyecto> proyectoSet;
+    private List<Proyecto> proyectoList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiario")
     private Becado becado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
@@ -65,10 +72,7 @@ public class Beneficiario implements Serializable {
     @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
-    @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO")
-    @ManyToOne
-    private Usuario usuarioNombreUsuario;
-    @OneToOne(mappedBy = "beneficiarioCodigo")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
     private Usuario usuario;
 
     public Beneficiario() {
@@ -133,21 +137,21 @@ public class Beneficiario implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public Integer getNumeroCuenta() {
+    public BigInteger getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(Integer numeroCuenta) {
+    public void setNumeroCuenta(BigInteger numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
     @XmlTransient
-    public Set<Proyecto> getProyectoSet() {
-        return proyectoSet;
+    public List<Proyecto> getProyectoList() {
+        return proyectoList;
     }
 
-    public void setProyectoSet(Set<Proyecto> proyectoSet) {
-        this.proyectoSet = proyectoSet;
+    public void setProyectoList(List<Proyecto> proyectoList) {
+        this.proyectoList = proyectoList;
     }
 
     public Becado getBecado() {
@@ -172,14 +176,6 @@ public class Beneficiario implements Serializable {
 
     public void setBeneficiarioCodigo(Beneficiario beneficiarioCodigo) {
         this.beneficiarioCodigo = beneficiarioCodigo;
-    }
-
-    public Usuario getUsuarioNombreUsuario() {
-        return usuarioNombreUsuario;
-    }
-
-    public void setUsuarioNombreUsuario(Usuario usuarioNombreUsuario) {
-        this.usuarioNombreUsuario = usuarioNombreUsuario;
     }
 
     public Usuario getUsuario() {

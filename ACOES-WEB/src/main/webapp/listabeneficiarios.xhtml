@@ -18,7 +18,7 @@ and open the template in the editor.
         <body>
         <div id="main-container">
             <h:form id="beneficiarios">
-
+                     <h:link outcome="adminpage.xhtml" class="atras"/>
                 <table>
                     <thead>
                     <tr>
@@ -51,8 +51,9 @@ and open the template in the editor.
                         </tr>
                     </ui:repeat>
                 </table>
-                <a href="adminpage.xhtml">Volver</a>
-                <br> <h:commandButton value="Añadir" action="nuevobeneficiario.xhtml" styleClass="btn-borde"/></br>
+                     <div align="center">
+                <br> <h:commandButton value="Añadir" action="nuevobeneficiario.xhtml" styleClass="btn-borde" /></br>
+                </div>
             </h:form>
         </div>
         </body>

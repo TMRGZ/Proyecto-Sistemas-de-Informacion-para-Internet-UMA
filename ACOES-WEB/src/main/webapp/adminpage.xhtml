@@ -2,6 +2,11 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Usuario admin</ui:define>
+                <ui:define name="menuadmin">
+                <li><a href="projects.xhtml">Proyectos</a></li>
+            <li><a href="listamiembros.xhtml">Miembros</a></li>
+          <li> <a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+            </ui:define>
     <ui:define name="contenido">
             Lista de usuarios
 
@@ -16,8 +21,7 @@
 
                 </ui:repeat>
             </ol>
-            <a href="projects.xhtml">Proyectos</a>
-            <a href="listamiembros.xhtml">Miembros</a>
-            <a href="listabeneficiarios.xhtml"> Beneficiarios </a>
+
+
     </ui:define>
 </ui:composition>

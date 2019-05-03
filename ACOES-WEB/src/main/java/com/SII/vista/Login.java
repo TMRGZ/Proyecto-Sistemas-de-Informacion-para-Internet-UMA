@@ -44,7 +44,7 @@ public class Login {
         try {
             negocioUsuario.compruebaLogin(usuario);
             sesion.setUsuario(negocioUsuario.refrescarUsuario(usuario));
-            return sesion.getUsuario().getRol() == '1' ? "adminpage.xhtml" : "userpage.xhtml";
+            return sesion.getUsuario().getRol() == 1 ? "adminpage.xhtml" : "userpage.xhtml";
 
         } catch (Exception e) {
             FacesMessage fm = new FacesMessage("Error en login");

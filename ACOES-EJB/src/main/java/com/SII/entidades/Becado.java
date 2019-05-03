@@ -5,31 +5,16 @@
  */
 package com.SII.entidades;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "BECADO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Becado.findAll", query = "SELECT b FROM Becado b")
@@ -53,21 +38,15 @@ public class Becado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "CODIGO")
+    @Column(nullable = false, length = 20)
     private String codigo;
-    @Size(max = 30)
-    @Column(name = "ESTADO")
+    @Column(length = 30)
     private String estado;
-    @Size(max = 30)
-    @Column(name = "BECA")
+    @Column(length = 30)
     private String beca;
-    @Size(max = 30)
-    @Column(name = "AGENTE")
+    @Column(length = 30)
     private String agente;
     @Lob
-    @Column(name = "FOTO")
     private Serializable foto;
     @Column(name = "FECHA_NACIMIENTO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,8 +54,7 @@ public class Becado implements Serializable {
     @Column(name = "FECHA_ACOES")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAcoes;
-    @Size(max = 30)
-    @Column(name = "PROYECTO")
+    @Column(length = 30)
     private String proyecto;
     @Column(name = "FECHA_ALTA_PROYECTO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -90,22 +68,18 @@ public class Becado implements Serializable {
     @Column(name = "FECHA_SALIDA_ACOES")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaSalidaAcoes;
-    @Size(max = 30)
-    @Column(name = "GRADO_CURSO")
+    @Column(name = "GRADO_CURSO", length = 30)
     private String gradoCurso;
-    @Size(max = 30)
-    @Column(name = "COLONIA_PROCEDENCIA")
+    @Column(name = "COLONIA_PROCEDENCIA", length = 30)
     private String coloniaProcedencia;
-    @Size(max = 30)
-    @Column(name = "COLONIA_ACTUAL")
+    @Column(name = "COLONIA_ACTUAL", length = 30)
     private String coloniaActual;
-    @Size(max = 80)
-    @Column(name = "OBSERVACIONES")
+    @Column(length = 80)
     private String observaciones;
-    @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", insertable = false, updatable = false)
+    @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiario;
-    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO", nullable = false)
     @ManyToOne(optional = false)
     private Socio socioNumero;
 
@@ -274,15 +248,12 @@ public class Becado implements Serializable {
             return false;
         }
         Becado other = (Becado) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
-            return false;
-        }
-        return true;
+        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
     }
 
     @Override
     public String toString() {
-        return "com.SII.entidades.Becado[ codigo=" + codigo + " ]";
+        return "javaapplication1.Becado[ codigo=" + codigo + " ]";
     }
     
 }

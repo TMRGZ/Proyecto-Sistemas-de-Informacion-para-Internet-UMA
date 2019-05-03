@@ -29,7 +29,7 @@
                         <li><h:commandLink action="#{infoSesion.home()}" value="Inicio"/></li>
                         <li><h:commandLink action="#{infoSesion.invalidarSesion()}" value="Cerrar Sesion"/></li>
 
-                        <c:when test="#{infoSesion.usuario.rol == '1'}">
+                        <c:when test="#{infoSesion.usuario.rol == 1}">
                             <ui:insert name="menuadmin"/>
                         </c:when>
                         <div class="perfil">

@@ -5,29 +5,17 @@
  */
 package com.SII.entidades;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "PROYECTO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
@@ -44,24 +32,16 @@ public class Proyecto implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "CODIGO")
+    @Column(nullable = false, precision = 0, scale = -127)
     private Integer codigo;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
+    @Column(nullable = false, length = 50)
     private String nombre;
-    @Column(name = "PRESUPUESTO")
     private Integer presupuesto;
-    @Column(name = "COMBUSTIBLE")
     private Integer combustible;
-    @Column(name = "MANTENIMIENTO")
     private Integer mantenimiento;
-    @Column(name = "CONTENEDOR")
     private Integer contenedor;
-    @Size(max = 80)
-    @Column(name = "DESCRIPCION")
+    @Column(length = 80)
     private String descripcion;
     @ManyToMany(mappedBy = "proyectoSet")
     private Set<Beneficiario> beneficiarioSet;
@@ -157,15 +137,12 @@ public class Proyecto implements Serializable {
             return false;
         }
         Proyecto other = (Proyecto) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
-            return false;
-        }
-        return true;
+        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
     }
 
     @Override
     public String toString() {
-        return "com.SII.entidades.Proyecto[ codigo=" + codigo + " ]";
+        return "javaapplication1.Proyecto[ codigo=" + codigo + " ]";
     }
     
 }

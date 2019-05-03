@@ -22,7 +22,7 @@ public class InfoSesion implements Serializable {
     }
 
     public synchronized String home() {
-        return usuario == null ? null : usuario.getRol() == '1' ? "adminpage.xhtml" : "userpage.xhtml";
+        return usuario == null ? null : usuario.getRol() == 1 ? "adminpage.xhtml" : "userpage.xhtml";
     }
 
     public synchronized String invalidarSesion() {

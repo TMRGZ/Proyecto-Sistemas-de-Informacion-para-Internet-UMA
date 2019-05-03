@@ -18,7 +18,7 @@
 
 
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
-            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == '1')}">
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
 
                 No tiene permisos para ver esta información.
 

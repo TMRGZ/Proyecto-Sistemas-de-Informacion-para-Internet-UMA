@@ -5,90 +5,56 @@
  */
 package com.SII.entidades;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
     , @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
     , @NamedQuery(name = "Usuario.findByContrasenna", query = "SELECT u FROM Usuario u WHERE u.contrasenna = :contrasenna")
     , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "NOMBRE_USUARIO")
+    @Column(name = "NOMBRE_USUARIO", nullable = false, length = 40)
     private String nombreUsuario;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "CONTRASENNA")
+    @Column(nullable = false, length = 40)
     private String contrasenna;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "ROL")
+    @Column(nullable = false)
     private Integer rol;
     @ManyToMany(mappedBy = "usuarioSet")
     private Set<Notificacion> notificacionSet;
-    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
-    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO", nullable = false)
     @OneToOne(optional = false)
-    private Socio socio;
+    private Socio socioNumero;
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombreUsuario, String contrasenna, Integer rol) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombreUsuario, String contrasenna, Integer rol) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenna = contrasenna;
         this.rol = rol;
-    }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getNombreUsuario() {
@@ -132,18 +98,18 @@ public class Usuario implements Serializable {
         this.beneficiarioCodigo = beneficiarioCodigo;
     }
 
-    public Socio getSocio() {
-        return socio;
+    public Socio getSocioNumero() {
+        return socioNumero;
     }
 
-    public void setSocio(Socio socio) {
-        this.socio = socio;
+    public void setSocioNumero(Socio socioNumero) {
+        this.socioNumero = socioNumero;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
+        hash += (nombreUsuario != null ? nombreUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -154,15 +120,12 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
-            return false;
-        }
-        return true;
+        return (this.nombreUsuario != null || other.nombreUsuario == null) && (this.nombreUsuario == null || this.nombreUsuario.equals(other.nombreUsuario));
     }
 
     @Override
     public String toString() {
-        return "com.SII.entidades.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "javaapplication1.Usuario[ nombreUsuario=" + nombreUsuario + " ]";
     }
     
 }

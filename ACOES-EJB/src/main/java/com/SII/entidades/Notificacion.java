@@ -5,34 +5,18 @@
  */
 package com.SII.entidades;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "NOTIFICACION")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n")
@@ -47,28 +31,23 @@ public class Notificacion implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID")
+    @Column(nullable = false, precision = 0, scale = -127)
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "USUARIO_RECEPTOR")
+    @Column(name = "USUARIO_RECEPTOR", nullable = false)
     private Integer usuarioReceptor;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "USUARIO_EMISOR")
+    @Column(name = "USUARIO_EMISOR", nullable = false)
     private Integer usuarioEmisor;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA")
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Size(max = 200)
-    @Column(name = "CONTENIDO")
+    @Column(length = 200)
     private String contenido;
-    @JoinTable(name = "USUARIO_NOTIFICACION", joinColumns = {
-        @JoinColumn(name = "NOTIFICACION_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "USUARIO_ID_USUARIO", referencedColumnName = "ID_USUARIO")})
+    @JoinTable(name = "RELATION_6", joinColumns = {
+            @JoinColumn(name = "NOTIFICACION_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO", nullable = false)})
     @ManyToMany
     private Set<Usuario> usuarioSet;
 
@@ -149,15 +128,12 @@ public class Notificacion implements Serializable {
             return false;
         }
         Notificacion other = (Notificacion) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
     public String toString() {
-        return "com.SII.entidades.Notificacion[ id=" + id + " ]";
+        return "javaapplication1.Notificacion[ id=" + id + " ]";
     }
     
 }

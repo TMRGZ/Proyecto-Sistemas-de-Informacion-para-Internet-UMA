@@ -40,7 +40,7 @@ public class Registro {
                 FacesContext.getCurrentInstance().addMessage("registro:repass", fm);
                 return null;
             }
-            usuario.setSocio(socio);
+            usuario.setSocioNumero(socio);
             negocioUsuario.registrarUsuario(usuario);
             registroOK = true;
             return "inicio.xhtml";

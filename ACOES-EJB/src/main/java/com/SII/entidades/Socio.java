@@ -5,32 +5,18 @@
  */
 package com.SII.entidades;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "SOCIO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Socio.findAll", query = "SELECT s FROM Socio s")
@@ -59,66 +45,45 @@ public class Socio implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "NUMERO")
+    @Column(nullable = false, precision = 0, scale = -127)
     private Integer numero;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "NOMBRE")
+    @Column(nullable = false, length = 30)
     private String nombre;
-    @Size(max = 30)
-    @Column(name = "APELLIDOS")
+    @Column(length = 30)
     private String apellidos;
-    @Size(max = 30)
-    @Column(name = "ESTADO")
+    @Column(length = 30)
     private String estado;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "NIF")
+    @Column(nullable = false, length = 30)
     private String nif;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "DIRECCION")
+    @Column(nullable = false, length = 40)
     private String direccion;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "POBLACION")
+    @Column(nullable = false, length = 40)
     private String poblacion;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "CODIGO_POSTAL")
+    @Column(name = "CODIGO_POSTAL", nullable = false)
     private String codigoPostal;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "PROVINCIA")
+    @Column(nullable = false, length = 30)
     private String provincia;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "TELEFONO")
+    @Column(nullable = false)
     private Integer telefono;
     @Column(name = "TELEFONO_MOVIL")
     private Integer telefonoMovil;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "CORREO_ELECTRONICO")
+    @Column(name = "CORREO_ELECTRONICO", nullable = false, length = 40)
     private String correoElectronico;
-    @Size(max = 40)
-    @Column(name = "AGENTE")
+    @Column(length = 40)
     private String agente;
-    @Size(max = 40)
-    @Column(name = "RELACION")
+    @Column(length = 40)
     private String relacion;
-    @Size(max = 40)
-    @Column(name = "CERTIFICADO")
+    @Column(length = 40)
     private String certificado;
-    @Size(max = 40)
-    @Column(name = "SECTOR")
+    @Column(length = 40)
     private String sector;
     @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.TIMESTAMP)
@@ -126,8 +91,7 @@ public class Socio implements Serializable {
     @Column(name = "FECHA_BAJA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
-    @Size(max = 80)
-    @Column(name = "OBSERVACIONES")
+    @Column(length = 80)
     private String observaciones;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioNumero")
     private Set<Becado> becadoSet;
@@ -336,15 +300,12 @@ public class Socio implements Serializable {
             return false;
         }
         Socio other = (Socio) object;
-        if ((this.numero == null && other.numero != null) || (this.numero != null && !this.numero.equals(other.numero))) {
-            return false;
-        }
-        return true;
+        return (this.numero != null || other.numero == null) && (this.numero == null || this.numero.equals(other.numero));
     }
 
     @Override
     public String toString() {
-        return "com.SII.entidades.Socio[ numero=" + numero + " ]";
+        return "javaapplication1.Socio[ numero=" + numero + " ]";
     }
     
 }

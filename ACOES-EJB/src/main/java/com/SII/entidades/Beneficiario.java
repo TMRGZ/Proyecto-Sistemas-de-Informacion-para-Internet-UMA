@@ -5,32 +5,17 @@
  */
 package com.SII.entidades;
 
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
-@Table(name = "BENEFICIARIO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b")
@@ -46,43 +31,33 @@ public class Beneficiario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "CODIGO")
+    @Column(nullable = false, length = 20)
     private String codigo;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "IDENTIFICADOR")
+    @Column(nullable = false, length = 30)
     private String identificador;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "NOMBRE")
+    @Column(nullable = false, length = 40)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "TIPO")
+    @Column(nullable = false, length = 30)
     private String tipo;
-    @Size(max = 40)
-    @Column(name = "APELLIDOS")
+    @Column(length = 40)
     private String apellidos;
-    @Size(max = 80)
-    @Column(name = "OBSERVACIONES")
+    @Column(length = 80)
     private String observaciones;
     @Column(name = "NUMERO_CUENTA")
     private Integer numeroCuenta;
-    @JoinTable(name = "PROYECTO_BENEFICIARIO", joinColumns = {
-        @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-        @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO")})
+    @JoinTable(name = "RELATION_3", joinColumns = {
+            @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO", nullable = false)})
     @ManyToMany
     private Set<Proyecto> proyectoSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiario")
     private Becado becado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
     private Beneficiario beneficiario;
-    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
+    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
@@ -213,15 +188,12 @@ public class Beneficiario implements Serializable {
             return false;
         }
         Beneficiario other = (Beneficiario) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
-            return false;
-        }
-        return true;
+        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
     }
 
     @Override
     public String toString() {
-        return "com.SII.entidades.Beneficiario[ codigo=" + codigo + " ]";
+        return "javaapplication1.Beneficiario[ codigo=" + codigo + " ]";
     }
     
 }

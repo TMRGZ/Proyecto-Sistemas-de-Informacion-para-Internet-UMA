@@ -23,8 +23,8 @@ public class CatalogoUsuarios implements Serializable {
     @PostConstruct
     public void init() {
         usuarios = new ArrayList<>();
-        usuarios.add(new Usuario(0,"user",  "user", 0));
-        usuarios.add(new Usuario(1,"admin",  "admin", 1));
+        usuarios.add(new Usuario("user", "user", 0));
+        usuarios.add(new Usuario("admin", "admin", 1));
     }
 
     public List<Usuario> getUsuarios() {

@@ -1,81 +1,77 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Registro</ui:define>
     <ui:define name="contenido">
 
-        <h:form id="registro"><!--@elvariable id="register" type="com.SII.vista.Registro"-->
-            <table>
-                <tr>
-                    <td>Nombre</td>
-                    <td>
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <!--@elvariable id="registro" type="com.SII.vista.Registro"-->
+            <c:when test="#{empty infoSesion.usuario}">
+                <h:form id="registro">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Nombre de usuario: *"/>
+                        <h:inputText id="user" value="#{registro.usuario.nombreUsuario}" required="true"/>
+                        <h:message for="user"/>
+                        <h:outputText value="Contraseña: *"/>
+                        <h:inputSecret id="pass" value="#{registro.usuario.contrasenna}" required="true"/>
+                        <h:message for="pass"/>
+                        <h:outputText value="Repita contraseña: *"/>
+                        <h:inputSecret id="repass" value="#{registro.repass}" required="true"/>
+                        <h:message for="repass"/>
 
-                        <h:inputText value="#{register.nombre}"/></td>
-                </tr>
-                <tr>
-                    <td>Apellido</td>
-                    <td><h:inputText value="#{register.apellido}"/></td>
-                </tr>
-                <tr>
-                    <td>Estado</td>
-                    <td><h:inputText value="#{register.estado}"/></td>
-                </tr>
-                <tr>
-                    <td>NIF</td>
-                    <td><h:inputText value="#{register.NIF}"/></td>
-                </tr>
-                <tr>
-                    <td>Direccion</td>
-                    <td><h:inputText value="#{register.direccion}"/></td>
-                </tr>
-                <tr>
-                    <td>CP</td>
-                    <td><h:inputText value="#{register.CP}"/></td>
-                </tr>
-                <tr>
-                    <td>Provincia</td>
-                    <td><h:inputText value="#{register.provincia}"/></td>
-                </tr>
-                <tr>
-                    <td>Poblacion</td>
-                    <td><h:inputText value="#{register.poblacion}"/></td>
-                </tr>
-                <tr>
-                    <td>Telefono</td>
-                    <td><h:inputText value="#{register.telefono}"/></td>
-                </tr>
-                <tr>
-                    <td>Telefono Movil</td>
-                    <td><h:inputText value="#{register.telMovil}"/></td>
-                </tr>
-                <tr>
-                    <td>Correo Electronico</td>
-                    <td><h:inputText value="#{register.email}"/></td>
-                </tr>
-                <tr>
-                    <td>Nombre de Usuario</td>
-                    <td><h:inputText value="#{register.usuario}"/></td>
-                </tr>
-                <tr>
-                    <td>Contraseña</td>
-                    <td><h:inputSecret value="#{register.password}"/></td>
-                </tr>
-                <tr>
-                    <td>Repite contraseña</td>
-                    <td><h:inputSecret value="#{register.nPassword}"/></td>
-                </tr>
-                <tr>
-                    <td><h:commandButton value="Registrarse" action="#{register.registrar}"/></td>
-                </tr>
-
-
-            </table>
-
-
-        </h:form>
-
-
+                        <h:outputText value="Nombre: *"/>
+                        <h:inputText id="nombre" value="#{registro.socio.nombre}" required="true"/>
+                        <h:message for="nombre"/>
+                        <h:outputText value="Apellidos: "/>
+                        <h:inputText id="apellidos" value="#{registro.socio.apellidos}"/>
+                        <h:message for="apellidos"/>
+                        <h:outputText value="NIF: *"/>
+                        <h:inputText id="nif" value="#{registro.socio.nif}" required="true"/>
+                        <h:message for="nif"/>
+                        <h:outputText value="E-mail: *"/>
+                        <h:inputText id="email" value="#{registro.socio.correoElectronico}" required="true"
+                                     validatorMessage="Compruebe que ha introducido un e-mail correcto">
+                            <f:validateRegex pattern=".+@.+"/>
+                        </h:inputText>
+                        <h:message for="email"/>
+                        <h:outputText value="Teléfono: *"/>
+                        <h:inputText id="telefono" value="#{registro.socio.telefono}" required="true"/>
+                        <h:message for="telefono"/>
+                        <h:outputText value="Teléfono Movil:"/>
+                        <h:inputText id="telMovil" value="#{registro.socio.telefonoMovil}"/>
+                        <h:message for="telMovil"/>
+                        <h:outputText value="Estado:"/>
+                        <h:inputText id="estado" value="#{registro.socio.estado}"/>
+                        <h:message for="estado"/>
+                        <h:outputText value="Dirección: *"/>
+                        <h:inputText id="direccion" value="#{registro.socio.direccion}" required="true"/>
+                        <h:message for="direccion"/>
+                        <h:outputText value="Código postal: *"/>
+                        <h:inputText id="cp" value="#{registro.socio.codigoPostal}" required="true"/>
+                        <h:message for="cp"/>
+                        <h:outputText value="Provincia: *"/>
+                        <h:inputText id="provincia" value="#{registro.socio.provincia}" required="true"/>
+                        <h:message for="provincia"/>
+                        <h:outputText value="Poblacion: *"/>
+                        <h:inputText id="poblacion" value="#{registro.socio.poblacion}" required="true"/>
+                        <h:message for="poblacion"/>
+                        <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"/>
+                        <h:link outcome="login.xhtml">Volver a la página de login</h:link>
+                    </h:panelGrid>
+                    <h:messages/>
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                <h:form>
+                    <p>Para crear un nuevo registro debe
+                        <h:commandLink
+                                action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> antes de la aplicación.
+                    </p>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
-
 </ui:composition>

@@ -16,8 +16,9 @@
 
         <c:choose>
 
-            <!--@elvariable id="controlAutorizacion" type="com.SII.vista.ControlAutorizacion"-->
-            <c:when test="#{empty controlAutorizacion.usuario || !controlAutorizacion.usuario.nombreUsuario.equals('admin')}">
+
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == '1')}">
 
                 No tiene permisos para ver esta información.
 

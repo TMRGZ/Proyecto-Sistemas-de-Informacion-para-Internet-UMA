@@ -6,61 +6,53 @@ package com.SII.vista;
 
 
 import com.SII.entidades.Usuario;
+import com.SII.negocio.NegocioUsuario;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Named(value = "login")
 @RequestScoped
 public class Login {
-
-    private String usuario;
-    private String password;
-    private List<Usuario> usuarios;
-
-    private EntityManagerFactory emf;
-    private EntityManager em;
-
+    /*@Inject
+    private ControlAutorizacion ctrl;*/
 
     @Inject
-    private ControlAutorizacion ctrl;
+    private InfoSesion sesion;
+
+    @Inject
+    private NegocioUsuario negocioUsuario;
+
+    private Usuario usuario;
 
     /**
      * Creates a new instance of Login
      */
     public Login() {
-        usuarios = new ArrayList<>();
+        /*usuarios = new ArrayList<>();
         usuarios.add(new Usuario("user", 0, "user", '0'));
-        usuarios.add(new Usuario("admin", 1, "admin", '1'));
+        usuarios.add(new Usuario("admin", 1, "admin", '1'));*/
+        usuario = new Usuario();
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String autenticar() {
-        // Implementar este método
-        FacesContext ctx = FacesContext.getCurrentInstance();
+        try {
+            negocioUsuario.compruebaLogin(usuario);
+            sesion.setUsuario(negocioUsuario.refrescarUsuario(usuario));
+            return sesion.getUsuario().getRol() == '1' ? "adminpage.xhtml" : "userpage.xhtml";
+
+        } catch (Exception e) {
+            FacesMessage fm = new FacesMessage("Error en login");
+            FacesContext.getCurrentInstance().addMessage("login:user", fm);
+        }
+        return null;
+
+        /*FacesContext ctx = FacesContext.getCurrentInstance();
 
         for (Usuario usuario1 : usuarios) {
             if (usuario1.getNombreUsuario().equalsIgnoreCase(usuario) && usuario1.getContrasenna().equals(password)) {
@@ -74,6 +66,14 @@ public class Login {
         }
 
 
-        return ctrl.home();
+        return ctrl.home();*/
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

@@ -29,7 +29,7 @@ public class ControlUsuario implements Serializable {
         Socio socio = new Socio(1, beneficiario.getNombre(), "69Z", "C/Alcampo", "Ibi", "03440", "Alicante", 666666666, "pepa@pepa.es");
         Becado becado = new Becado("CodigoBecadoAqui");
 
-        Usuario usuario = new Usuario("Ejemplo", 0, "pass", '0');
+        Usuario usuario = new Usuario(0,"Ejemplo",  "pass", 0);
         beneficiario.setBecado(becado);
         usuario.setBeneficiarioCodigo(beneficiario);
         usuario.setSocio(socio);

@@ -5,57 +5,77 @@
  */
 package com.SII.entidades;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "BENEFICIARIO")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b"),
-        @NamedQuery(name = "Beneficiario.findByCodigo", query = "SELECT b FROM Beneficiario b WHERE b.codigo = :codigo"),
-        @NamedQuery(name = "Beneficiario.findByIdentificador", query = "SELECT b FROM Beneficiario b WHERE b.identificador = :identificador"),
-        @NamedQuery(name = "Beneficiario.findByNombre", query = "SELECT b FROM Beneficiario b WHERE b.nombre = :nombre"),
-        @NamedQuery(name = "Beneficiario.findByTipo", query = "SELECT b FROM Beneficiario b WHERE b.tipo = :tipo"),
-        @NamedQuery(name = "Beneficiario.findByApellidos", query = "SELECT b FROM Beneficiario b WHERE b.apellidos = :apellidos"),
-        @NamedQuery(name = "Beneficiario.findByObservaciones", query = "SELECT b FROM Beneficiario b WHERE b.observaciones = :observaciones"),
-        @NamedQuery(name = "Beneficiario.findByNumeroCuenta", query = "SELECT b FROM Beneficiario b WHERE b.numeroCuenta = :numeroCuenta")})
+    @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b")
+    , @NamedQuery(name = "Beneficiario.findByCodigo", query = "SELECT b FROM Beneficiario b WHERE b.codigo = :codigo")
+    , @NamedQuery(name = "Beneficiario.findByIdentificador", query = "SELECT b FROM Beneficiario b WHERE b.identificador = :identificador")
+    , @NamedQuery(name = "Beneficiario.findByNombre", query = "SELECT b FROM Beneficiario b WHERE b.nombre = :nombre")
+    , @NamedQuery(name = "Beneficiario.findByTipo", query = "SELECT b FROM Beneficiario b WHERE b.tipo = :tipo")
+    , @NamedQuery(name = "Beneficiario.findByApellidos", query = "SELECT b FROM Beneficiario b WHERE b.apellidos = :apellidos")
+    , @NamedQuery(name = "Beneficiario.findByObservaciones", query = "SELECT b FROM Beneficiario b WHERE b.observaciones = :observaciones")
+    , @NamedQuery(name = "Beneficiario.findByNumeroCuenta", query = "SELECT b FROM Beneficiario b WHERE b.numeroCuenta = :numeroCuenta")})
 public class Beneficiario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(name = "CODIGO")
     private String codigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "IDENTIFICADOR")
     private String identificador;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
+    @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "TIPO")
     private String tipo;
     @Size(max = 40)
+    @Column(name = "APELLIDOS")
     private String apellidos;
     @Size(max = 80)
+    @Column(name = "OBSERVACIONES")
     private String observaciones;
     @Column(name = "NUMERO_CUENTA")
     private Integer numeroCuenta;
     @JoinTable(name = "PROYECTO_BENEFICIARIO", joinColumns = {
-            @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
-            @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO")})
+        @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")}, inverseJoinColumns = {
+        @JoinColumn(name = "PROYECTO_CODIGO", referencedColumnName = "CODIGO")})
     @ManyToMany
     private Set<Proyecto> proyectoSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiario")
@@ -65,10 +85,7 @@ public class Beneficiario implements Serializable {
     @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
-    @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO")
-    @ManyToOne
-    private Usuario usuarioNombreUsuario;
-    @OneToOne(mappedBy = "beneficiarioCodigo")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
     private Usuario usuario;
 
     public Beneficiario() {
@@ -174,14 +191,6 @@ public class Beneficiario implements Serializable {
         this.beneficiarioCodigo = beneficiarioCodigo;
     }
 
-    public Usuario getUsuarioNombreUsuario() {
-        return usuarioNombreUsuario;
-    }
-
-    public void setUsuarioNombreUsuario(Usuario usuarioNombreUsuario) {
-        this.usuarioNombreUsuario = usuarioNombreUsuario;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -204,12 +213,15 @@ public class Beneficiario implements Serializable {
             return false;
         }
         Beneficiario other = (Beneficiario) object;
-        return (this.codigo != null || other.codigo == null) && (this.codigo == null || this.codigo.equals(other.codigo));
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Entidades.Beneficiario[ codigo=" + codigo + " ]";
+        return "com.SII.entidades.Beneficiario[ codigo=" + codigo + " ]";
     }
-
+    
 }

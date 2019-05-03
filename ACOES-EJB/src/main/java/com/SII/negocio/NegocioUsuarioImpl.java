@@ -17,8 +17,8 @@ public class NegocioUsuarioImpl implements NegocioUsuario {
 
     public NegocioUsuarioImpl() {
         usuarios = new HashSet<>();
-        usuarios.add(new Usuario("user", 0, "user", '0'));
-        usuarios.add(new Usuario("admin", 1, "admin", '1'));
+        usuarios.add(new Usuario(0,"user",  "user", 0));
+        usuarios.add(new Usuario(1,"admin",  "admin", 1));
     }
 
     @Override

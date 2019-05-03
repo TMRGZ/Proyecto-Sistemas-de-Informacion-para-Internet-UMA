@@ -5,69 +5,88 @@
  */
 package com.SII.entidades;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "SOCIO")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Socio.findAll", query = "SELECT s FROM Socio s"),
-        @NamedQuery(name = "Socio.findByNumero", query = "SELECT s FROM Socio s WHERE s.numero = :numero"),
-        @NamedQuery(name = "Socio.findByNombre", query = "SELECT s FROM Socio s WHERE s.nombre = :nombre"),
-        @NamedQuery(name = "Socio.findByApellidos", query = "SELECT s FROM Socio s WHERE s.apellidos = :apellidos"),
-        @NamedQuery(name = "Socio.findByEstado", query = "SELECT s FROM Socio s WHERE s.estado = :estado"),
-        @NamedQuery(name = "Socio.findByNif", query = "SELECT s FROM Socio s WHERE s.nif = :nif"),
-        @NamedQuery(name = "Socio.findByDireccion", query = "SELECT s FROM Socio s WHERE s.direccion = :direccion"),
-        @NamedQuery(name = "Socio.findByPoblacion", query = "SELECT s FROM Socio s WHERE s.poblacion = :poblacion"),
-        @NamedQuery(name = "Socio.findByCodigoPostal", query = "SELECT s FROM Socio s WHERE s.codigoPostal = :codigoPostal"),
-        @NamedQuery(name = "Socio.findByProvincia", query = "SELECT s FROM Socio s WHERE s.provincia = :provincia"),
-        @NamedQuery(name = "Socio.findByTelefono", query = "SELECT s FROM Socio s WHERE s.telefono = :telefono"),
-        @NamedQuery(name = "Socio.findByTelefonoMovil", query = "SELECT s FROM Socio s WHERE s.telefonoMovil = :telefonoMovil"),
-        @NamedQuery(name = "Socio.findByCorreoElectronico", query = "SELECT s FROM Socio s WHERE s.correoElectronico = :correoElectronico"),
-        @NamedQuery(name = "Socio.findByAgente", query = "SELECT s FROM Socio s WHERE s.agente = :agente"),
-        @NamedQuery(name = "Socio.findByRelacion", query = "SELECT s FROM Socio s WHERE s.relacion = :relacion"),
-        @NamedQuery(name = "Socio.findByCertificado", query = "SELECT s FROM Socio s WHERE s.certificado = :certificado"),
-        @NamedQuery(name = "Socio.findBySector", query = "SELECT s FROM Socio s WHERE s.sector = :sector"),
-        @NamedQuery(name = "Socio.findByFechaAlta", query = "SELECT s FROM Socio s WHERE s.fechaAlta = :fechaAlta"),
-        @NamedQuery(name = "Socio.findByFechaBaja", query = "SELECT s FROM Socio s WHERE s.fechaBaja = :fechaBaja"),
-        @NamedQuery(name = "Socio.findByObservaciones", query = "SELECT s FROM Socio s WHERE s.observaciones = :observaciones")})
+    @NamedQuery(name = "Socio.findAll", query = "SELECT s FROM Socio s")
+    , @NamedQuery(name = "Socio.findByNumero", query = "SELECT s FROM Socio s WHERE s.numero = :numero")
+    , @NamedQuery(name = "Socio.findByNombre", query = "SELECT s FROM Socio s WHERE s.nombre = :nombre")
+    , @NamedQuery(name = "Socio.findByApellidos", query = "SELECT s FROM Socio s WHERE s.apellidos = :apellidos")
+    , @NamedQuery(name = "Socio.findByEstado", query = "SELECT s FROM Socio s WHERE s.estado = :estado")
+    , @NamedQuery(name = "Socio.findByNif", query = "SELECT s FROM Socio s WHERE s.nif = :nif")
+    , @NamedQuery(name = "Socio.findByDireccion", query = "SELECT s FROM Socio s WHERE s.direccion = :direccion")
+    , @NamedQuery(name = "Socio.findByPoblacion", query = "SELECT s FROM Socio s WHERE s.poblacion = :poblacion")
+    , @NamedQuery(name = "Socio.findByCodigoPostal", query = "SELECT s FROM Socio s WHERE s.codigoPostal = :codigoPostal")
+    , @NamedQuery(name = "Socio.findByProvincia", query = "SELECT s FROM Socio s WHERE s.provincia = :provincia")
+    , @NamedQuery(name = "Socio.findByTelefono", query = "SELECT s FROM Socio s WHERE s.telefono = :telefono")
+    , @NamedQuery(name = "Socio.findByTelefonoMovil", query = "SELECT s FROM Socio s WHERE s.telefonoMovil = :telefonoMovil")
+    , @NamedQuery(name = "Socio.findByCorreoElectronico", query = "SELECT s FROM Socio s WHERE s.correoElectronico = :correoElectronico")
+    , @NamedQuery(name = "Socio.findByAgente", query = "SELECT s FROM Socio s WHERE s.agente = :agente")
+    , @NamedQuery(name = "Socio.findByRelacion", query = "SELECT s FROM Socio s WHERE s.relacion = :relacion")
+    , @NamedQuery(name = "Socio.findByCertificado", query = "SELECT s FROM Socio s WHERE s.certificado = :certificado")
+    , @NamedQuery(name = "Socio.findBySector", query = "SELECT s FROM Socio s WHERE s.sector = :sector")
+    , @NamedQuery(name = "Socio.findByFechaAlta", query = "SELECT s FROM Socio s WHERE s.fechaAlta = :fechaAlta")
+    , @NamedQuery(name = "Socio.findByFechaBaja", query = "SELECT s FROM Socio s WHERE s.fechaBaja = :fechaBaja")
+    , @NamedQuery(name = "Socio.findByObservaciones", query = "SELECT s FROM Socio s WHERE s.observaciones = :observaciones")})
 public class Socio implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
+    @Column(name = "NUMERO")
     private Integer numero;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "NOMBRE")
     private String nombre;
     @Size(max = 30)
+    @Column(name = "APELLIDOS")
     private String apellidos;
     @Size(max = 30)
+    @Column(name = "ESTADO")
     private String estado;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "NIF")
     private String nif;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
+    @Column(name = "DIRECCION")
     private String direccion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
+    @Column(name = "POBLACION")
     private String poblacion;
     @Basic(optional = false)
     @NotNull
@@ -76,9 +95,11 @@ public class Socio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "PROVINCIA")
     private String provincia;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "TELEFONO")
     private Integer telefono;
     @Column(name = "TELEFONO_MOVIL")
     private Integer telefonoMovil;
@@ -88,12 +109,16 @@ public class Socio implements Serializable {
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
     @Size(max = 40)
+    @Column(name = "AGENTE")
     private String agente;
     @Size(max = 40)
+    @Column(name = "RELACION")
     private String relacion;
     @Size(max = 40)
+    @Column(name = "CERTIFICADO")
     private String certificado;
     @Size(max = 40)
+    @Column(name = "SECTOR")
     private String sector;
     @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.TIMESTAMP)
@@ -102,23 +127,21 @@ public class Socio implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
     @Size(max = 80)
+    @Column(name = "OBSERVACIONES")
     private String observaciones;
-    @OneToMany(mappedBy = "socioNumero")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioNumero")
     private Set<Becado> becadoSet;
-    @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO")
-    @OneToOne
-    private Usuario usuarioNombreUsuario;
-    @OneToOne(mappedBy = "socioNumero")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socioNumero")
     private Usuario usuario;
 
     public Socio() {
     }
 
-    public Socio(int numero) {
+    public Socio(Integer numero) {
         this.numero = numero;
     }
 
-    public Socio(int numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, Integer telefono, String correoElectronico) {
+    public Socio(Integer numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, Integer telefono, String correoElectronico) {
         this.numero = numero;
         this.nombre = nombre;
         this.nif = nif;
@@ -291,14 +314,6 @@ public class Socio implements Serializable {
         this.becadoSet = becadoSet;
     }
 
-    public Usuario getUsuarioNombreUsuario() {
-        return usuarioNombreUsuario;
-    }
-
-    public void setUsuarioNombreUsuario(Usuario usuarioNombreUsuario) {
-        this.usuarioNombreUsuario = usuarioNombreUsuario;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -308,21 +323,28 @@ public class Socio implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Socio socio = (Socio) o;
-        return Objects.equals(numero, socio.numero);
+    public int hashCode() {
+        int hash = 0;
+        hash += (numero != null ? numero.hashCode() : 0);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(numero);
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Socio)) {
+            return false;
+        }
+        Socio other = (Socio) object;
+        if ((this.numero == null && other.numero != null) || (this.numero != null && !this.numero.equals(other.numero))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Entidades.Socio[ numero=" + numero + " ]";
+        return "com.SII.entidades.Socio[ numero=" + numero + " ]";
     }
-
+    
 }

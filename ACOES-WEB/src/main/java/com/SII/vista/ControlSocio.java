@@ -22,7 +22,7 @@ public class ControlSocio implements Serializable {
 
     public ControlSocio() {
         socios = new HashSet<>();
-        socio.setUsuario(new Usuario("user", 0, "user", '0'));
+        socio.setUsuario(new Usuario(0,"user",  "user", 0));
         socios.add(socio);
     }
 

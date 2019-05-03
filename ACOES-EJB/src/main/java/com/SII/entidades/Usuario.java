@@ -5,33 +5,47 @@
  */
 package com.SII.entidades;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.Set;
 
 /**
  *
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-        @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
-        @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
-        @NamedQuery(name = "Usuario.findByContrasenna", query = "SELECT u FROM Usuario u WHERE u.contrasenna = :contrasenna"),
-        @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
+    , @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
+    , @NamedQuery(name = "Usuario.findByContrasenna", query = "SELECT u FROM Usuario u WHERE u.contrasenna = :contrasenna")
+    , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USUARIO")
     private Integer idUsuario;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -40,33 +54,31 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
+    @Column(name = "CONTRASENNA")
     private String contrasenna;
     @Basic(optional = false)
     @NotNull
-    private Character rol;
+    @Column(name = "ROL")
+    private Integer rol;
     @ManyToMany(mappedBy = "usuarioSet")
     private Set<Notificacion> notificacionSet;
-    @OneToOne(mappedBy = "usuarioNombreUsuario")
-    private Socio socio;
-    @OneToMany(mappedBy = "usuarioNombreUsuario")
-    private Set<Beneficiario> beneficiarioSet;
     @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
-    @OneToOne
+    @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
     @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
-    @OneToOne
-    private Socio socioNumero;
+    @OneToOne(optional = false)
+    private Socio socio;
 
     public Usuario() {
     }
 
-    public Usuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public Usuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public Usuario(String nombreUsuario, int idUsuario, String contrasenna, Character rol) {
-        this.nombreUsuario = nombreUsuario;
+    public Usuario(Integer idUsuario, String nombreUsuario, String contrasenna, Integer rol) {
         this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
         this.contrasenna = contrasenna;
         this.rol = rol;
     }
@@ -95,11 +107,11 @@ public class Usuario implements Serializable {
         this.contrasenna = contrasenna;
     }
 
-    public Character getRol() {
+    public Integer getRol() {
         return rol;
     }
 
-    public void setRol(Character rol) {
+    public void setRol(Integer rol) {
         this.rol = rol;
     }
 
@@ -112,23 +124,6 @@ public class Usuario implements Serializable {
         this.notificacionSet = notificacionSet;
     }
 
-    public Socio getSocio() {
-        return socio;
-    }
-
-    public void setSocio(Socio socio) {
-        this.socio = socio;
-    }
-
-    @XmlTransient
-    public Set<Beneficiario> getBeneficiarioSet() {
-        return beneficiarioSet;
-    }
-
-    public void setBeneficiarioSet(Set<Beneficiario> beneficiarioSet) {
-        this.beneficiarioSet = beneficiarioSet;
-    }
-
     public Beneficiario getBeneficiarioCodigo() {
         return beneficiarioCodigo;
     }
@@ -137,18 +132,18 @@ public class Usuario implements Serializable {
         this.beneficiarioCodigo = beneficiarioCodigo;
     }
 
-    public Socio getSocioNumero() {
-        return socioNumero;
+    public Socio getSocio() {
+        return socio;
     }
 
-    public void setSocioNumero(Socio socioNumero) {
-        this.socioNumero = socioNumero;
+    public void setSocio(Socio socio) {
+        this.socio = socio;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nombreUsuario != null ? nombreUsuario.hashCode() : 0);
+        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -159,12 +154,15 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        return (this.nombreUsuario != null || other.nombreUsuario == null) && (this.nombreUsuario == null || this.nombreUsuario.equals(other.nombreUsuario));
+        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Entidades.Usuario[ nombreUsuario=" + nombreUsuario + " ]";
+        return "com.SII.entidades.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-
+    
 }

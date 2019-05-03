@@ -13,12 +13,13 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.enterprise.context.SessionScoped;
 
 /**
  * @author juan_
  */
 @Named(value = "controlben")
-@RequestScoped
+@SessionScoped
 public class ControlBeneficiario implements Serializable {
 
     private Set<Beneficiario> beneficiarios = new HashSet<>();

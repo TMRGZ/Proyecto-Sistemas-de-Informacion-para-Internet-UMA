@@ -9,14 +9,14 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="menuadmin">
+        <li><a href="projects.xhtml">Proyectos</a></li>
+        <li><a href="listamiembros.xhtml">Miembros</a></li>
+        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+    </ui:define>
     <ui:define name="contenido">
-        <h:head>
-            <link rel="stylesheet" href="css/botones.css"/>
-            <link rel="stylesheet" href="css/lista.css"/>
-        </h:head>
-        <body>
         <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
-            <ol id="lista">
+            <ol class="lista">
                 <li>
                     <label>Identificador: </label>
                     <h:inputText value="#{controlben.beneficiario.identificador}"/>
@@ -43,6 +43,5 @@ and open the template in the editor.
                 <h:commandButton value="Enviar" action="#{controlben.modificar()}" styleClass="btn-borde"/>
             </p>
         </h:form>
-        </body>
     </ui:define>
 </ui:composition>

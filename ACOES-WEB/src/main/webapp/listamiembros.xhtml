@@ -11,7 +11,14 @@ and open the template in the editor.
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
 >
     <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="menuadmin">
+        <li><a href="projects.xhtml">Proyectos</a></li>
+        <li><a href="listamiembros.xhtml">Miembros</a></li>
+        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+    </ui:define>
+
     <ui:define name="contenido">
+        <h:link outcome="adminpage.xhtml" class="atras"/>
         <head>
             <link rel="stylesheet" href="css/tabla.css"/>
         </head>
@@ -32,8 +39,8 @@ and open the template in the editor.
                         <tr>
                             <td>#{proyecto.nombre}</td>
                             <td>
-                                <ui:repeat value="#{proyecto.beneficiarioSet}" var="beneficiario">
-                                    #{beneficiario.nombre}
+                                <ui:repeat value="#{proyecto.beneficiarioSet.toArray()}" var="beneficiario">
+                                    #{beneficiario.nombre},
                                 </ui:repeat>
                             </td>
                         </tr>

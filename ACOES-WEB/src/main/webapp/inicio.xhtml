@@ -1,48 +1,43 @@
-
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">>
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="titulo">Iniciar sesion</ui:define>
+
+
     <ui:define name="contenido">
+        <head>
+            <link rel="stylesheet" href="css/login.css"/>
+        </head>
+
+
         <c:choose>
-
-            <!--@elvariable id="controlAutorizacion" type="com.SII.vista.ControlAutorizacion"-->
-            <c:when test="#{empty controlAutorizacion.usuario}"><!--@elvariable id="login" type="com.SII.vista.Login"-->
+            <c:when test="#{empty infoSesion.usuario}"><!--@elvariable id="login" type="com.SII.vista.Login"-->
                 <h:form id="login">
-                    <table>
-                        <tr>
-                            <td>Usuario:</td>
-                            <td>
-
-
-                                <h:inputText value="#{login.usuario}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Contraseña:</td>
-                            <td>
-
-                                <h:inputSecret value="#{login.password}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="1">
-
-                                <h:commandButton value="Autenticar" action="#{login.autenticar()}"
-                                                 styleClass="btn-borde"/>
-                            </td>
-
-                            <td>
-                                <h:commandButton value="Registrar" action="register.xhtml" styleClass="btn-borde"/>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="main">
+                        <h:form styleClass="form1">
+                            <p class="sign" align="center">Iniciar Sesión</p>
+                            <h:inputText styleClass="un" id="user" required="true"
+                                         value="#{login.usuario.nombreUsuario}" a:placeholder="Nombre de usuario"/>
+                            <h:inputSecret styleClass="pass" id="pass" required="true"
+                                           value="#{login.usuario.contrasenna}" a:placeholder="Contraseña"/>
+                            <div align="center"><h:commandButton value="Autenticar" action="#{login.autenticar()}"
+                                                                 styleClass="btn-borde"/></div>
+                            <p class="forgot" align="center"><h:link outcome="register.xhtml">Registrarse</h:link></p>
+                        </h:form>
+                    </div>
                 </h:form>
             </c:when>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
             <c:otherwise>
-                <p>Debe salir de la aplicación si quiere entrar como otro usuario</p>
+                <h:form>
+                    <p>Está autenticado como
+                        <h:outputText value="#{infoSesion.usuario.nombreUsuario}"/>.</p>
+                    <p>Para iniciar sesión con otra cuenta debe <h:commandLink
+                            action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> primero de la aplicación</p>
+                </h:form>
             </c:otherwise>
         </c:choose>
         <h:messages/>

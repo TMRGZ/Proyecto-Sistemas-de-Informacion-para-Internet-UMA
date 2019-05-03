@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -73,16 +72,16 @@ public class Socio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CODIGO_POSTAL")
-    private BigInteger codigoPostal;
+    private String codigoPostal;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     private String provincia;
     @Basic(optional = false)
     @NotNull
-    private BigInteger telefono;
+    private Integer telefono;
     @Column(name = "TELEFONO_MOVIL")
-    private BigInteger telefonoMovil;
+    private Integer telefonoMovil;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -119,7 +118,7 @@ public class Socio implements Serializable {
         this.numero = numero;
     }
 
-    public Socio(int numero, String nombre, String nif, String direccion, String poblacion, BigInteger codigoPostal, String provincia, BigInteger telefono, String correoElectronico) {
+    public Socio(int numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, Integer telefono, String correoElectronico) {
         this.numero = numero;
         this.nombre = nombre;
         this.nif = nif;
@@ -187,11 +186,11 @@ public class Socio implements Serializable {
         this.poblacion = poblacion;
     }
 
-    public BigInteger getCodigoPostal() {
+    public String getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(BigInteger codigoPostal) {
+    public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
@@ -203,19 +202,19 @@ public class Socio implements Serializable {
         this.provincia = provincia;
     }
 
-    public BigInteger getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(BigInteger telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
-    public BigInteger getTelefonoMovil() {
+    public Integer getTelefonoMovil() {
         return telefonoMovil;
     }
 
-    public void setTelefonoMovil(BigInteger telefonoMovil) {
+    public void setTelefonoMovil(Integer telefonoMovil) {
         this.telefonoMovil = telefonoMovil;
     }
 

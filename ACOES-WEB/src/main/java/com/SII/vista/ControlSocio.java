@@ -40,8 +40,6 @@ public class ControlSocio implements Serializable {
     }
 
     public String apadrinar(Usuario u, Set<Beneficiario> listben) {
-        boolean apadrinar = false;
-        int i = 0;
         for (Socio s : socios) {
             if (s.getUsuario().equals(u)) {
                 socio = s;
@@ -60,18 +58,6 @@ public class ControlSocio implements Serializable {
             }
         }
 
-
-        /*while (!apadrinar && i < listben.size()) {
-            if (listben.get(i).getTipo().equals("Niño")) {
-                Becado b = new Becado();
-                b.setBeneficiario(listben.get(i));
-                if (!socio.getBecadoSet().contains(b)) {
-                    socio.getBecadoSet().add(b);
-                    apadrinar = true;
-                }
-            }
-            i++;
-        }*/
         return "userpage.xhtml";
     }
 

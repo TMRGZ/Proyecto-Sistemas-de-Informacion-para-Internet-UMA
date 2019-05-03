@@ -43,9 +43,13 @@ p {
 }
 
 .nav ul li:hover {
-    background: #3ead47;
+    background: #246355;
 }
 
 .contenido {
     padding-top: 80px;
+}
+
+.perfil {
+    float: right;
 }

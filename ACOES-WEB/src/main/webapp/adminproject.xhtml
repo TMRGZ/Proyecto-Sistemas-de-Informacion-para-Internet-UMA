@@ -10,7 +10,7 @@
 
 
         <h:form id="addp"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
-            <ol id="lista">
+            <ol class="lista">
                 <c:choose>
 
                     <c:when test="#{empty ctrlproyectos.proyecto.codigo}">
@@ -22,7 +22,7 @@
                     <c:otherwise>
                         <li>
                             <h:outputLabel>código:</h:outputLabel><input value="#{ctrlproyectos.proyecto.codigo}"
-                                                                         readonly/>
+                                                                         readonly=""/>
                         </li>
                     </c:otherwise>
                 </c:choose>

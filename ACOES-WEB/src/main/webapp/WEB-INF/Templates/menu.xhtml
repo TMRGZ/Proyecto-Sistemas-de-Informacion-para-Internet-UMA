@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
@@ -23,20 +22,25 @@
     <div class="nav">
 
         <h:form id="menu">
-            <!--@elvariable id="controlAutorizacion" type="vista.ControlAutorizacion"-->
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
             <ul class="menulist">
-                <li><h:commandLink action="#{controlAutorizacion.home()}" value="Inicio"/></li>
-                <li><h:commandLink action="#{controlAutorizacion.logout()}" value="Cerrar Sesion"/></li>
                 <c:choose>
-                    <c:when test="#{!empty controlAutorizacion.usuario}">
-                        <li><h:commandLink value="#{controlAutorizacion.usuario.nombreUsuario}"/></li>
-                        <c:when test="#{controlAutorizacion.usuario.rol == '1'}">
-                            <ui:insert name="menuadmin">
-                                No se esta usando
-                            </ui:insert>
-                        
+                    <c:when test="#{!empty infoSesion.usuario}">
+                        <li><h:commandLink action="#{infoSesion.home()}" value="Inicio"/></li>
+                        <li><h:commandLink action="#{infoSesion.invalidarSesion()}" value="Cerrar Sesion"/></li>
+
+                        <c:when test="#{infoSesion.usuario.rol == '1'}">
+                            <ui:insert name="menuadmin"/>
                         </c:when>
+                        <div class="perfil">
+                            <li><!--@elvariable id="ctrlUsuario" type="com.SII.vista.ControlUsuario"-->
+                                <h:commandLink value="#{infoSesion.usuario.nombreUsuario}"
+                                               action="#{ctrlUsuario.verPerfil(infoSesion.usuario)}"/></li>
+                        </div>
                     </c:when>
+                    <c:otherwise>
+                        <li><h:commandLink action="inicio.xhtml" value="ACOES"/></li>
+                    </c:otherwise>
                 </c:choose>
             </ul>
         </h:form>

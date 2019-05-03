@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="ACOES" transaction-type="JTA">
+        <!--<jta-data-source>jdbc/sample</jta-data-source>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <!--<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@olimpia.lcc.uma.es:1521:APOLO"/>
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
         </properties>
     </persistence-unit>
 </persistence>

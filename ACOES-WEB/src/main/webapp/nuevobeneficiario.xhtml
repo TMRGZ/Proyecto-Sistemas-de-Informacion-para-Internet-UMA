@@ -17,6 +17,7 @@ and open the template in the editor.
     </ui:define>
     <ui:define name="contenido">
         <h:body>
+            <h:link outcome="listabeneficiarios.xhtml" class="atras"/>
             <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
                 <ol class="lista">
                     <li>
@@ -29,11 +30,11 @@ and open the template in the editor.
                         <h:inputText value="#{controlben.getbeneficiarioadd().nombre}"/>
                     </li>
                     <li>
-                        <h:outputLabel>Apellido: </h:outputLabel>
+                        <h:outputLabel>Apellidos: </h:outputLabel>
                         <h:inputText value="#{controlben.getbeneficiarioadd().apellidos}"/>
                     </li>
                     <li>
-                        <h:outputLabel>Numero de cuenta </h:outputLabel>
+                        <h:outputLabel>Numero de cuenta: </h:outputLabel>
                         <h:inputText value="#{controlben.getbeneficiarioadd().numeroCuenta}"/>
                     </li>
                     <li>

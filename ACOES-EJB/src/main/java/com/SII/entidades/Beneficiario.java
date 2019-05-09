@@ -32,7 +32,8 @@ public class Beneficiario implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(nullable = false, length = 20)
-    private String codigo;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer codigo;
     @Basic(optional = false)
     @Column(nullable = false, length = 30)
     private String identificador;
@@ -66,22 +67,22 @@ public class Beneficiario implements Serializable {
     public Beneficiario() {
     }
 
-    public Beneficiario(String codigo) {
+    public Beneficiario(Integer codigo) {
         this.codigo = codigo;
     }
 
-    public Beneficiario(String codigo, String identificador, String nombre, String tipo) {
+    public Beneficiario(Integer codigo, String identificador, String nombre, String tipo) {
         this.codigo = codigo;
         this.identificador = identificador;
         this.nombre = nombre;
         this.tipo = tipo;
     }
 
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 

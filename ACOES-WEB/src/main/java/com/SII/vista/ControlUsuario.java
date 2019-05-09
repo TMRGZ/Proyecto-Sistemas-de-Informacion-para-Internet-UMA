@@ -25,7 +25,7 @@ public class ControlUsuario implements Serializable {
     private Becado becado;
 
     public ControlUsuario() {
-        Beneficiario beneficiario = new Beneficiario("2", "1-2", "Julian Muñoz", "Socio pero niño");
+        Beneficiario beneficiario = new Beneficiario(2, "1-2", "Julian Muñoz", "Socio pero niño");
         Socio socio = new Socio(1, beneficiario.getNombre(), "69Z", "C/Alcampo", "Ibi", "03440", "Alicante", 666666666, "pepa@pepa.es");
         Becado becado = new Becado("CodigoBecadoAqui");
 

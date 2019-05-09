@@ -33,6 +33,7 @@ public class Proyecto implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(nullable = false, precision = 0, scale = -127)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
     @Basic(optional = false)
     @Column(nullable = false, length = 50)

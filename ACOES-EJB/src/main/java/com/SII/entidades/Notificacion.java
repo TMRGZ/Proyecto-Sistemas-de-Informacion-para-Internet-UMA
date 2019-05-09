@@ -32,6 +32,7 @@ public class Notificacion implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(nullable = false, precision = 0, scale = -127)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Basic(optional = false)
     @Column(name = "USUARIO_RECEPTOR", nullable = false)

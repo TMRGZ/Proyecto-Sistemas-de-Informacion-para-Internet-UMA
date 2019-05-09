@@ -2,6 +2,7 @@ package com.SII.vista;
 
 import com.SII.entidades.Usuario;
 import com.SII.negocio.NegocioUsuario;
+import com.SII.negocio.excepciones.AcoesException;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -38,8 +39,8 @@ public class InfoSesion implements Serializable {
             if (usuario != null) {
                 usuario = negocioUsuario.refrescarUsuario(usuario);
             }
-        } catch (Exception e) {
-            // TODO
+        } catch (AcoesException ignored) {
+
         }
     }
 

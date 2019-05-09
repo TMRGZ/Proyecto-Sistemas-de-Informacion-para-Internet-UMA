@@ -27,8 +27,8 @@ public class ControlBeneficiario implements Serializable {
     private Beneficiario beneficiarioadd = new Beneficiario();
 
     public ControlBeneficiario() {
-        beneficiarios.add(new Beneficiario("1", "1-1", "paco", "Niño"));
-        beneficiarios.add(new Beneficiario("2", "1-2", "Julian Muñoz", "Socio"));
+        beneficiarios.add(new Beneficiario(1, "1-1", "paco", "Niño"));
+        beneficiarios.add(new Beneficiario(2, "1-2", "Julian Muñoz", "Socio"));
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

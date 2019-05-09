@@ -37,11 +37,11 @@ public class Usuario implements Serializable {
     private Integer rol;
     @ManyToMany(mappedBy = "usuarioSet")
     private Set<Notificacion> notificacionSet;
-    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)
-    @OneToOne(optional = false)
+    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
+    @OneToOne
     private Beneficiario beneficiarioCodigo;
-    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO", nullable = false)
-    @OneToOne(optional = false)
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
+    @OneToOne
     private Socio socioNumero;
 
     public Usuario() {

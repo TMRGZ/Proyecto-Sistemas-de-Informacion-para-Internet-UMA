@@ -46,6 +46,7 @@ public class Socio implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(nullable = false, precision = 0, scale = -127)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer numero;
     @Basic(optional = false)
     @Column(nullable = false, length = 30)
@@ -95,7 +96,7 @@ public class Socio implements Serializable {
     private String observaciones;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioNumero")
     private Set<Becado> becadoSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socioNumero")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socioNumero", fetch = FetchType.EAGER)
     private Usuario usuario;
 
     public Socio() {

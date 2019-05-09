@@ -34,9 +34,10 @@
                             <ui:insert name="menuadmin"/>
                         </c:when>
                         <div class="perfil">
-                            <li><!--@elvariable id="ctrlUsuario" type="com.SII.vista.ControlUsuario"-->
+                            <li>
+                                <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
                                 <h:commandLink value="#{infoSesion.usuario.nombreUsuario}"
-                                               action="#{ctrlUsuario.verPerfil(infoSesion.usuario)}"/></li>
+                                               action="#{perfil.ver(infoSesion.usuario)}"/></li>
                         </div>
                     </c:when>
                     <c:otherwise>

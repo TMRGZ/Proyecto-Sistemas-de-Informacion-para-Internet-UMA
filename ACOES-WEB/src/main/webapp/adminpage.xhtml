@@ -11,23 +11,26 @@
         Lista de usuarios
 
 
-        <h:form id="listaUsuarios">
+        <h:form id="listaUsuarios"><!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
             <ol class="lista">
 
-                <!--@elvariable id="listaUsuarios" type="com.SII.vista.CatalogoUsuarios"-->
-                <ui:repeat value="#{listaUsuarios.usuarios}" var="usuario">
+                <ui:repeat value="#{perfil.getListaPerfiles()}" var="usuario">
 
                     <li>
                         #{usuario.nombreUsuario}
-                        <!--@elvariable id="ctrlUsuario" type="com.SII.vista.ControlUsuario"-->
                         <div align="right">
-                            <h:commandButton value="Detalles" action="#{ctrlUsuario.verPerfil(usuario)}"
+                            <h:commandButton value="Detalles" action="#{perfil.ver(usuario)}"
+                                             styleClass="btn-borde"/>
+                            <h:commandButton value="Modificar" action="#{perfil.modificar(usuario)}"
+                                             styleClass="btn-borde"/>
+                            <h:commandButton value="Eliminar" action="#{perfil.eliminar(usuario)}"
                                              styleClass="btn-borde"/>
                         </div>
                     </li>
-
                 </ui:repeat>
             </ol>
+            <h:commandButton value="Nuevo" action="#{perfil.registrarUsuario()}"
+                             styleClass="btn-borde"/>
         </h:form>
     </ui:define>
 </ui:composition>

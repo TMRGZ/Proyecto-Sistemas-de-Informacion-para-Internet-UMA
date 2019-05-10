@@ -22,26 +22,26 @@ public class ControlSocio implements Serializable {
 
     public ControlSocio() {
         socios = new HashSet<>();
-        socio.setUsuario(new Usuario("user", "user", 0));
+        socio.setUsuarioNombreUsuario(new Usuario("user", "user", 0));
         socios.add(socio);
     }
 
     public List<Notificacion> getNotificaciones(Usuario u) {
         for (Socio s : socios) {
-            if (s.getUsuario().equals(u)) {
+            if (s.getUsuarioNombreUsuario().equals(u)) {
                 socio = s;
             }
         }
-        if (socio.getUsuario().getNotificacionSet() == null) {
-            socio.getUsuario().setNotificacionSet(new HashSet<>());
-            socio.getUsuario().getNotificacionSet().add(new Notificacion(0, 0, 1, new Date(2, Calendar.AUGUST, 20)));
+        if (socio.getUsuarioNombreUsuario().getNotificacionSet() == null) {
+            socio.getUsuarioNombreUsuario().setNotificacionSet(new HashSet<>());
+            socio.getUsuarioNombreUsuario().getNotificacionSet().add(new Notificacion((long) 0, "0", "1", new Date(2, Calendar.AUGUST, 20)));
         }
-        return new ArrayList<>(socio.getUsuario().getNotificacionSet());
+        return new ArrayList<>(socio.getUsuarioNombreUsuario().getNotificacionSet());
     }
 
     public String apadrinar(Usuario u, Set<Beneficiario> listben) {
         for (Socio s : socios) {
-            if (s.getUsuario().equals(u)) {
+            if (s.getUsuarioNombreUsuario().equals(u)) {
                 socio = s;
             }
         }
@@ -63,7 +63,7 @@ public class ControlSocio implements Serializable {
 
     public Set<Becado> buscar(Usuario u) {
         for (Socio s : socios) {
-            if (s.getUsuario().equals(u)) {
+            if (s.getUsuarioNombreUsuario().equals(u)) {
                 socio = s;
             }
         }

@@ -184,7 +184,12 @@ and open the template in the editor.
                     <p><h:commandButton value="#{perfil.accion}" action="#{perfil.ejecutarAccion()}"
                                         styleClass="btn-borde"/></p>
                     <h:inputHidden value="#{perfil.modo}"/>
-                    <h:inputHidden value="#{perfil.usuario.nombreUsuario}"/>
+
+                    <c:choose>
+                        <c:when test="#{perfil.accion.equals('Modificar')}">
+                            <h:inputHidden value="#{perfil.usuario.nombreUsuario}"/>
+                        </c:when>
+                    </c:choose>
                 </h:form>
             </c:when>
             <c:otherwise>

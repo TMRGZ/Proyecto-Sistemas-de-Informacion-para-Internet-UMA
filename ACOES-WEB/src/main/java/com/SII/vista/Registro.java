@@ -8,6 +8,7 @@ package com.SII.vista;
 import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.NegocioUsuario;
+import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.CuentaRepetidaException;
 
 import javax.ejb.EJB;
@@ -34,16 +35,18 @@ public class Registro {
         socio = new Socio();
     }
 
-    public String registrarUsuario() throws Exception {
+    public String registrarUsuario() throws AcoesException {
         try {
             if (!usuario.getContrasenna().equals(repass)) {
                 FacesMessage fm = new FacesMessage("Las contraseñas deben coincidir");
                 FacesContext.getCurrentInstance().addMessage("registro:repass", fm);
                 return null;
             }
+            socio.setUsuarioNombreUsuario(usuario);
             usuario.setRol(0);
+            usuario.setSocio(socio);
             negocioUsuario.registrarUsuario(usuario);
-            negocioUsuario.annadirSocioA(usuario, socio);
+            //negocioUsuario.annadirSocioA(usuario, socio);
             registroOK = true;
             return "inicio.xhtml";
         } catch (CuentaRepetidaException e) {

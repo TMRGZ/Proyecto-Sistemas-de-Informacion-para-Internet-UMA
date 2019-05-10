@@ -16,7 +16,6 @@ public class NegocioPerfilImpl implements NegocioPerfil {
 
     @Override
     public void eliminarPerfil(Usuario usuario) throws AcoesException {
-        em.remove(em.merge(usuario.getSocioNumero()));
         em.remove(em.merge(usuario));
     }
 

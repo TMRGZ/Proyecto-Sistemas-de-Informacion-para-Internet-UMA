@@ -17,6 +17,8 @@ import java.util.Set;
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "SOCIO", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"USUARIO_NOMBRE_USUARIO"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Socio.findAll", query = "SELECT s FROM Socio s")
@@ -45,46 +47,46 @@ public class Socio implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @Column(nullable = false, precision = 0, scale = -127)
+    @Column(name = "NUMERO", nullable = false, precision = 0, scale = -127)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer numero;
+    private Long numero;
     @Basic(optional = false)
-    @Column(nullable = false, length = 30)
+    @Column(name = "NOMBRE", nullable = false, length = 30)
     private String nombre;
-    @Column(length = 30)
+    @Column(name = "APELLIDOS", length = 30)
     private String apellidos;
-    @Column(length = 30)
+    @Column(name = "ESTADO", length = 30)
     private String estado;
     @Basic(optional = false)
-    @Column(nullable = false, length = 30)
+    @Column(name = "NIF", nullable = false, length = 30)
     private String nif;
     @Basic(optional = false)
-    @Column(nullable = false, length = 40)
+    @Column(name = "DIRECCION", nullable = false, length = 40)
     private String direccion;
     @Basic(optional = false)
-    @Column(nullable = false, length = 40)
+    @Column(name = "POBLACION", nullable = false, length = 40)
     private String poblacion;
     @Basic(optional = false)
     @Column(name = "CODIGO_POSTAL", nullable = false)
     private String codigoPostal;
     @Basic(optional = false)
-    @Column(nullable = false, length = 30)
+    @Column(name = "PROVINCIA", nullable = false, length = 30)
     private String provincia;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "TELEFONO", nullable = false)
     private Integer telefono;
     @Column(name = "TELEFONO_MOVIL")
     private Integer telefonoMovil;
     @Basic(optional = false)
     @Column(name = "CORREO_ELECTRONICO", nullable = false, length = 40)
     private String correoElectronico;
-    @Column(length = 40)
+    @Column(name = "AGENTE", length = 40)
     private String agente;
-    @Column(length = 40)
+    @Column(name = "RELACION", length = 40)
     private String relacion;
-    @Column(length = 40)
+    @Column(name = "CERTIFICADO", length = 40)
     private String certificado;
-    @Column(length = 40)
+    @Column(name = "SECTOR", length = 40)
     private String sector;
     @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.TIMESTAMP)
@@ -92,21 +94,22 @@ public class Socio implements Serializable {
     @Column(name = "FECHA_BAJA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
-    @Column(length = 80)
+    @Column(name = "OBSERVACIONES", length = 80)
     private String observaciones;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioNumero")
     private Set<Becado> becadoSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socioNumero", fetch = FetchType.EAGER)
-    private Usuario usuario;
+    @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO", nullable = false)
+    @OneToOne(optional = false)
+    private Usuario usuarioNombreUsuario;
 
     public Socio() {
     }
 
-    public Socio(Integer numero) {
+    public Socio(Long numero) {
         this.numero = numero;
     }
 
-    public Socio(Integer numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, Integer telefono, String correoElectronico) {
+    public Socio(Long numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, Integer telefono, String correoElectronico) {
         this.numero = numero;
         this.nombre = nombre;
         this.nif = nif;
@@ -118,11 +121,11 @@ public class Socio implements Serializable {
         this.correoElectronico = correoElectronico;
     }
 
-    public Integer getNumero() {
+    public Long getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(Long numero) {
         this.numero = numero;
     }
 
@@ -279,12 +282,12 @@ public class Socio implements Serializable {
         this.becadoSet = becadoSet;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuarioNombreUsuario() {
+        return usuarioNombreUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioNombreUsuario(Usuario usuarioNombreUsuario) {
+        this.usuarioNombreUsuario = usuarioNombreUsuario;
     }
 
     @Override
@@ -306,7 +309,7 @@ public class Socio implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Socio[ numero=" + numero + " ]";
+        return "javaapplication2.Socio[ numero=" + numero + " ]";
     }
     
 }

@@ -16,6 +16,7 @@ import java.util.Set;
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -30,19 +31,17 @@ public class Usuario implements Serializable {
     @Column(name = "NOMBRE_USUARIO", nullable = false, length = 40)
     private String nombreUsuario;
     @Basic(optional = false)
-    @Column(nullable = false, length = 40)
+    @Column(name = "CONTRASENNA", nullable = false, length = 40)
     private String contrasenna;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "ROL", nullable = false)
     private Integer rol;
     @ManyToMany(mappedBy = "usuarioSet")
     private Set<Notificacion> notificacionSet;
-    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO")
-    @OneToOne
-    private Beneficiario beneficiarioCodigo;
-    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO")
-    @OneToOne
-    private Socio socioNumero;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarioNombreUsuario")
+    private Socio socio;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarioNombreUsuario")
+    private Beneficiario beneficiario;
 
     public Usuario() {
     }
@@ -90,20 +89,20 @@ public class Usuario implements Serializable {
         this.notificacionSet = notificacionSet;
     }
 
-    public Beneficiario getBeneficiarioCodigo() {
-        return beneficiarioCodigo;
+    public Socio getSocio() {
+        return socio;
     }
 
-    public void setBeneficiarioCodigo(Beneficiario beneficiarioCodigo) {
-        this.beneficiarioCodigo = beneficiarioCodigo;
+    public void setSocio(Socio socio) {
+        this.socio = socio;
     }
 
-    public Socio getSocioNumero() {
-        return socioNumero;
+    public Beneficiario getBeneficiario() {
+        return beneficiario;
     }
 
-    public void setSocioNumero(Socio socioNumero) {
-        this.socioNumero = socioNumero;
+    public void setBeneficiario(Beneficiario beneficiario) {
+        this.beneficiario = beneficiario;
     }
 
     @Override
@@ -125,7 +124,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Usuario[ nombreUsuario=" + nombreUsuario + " ]";
+        return "javaapplication2.Usuario[ nombreUsuario=" + nombreUsuario + " ]";
     }
     
 }

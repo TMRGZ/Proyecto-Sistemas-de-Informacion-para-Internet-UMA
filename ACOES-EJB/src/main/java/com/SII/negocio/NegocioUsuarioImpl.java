@@ -28,7 +28,6 @@ public class NegocioUsuarioImpl implements NegocioUsuario {
         em.persist(usuario);
     }
 
-
     @Override
     public void compruebaLogin(Usuario usuario) throws AcoesException {
         Usuario user = em.find(Usuario.class, usuario.getNombreUsuario());
@@ -51,8 +50,7 @@ public class NegocioUsuarioImpl implements NegocioUsuario {
     @Override
     public void annadirSocioA(Usuario usuario, Socio socio) throws AcoesException {
         compruebaLogin(usuario);
+        socio.setUsuarioNombreUsuario(usuario);
         em.persist(socio);
-        usuario.setSocioNumero(socio);
-        em.merge(usuario);
     }
 }

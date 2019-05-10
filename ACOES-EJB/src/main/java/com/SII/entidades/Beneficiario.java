@@ -16,6 +16,8 @@ import java.util.Set;
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "BENEFICIARIO", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"BENEFICIARIO_CODIGO"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b")
@@ -31,21 +33,21 @@ public class Beneficiario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(nullable = false, length = 20)
+    @Column(name = "CODIGO", nullable = false, length = 20)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer codigo;
+    private Long codigo;
     @Basic(optional = false)
-    @Column(nullable = false, length = 30)
+    @Column(name = "IDENTIFICADOR", nullable = false, length = 30)
     private String identificador;
     @Basic(optional = false)
-    @Column(nullable = false, length = 40)
+    @Column(name = "NOMBRE", nullable = false, length = 40)
     private String nombre;
     @Basic(optional = false)
-    @Column(nullable = false, length = 30)
+    @Column(name = "TIPO", nullable = false, length = 30)
     private String tipo;
-    @Column(length = 40)
+    @Column(name = "APELLIDOS", length = 40)
     private String apellidos;
-    @Column(length = 80)
+    @Column(name = "OBSERVACIONES", length = 80)
     private String observaciones;
     @Column(name = "NUMERO_CUENTA")
     private Integer numeroCuenta;
@@ -61,28 +63,29 @@ public class Beneficiario implements Serializable {
     @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
-    private Usuario usuario;
+    @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO", nullable = false)
+    @OneToOne(optional = false)
+    private Usuario usuarioNombreUsuario;
 
     public Beneficiario() {
     }
 
-    public Beneficiario(Integer codigo) {
+    public Beneficiario(Long codigo) {
         this.codigo = codigo;
     }
 
-    public Beneficiario(Integer codigo, String identificador, String nombre, String tipo) {
+    public Beneficiario(Long codigo, String identificador, String nombre, String tipo) {
         this.codigo = codigo;
         this.identificador = identificador;
         this.nombre = nombre;
         this.tipo = tipo;
     }
 
-    public Integer getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -167,12 +170,12 @@ public class Beneficiario implements Serializable {
         this.beneficiarioCodigo = beneficiarioCodigo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuarioNombreUsuario() {
+        return usuarioNombreUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioNombreUsuario(Usuario usuarioNombreUsuario) {
+        this.usuarioNombreUsuario = usuarioNombreUsuario;
     }
 
     @Override
@@ -194,7 +197,7 @@ public class Beneficiario implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Beneficiario[ codigo=" + codigo + " ]";
+        return "javaapplication2.Beneficiario[ codigo=" + codigo + " ]";
     }
     
 }

@@ -16,6 +16,7 @@ import java.util.Set;
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "PROYECTO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
@@ -32,17 +33,21 @@ public class Proyecto implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @Column(nullable = false, precision = 0, scale = -127)
+    @Column(name = "CODIGO", nullable = false, precision = 0, scale = -127)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer codigo;
+    private Long codigo;
     @Basic(optional = false)
-    @Column(nullable = false, length = 50)
+    @Column(name = "NOMBRE", nullable = false, length = 50)
     private String nombre;
+    @Column(name = "PRESUPUESTO")
     private Integer presupuesto;
+    @Column(name = "COMBUSTIBLE")
     private Integer combustible;
+    @Column(name = "MANTENIMIENTO")
     private Integer mantenimiento;
+    @Column(name = "CONTENEDOR")
     private Integer contenedor;
-    @Column(length = 80)
+    @Column(name = "DESCRIPCION", length = 80)
     private String descripcion;
     @ManyToMany(mappedBy = "proyectoSet")
     private Set<Beneficiario> beneficiarioSet;
@@ -50,20 +55,20 @@ public class Proyecto implements Serializable {
     public Proyecto() {
     }
 
-    public Proyecto(Integer codigo) {
+    public Proyecto(Long codigo) {
         this.codigo = codigo;
     }
 
-    public Proyecto(Integer codigo, String nombre) {
+    public Proyecto(Long codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
     }
 
-    public Integer getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -143,7 +148,7 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Proyecto[ codigo=" + codigo + " ]";
+        return "javaapplication2.Proyecto[ codigo=" + codigo + " ]";
     }
     
 }

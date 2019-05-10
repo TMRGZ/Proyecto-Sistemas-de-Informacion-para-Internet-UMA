@@ -130,27 +130,27 @@ public class Perfil {
     }
 
     public Socio getSocio() {
-        return usuario.getSocioNumero();
+        return usuario.getSocio();
     }
 
     public void setSocio(Socio socio) {
-        this.usuario.setSocioNumero(socio);
+        this.usuario.setSocio(socio);
     }
 
     public Beneficiario getBeneficiario() {
-        return usuario.getBeneficiarioCodigo();
+        return usuario.getBeneficiario();
     }
 
     public void setBeneficiario(Beneficiario beneficiario) {
-        this.usuario.setBeneficiarioCodigo(beneficiario);
+        this.usuario.setBeneficiario(beneficiario);
     }
 
     public Becado getBecado() {
-        return usuario.getBeneficiarioCodigo() == null ? null : usuario.getBeneficiarioCodigo().getBecado();
+        return usuario.getBeneficiario() == null ? null : usuario.getBeneficiario().getBecado();
     }
 
     public void setBecado(Becado becado) {
-        this.usuario.getBeneficiarioCodigo().setBecado(becado);
+        this.usuario.getBeneficiario().setBecado(becado);
     }
 
     public enum Modo {

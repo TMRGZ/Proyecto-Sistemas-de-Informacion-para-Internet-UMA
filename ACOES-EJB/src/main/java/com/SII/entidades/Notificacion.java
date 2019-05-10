@@ -17,6 +17,7 @@ import java.util.Set;
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "NOTIFICACION")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n")
@@ -31,20 +32,20 @@ public class Notificacion implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @Column(nullable = false, precision = 0, scale = -127)
+    @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @Column(name = "USUARIO_RECEPTOR", nullable = false)
-    private Integer usuarioReceptor;
+    private String usuarioReceptor;
     @Basic(optional = false)
     @Column(name = "USUARIO_EMISOR", nullable = false)
-    private Integer usuarioEmisor;
+    private String usuarioEmisor;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Column(length = 200)
+    @Column(name = "CONTENIDO", length = 200)
     private String contenido;
     @JoinTable(name = "RELATION_6", joinColumns = {
             @JoinColumn(name = "NOTIFICACION_ID", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
@@ -55,38 +56,38 @@ public class Notificacion implements Serializable {
     public Notificacion() {
     }
 
-    public Notificacion(Integer id) {
+    public Notificacion(Long id) {
         this.id = id;
     }
 
-    public Notificacion(Integer id, Integer usuarioReceptor, Integer usuarioEmisor, Date fecha) {
+    public Notificacion(Long id, String usuarioReceptor, String usuarioEmisor, Date fecha) {
         this.id = id;
         this.usuarioReceptor = usuarioReceptor;
         this.usuarioEmisor = usuarioEmisor;
         this.fecha = fecha;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getUsuarioReceptor() {
+    public String getUsuarioReceptor() {
         return usuarioReceptor;
     }
 
-    public void setUsuarioReceptor(Integer usuarioReceptor) {
+    public void setUsuarioReceptor(String usuarioReceptor) {
         this.usuarioReceptor = usuarioReceptor;
     }
 
-    public Integer getUsuarioEmisor() {
+    public String getUsuarioEmisor() {
         return usuarioEmisor;
     }
 
-    public void setUsuarioEmisor(Integer usuarioEmisor) {
+    public void setUsuarioEmisor(String usuarioEmisor) {
         this.usuarioEmisor = usuarioEmisor;
     }
 
@@ -134,7 +135,7 @@ public class Notificacion implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Notificacion[ id=" + id + " ]";
+        return "javaapplication2.Notificacion[ id=" + id + " ]";
     }
     
 }

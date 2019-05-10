@@ -15,6 +15,7 @@ import java.util.Date;
  * @author MiguelRuiz
  */
 @Entity
+@Table(name = "BECADO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Becado.findAll", query = "SELECT b FROM Becado b")
@@ -38,15 +39,16 @@ public class Becado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(nullable = false, length = 20)
-    private String codigo;
-    @Column(length = 30)
+    @Column(name = "CODIGO", nullable = false, length = 20)
+    private Long codigo;
+    @Column(name = "ESTADO", length = 30)
     private String estado;
-    @Column(length = 30)
+    @Column(name = "BECA", length = 30)
     private String beca;
-    @Column(length = 30)
+    @Column(name = "AGENTE", length = 30)
     private String agente;
     @Lob
+    @Column(name = "FOTO")
     private Serializable foto;
     @Column(name = "FECHA_NACIMIENTO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -54,7 +56,7 @@ public class Becado implements Serializable {
     @Column(name = "FECHA_ACOES")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAcoes;
-    @Column(length = 30)
+    @Column(name = "PROYECTO", length = 30)
     private String proyecto;
     @Column(name = "FECHA_ALTA_PROYECTO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -74,7 +76,7 @@ public class Becado implements Serializable {
     private String coloniaProcedencia;
     @Column(name = "COLONIA_ACTUAL", length = 30)
     private String coloniaActual;
-    @Column(length = 80)
+    @Column(name = "OBSERVACIONES", length = 80)
     private String observaciones;
     @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
@@ -86,15 +88,15 @@ public class Becado implements Serializable {
     public Becado() {
     }
 
-    public Becado(String codigo) {
+    public Becado(Long codigo) {
         this.codigo = codigo;
     }
 
-    public String getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -253,7 +255,7 @@ public class Becado implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication1.Becado[ codigo=" + codigo + " ]";
+        return "javaapplication2.Becado[ codigo=" + codigo + " ]";
     }
     
 }

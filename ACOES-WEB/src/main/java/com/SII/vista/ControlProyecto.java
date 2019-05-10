@@ -22,11 +22,11 @@ public class ControlProyecto implements Serializable {
 
     public ControlProyecto() {
         proyectos = new ArrayList<>();
-        proyectos.add(new Proyecto(0, "Charla en la UMA"));
+        proyectos.add(new Proyecto((long) 0, "Charla en la UMA"));
         proyectos.get(0).setBeneficiarioSet(new HashSet<>());
-        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario(1, "1-1", "paco", "Niño"));
-        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario(2, "1-2", "Julian Muñoz", "Socio"));
-        proyectos.add(new Proyecto(1, "Adaptarse al sistema de los alumnos"));
+        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario((long) 1, "1-1", "paco", "Niño"));
+        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario((long) 2, "1-2", "Julian Muñoz", "Socio"));
+        proyectos.add(new Proyecto((long) 1, "Adaptarse al sistema de los alumnos"));
     }
 
 

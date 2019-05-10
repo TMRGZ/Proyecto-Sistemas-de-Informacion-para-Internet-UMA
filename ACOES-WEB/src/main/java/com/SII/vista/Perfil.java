@@ -6,8 +6,11 @@ import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.NegocioPerfil;
 import com.SII.negocio.excepciones.AcoesException;
+import com.SII.negocio.excepciones.ContrasennaInvalidaException;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
@@ -62,9 +65,9 @@ public class Perfil {
 
     public String ejecutarAccion() {
         try {
+            if (!repass.equals(usuario.getContrasenna())) throw new ContrasennaInvalidaException();
             switch (modo) {
                 case INSERTAR:
-                    if (!repass.equals(usuario.getContrasenna())) return null;
                     negocioPerfil.registrarPerfil(usuario);
                     break;
                 case MODIFICAR:
@@ -73,6 +76,10 @@ public class Perfil {
             }
             sesion.refrescarUsuario();
             return sesion.home();
+        } catch (ContrasennaInvalidaException e) {
+            FacesMessage fm = new FacesMessage("Las contraseñas no coinciden");
+            FacesContext.getCurrentInstance().addMessage("login:user", fm);
+            return null;
         } catch (AcoesException e) {
             return "inicio.xhtml";
         }

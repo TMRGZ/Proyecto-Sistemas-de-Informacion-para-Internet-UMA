@@ -24,20 +24,25 @@ and open the template in the editor.
                     <ol class="lista">
                         <li>
                             <label>Nombre de usuario: </label>
+                            <c:choose>
+                                <c:when test="#{empty perfil.usuario.nombreUsuario}">
+                                    <h:inputText value="#{perfil.usuario.nombreUsuario}" required="true"/></c:when>
+                                <c:otherwise>
+                                    <h:inputText value="#{perfil.usuario.nombreUsuario}" disabled="true"/></c:otherwise>
+                            </c:choose>
 
-                            <h:inputText value="#{perfil.usuario.nombreUsuario}"/>
                         </li>
                         <li>
                             <label>Contraseña: </label>
-                            <h:inputSecret value="#{perfil.usuario.contrasenna}"/>
+                            <h:inputSecret value="#{perfil.usuario.contrasenna}" required="true"/>
                         </li>
                         <li>
                             <label>Repite contraseña: </label>
-                            <h:inputText value="#{perfil.repass}"/>
+                            <h:inputSecret value="#{perfil.repass}" required="true"/>
                         </li>
                         <li>
                             <label>Rol: </label>
-                            <h:inputText value="#{perfil.usuario.rol}"/>
+                            <h:inputText value="#{perfil.usuario.rol}" required="true"/>
                         </li>
                     </ol>
 
@@ -47,7 +52,7 @@ and open the template in the editor.
                             <ol class="lista">
                                 <li>
                                     <label>Numero de socio: </label>
-                                    <h:inputText value="#{perfil.socio.numero}"/>
+                                    <h:inputText value="#{perfil.socio.numero}" disabled="true"/>
                                 </li>
                                 <li>
                                     <label>Nombre: </label>
@@ -178,6 +183,8 @@ and open the template in the editor.
 
                     <p><h:commandButton value="#{perfil.accion}" action="#{perfil.ejecutarAccion()}"
                                         styleClass="btn-borde"/></p>
+                    <h:inputHidden value="#{perfil.modo}"/>
+                    <h:inputHidden value="#{perfil.usuario.nombreUsuario}"/>
                 </h:form>
             </c:when>
             <c:otherwise>

@@ -1,67 +1,91 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Registro</ui:define>
     <ui:define name="contenido">
+        <head>
+            <link rel="stylesheet" href="css/registro.css"/>
+        </head>
 
         <c:choose>
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
             <!--@elvariable id="registro" type="com.SII.vista.Registro"-->
             <c:when test="#{empty infoSesion.usuario}">
-                <h:form id="registro">
-                    <h:panelGrid columns="3">
-                        <h:outputText value="Nombre de usuario: *"/>
-                        <h:inputText id="user" value="#{registro.usuario.nombreUsuario}" required="true"/>
+                <h:form id="registro" style="border:1px solid #ccc">
+                    <div class="container">
+                        <h1>Registrarse</h1>
+                        <p>Rellena este formulario para ser un nuevo socio de ACOES.</p>
+
+                        <hr/>
+
+                        <b><h:outputText value="Nombre de usuario*"/></b>
+                        <h:inputText id="user" value="#{registro.usuario.nombreUsuario}" required="true"
+                                     a:placeholder="Introduzca un nombre de usuario"/>
                         <h:message for="user"/>
-                        <h:outputText value="Contraseña: *"/>
-                        <h:inputSecret id="pass" value="#{registro.usuario.contrasenna}" required="true"/>
+                        <b><h:outputText value="Contraseña*"/></b>
+                        <h:inputSecret id="pass" value="#{registro.usuario.contrasenna}" required="true"
+                                       a:placeholder="Introduzca una contraseña"/>
                         <h:message for="pass"/>
-                        <h:outputText value="Repita contraseña: *"/>
-                        <h:inputSecret id="repass" value="#{registro.repass}" required="true"/>
+                        <b><h:outputText value="Confirma la contraseña*"/></b>
+                        <h:inputSecret id="repass" value="#{registro.repass}" required="true"
+                                       a:placeholder="Repìta la contraseña"/>
                         <h:message for="repass"/>
 
-                        <h:outputText value="Nombre: *"/>
-                        <h:inputText id="nombre" value="#{registro.socio.nombre}" required="true"/>
+                        <b><h:outputText value="Nombre*"/></b>
+                        <h:inputText id="nombre" value="#{registro.socio.nombre}" required="true"
+                                     a:placeholder="Introduzca su nombre"/>
                         <h:message for="nombre"/>
-                        <h:outputText value="Apellidos: "/>
-                        <h:inputText id="apellidos" value="#{registro.socio.apellidos}"/>
+                        <b><h:outputText value="Apellidos"/></b>
+                        <h:inputText id="apellidos" value="#{registro.socio.apellidos}"
+                                     a:placeholder="Introduzca sus apellidos"/>
                         <h:message for="apellidos"/>
-                        <h:outputText value="NIF: *"/>
-                        <h:inputText id="nif" value="#{registro.socio.nif}" required="true"/>
+                        <b><h:outputText value="NIF*"/></b>
+                        <h:inputText id="nif" value="#{registro.socio.nif}" required="true"
+                                     a:placeholder="Introduzca su NIF"/>
                         <h:message for="nif"/>
-                        <h:outputText value="E-mail: *"/>
+                        <b><h:outputText value="E-mail*"/></b>
                         <h:inputText id="email" value="#{registro.socio.correoElectronico}" required="true"
-                                     validatorMessage="Compruebe que ha introducido un e-mail correcto">
+                                     validatorMessage="Compruebe que ha introducido un e-mail correcto"
+                                     a:placeholder="Introduzca su correo electrónico">
                             <f:validateRegex pattern=".+@.+"/>
                         </h:inputText>
                         <h:message for="email"/>
-                        <h:outputText value="Teléfono: *"/>
-                        <h:inputText id="telefono" value="#{registro.socio.telefono}" required="true"/>
+                        <b><h:outputText value="Teléfono*"/></b>
+                        <h:inputText id="telefono" value="#{registro.socio.telefono}" required="true"
+                                     a:placeholder="Introduzca su teléfono"/>
                         <h:message for="telefono"/>
-                        <h:outputText value="Teléfono Movil:"/>
-                        <h:inputText id="telMovil" value="#{registro.socio.telefonoMovil}"/>
+                        <b><h:outputText value="Teléfono Movil"/></b>
+                        <h:inputText id="telMovil" value="#{registro.socio.telefonoMovil}"
+                                     a:placeholder="Introduzca su teléfono móvil"/>
                         <h:message for="telMovil"/>
-                        <h:outputText value="Estado:"/>
+                        <b><h:outputText value="Estado:"/></b>
                         <h:inputText id="estado" value="#{registro.socio.estado}"/>
                         <h:message for="estado"/>
-                        <h:outputText value="Dirección: *"/>
+                        <b><h:outputText value="Dirección*"/></b>
                         <h:inputText id="direccion" value="#{registro.socio.direccion}" required="true"/>
                         <h:message for="direccion"/>
-                        <h:outputText value="Código postal: *"/>
+                        <b><h:outputText value="Código postal*"/></b>
                         <h:inputText id="cp" value="#{registro.socio.codigoPostal}" required="true"/>
                         <h:message for="cp"/>
-                        <h:outputText value="Provincia: *"/>
+                        <b><h:outputText value="Provincia*"/></b>
                         <h:inputText id="provincia" value="#{registro.socio.provincia}" required="true"/>
                         <h:message for="provincia"/>
-                        <h:outputText value="Poblacion: *"/>
+                        <b><h:outputText value="Poblacion*"/></b>
                         <h:inputText id="poblacion" value="#{registro.socio.poblacion}" required="true"/>
                         <h:message for="poblacion"/>
-                        <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"/>
-                        <h:link outcome="login.xhtml">Volver a la página de login</h:link>
-                    </h:panelGrid>
-                    <h:messages/>
+
+                        <p>Los campos marcados con * son obligatorios</p>
+                        <div class="clearfix">
+                            <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"
+                                             styleClass="btn-borde"/>
+                            <!--<h:link outcome="login.xhtml">Volver a la página de login</h:link>-->
+                        </div>
+
+
+                        <h:messages/>
+                    </div>
                 </h:form>
             </c:when>
             <c:otherwise>

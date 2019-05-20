@@ -16,6 +16,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.util.Date;
 
 @Named(value = "registro")
 @RequestScoped
@@ -42,11 +43,11 @@ public class Registro {
                 FacesContext.getCurrentInstance().addMessage("registro:repass", fm);
                 return null;
             }
+            socio.setFechaAlta(new Date());
             socio.setUsuarioNombreUsuario(usuario);
             usuario.setRol(0);
             usuario.setSocio(socio);
             negocioUsuario.registrarUsuario(usuario);
-            //negocioUsuario.annadirSocioA(usuario, socio);
             registroOK = true;
             return "inicio.xhtml";
         } catch (CuentaRepetidaException e) {

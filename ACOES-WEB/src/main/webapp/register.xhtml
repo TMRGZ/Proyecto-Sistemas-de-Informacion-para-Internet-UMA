@@ -5,9 +5,9 @@
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Registro</ui:define>
     <ui:define name="contenido">
-        <head>
+        <h:head>
             <link rel="stylesheet" href="css/registro.css"/>
-        </head>
+        </h:head>
 
         <c:choose>
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
@@ -22,11 +22,17 @@
 
                         <b><h:outputText value="Nombre de usuario*"/></b>
                         <h:inputText id="user" value="#{registro.usuario.nombreUsuario}" required="true"
-                                     a:placeholder="Introduzca un nombre de usuario"/>
+                                     a:placeholder="Introduzca un nombre de usuario"
+                                     validatorMessage="Los nombres de usuario no deben tener carácteres especiales distintos de _ o -">
+                            <f:validateRegex pattern="[aA-zZ0-9_-]*"/>
+                        </h:inputText>
                         <h:message for="user"/>
                         <b><h:outputText value="Contraseña*"/></b>
                         <h:inputSecret id="pass" value="#{registro.usuario.contrasenna}" required="true"
-                                       a:placeholder="Introduzca una contraseña"/>
+                                       a:placeholder="Introduzca una contraseña"
+                                       validatorMessage="Las contraseñas no deben tener carácteres especiales">
+                            <f:validateRegex pattern="[aA-zZ0-9]*"/>
+                        </h:inputSecret>
                         <h:message for="pass"/>
                         <b><h:outputText value="Confirma la contraseña*"/></b>
                         <h:inputSecret id="repass" value="#{registro.repass}" required="true"
@@ -54,11 +60,17 @@
                         <h:message for="email"/>
                         <b><h:outputText value="Teléfono*"/></b>
                         <h:inputText id="telefono" value="#{registro.socio.telefono}" required="true"
-                                     a:placeholder="Introduzca su teléfono"/>
+                                     a:placeholder="Introduzca su teléfono"
+                                     validatorMessage="Compruebe que ha introducido un número de teléfono valido">
+                            <f:validateRegex pattern="[0-9]*"/>
+                        </h:inputText>
                         <h:message for="telefono"/>
                         <b><h:outputText value="Teléfono Movil"/></b>
                         <h:inputText id="telMovil" value="#{registro.socio.telefonoMovil}"
-                                     a:placeholder="Introduzca su teléfono móvil"/>
+                                     a:placeholder="Introduzca su teléfono móvil"
+                                     validatorMessage="Compruebe que ha introducido un número de teléfono valido">
+                            <f:validateRegex pattern="[0-9]*"/>
+                        </h:inputText>
                         <h:message for="telMovil"/>
                         <b><h:outputText value="Estado:"/></b>
                         <h:inputText id="estado" value="#{registro.socio.estado}"/>
@@ -79,11 +91,7 @@
                         <p>Los campos marcados con * son obligatorios</p>
                         <div class="clearfix">
                             <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"
-                                             styleClass="btn-borde"/>
-                            <!--<h:link outcome="login.xhtml">Volver a la página de login</h:link>-->
-                        </div>
-
-
+                                             styleClass="btn-borde"/></div>
                         <h:messages/>
                     </div>
                 </h:form>

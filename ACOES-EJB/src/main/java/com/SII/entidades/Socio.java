@@ -74,9 +74,9 @@ public class Socio implements Serializable {
     private String provincia;
     @Basic(optional = false)
     @Column(name = "TELEFONO", nullable = false)
-    private Integer telefono;
+    private String telefono;
     @Column(name = "TELEFONO_MOVIL")
-    private Integer telefonoMovil;
+    private String telefonoMovil;
     @Basic(optional = false)
     @Column(name = "CORREO_ELECTRONICO", nullable = false, length = 40)
     private String correoElectronico;
@@ -109,7 +109,7 @@ public class Socio implements Serializable {
         this.numero = numero;
     }
 
-    public Socio(Long numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, Integer telefono, String correoElectronico) {
+    public Socio(Long numero, String nombre, String nif, String direccion, String poblacion, String codigoPostal, String provincia, String telefono, String correoElectronico) {
         this.numero = numero;
         this.nombre = nombre;
         this.nif = nif;
@@ -193,19 +193,19 @@ public class Socio implements Serializable {
         this.provincia = provincia;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public Integer getTelefonoMovil() {
+    public String getTelefonoMovil() {
         return telefonoMovil;
     }
 
-    public void setTelefonoMovil(Integer telefonoMovil) {
+    public void setTelefonoMovil(String telefonoMovil) {
         this.telefonoMovil = telefonoMovil;
     }
 

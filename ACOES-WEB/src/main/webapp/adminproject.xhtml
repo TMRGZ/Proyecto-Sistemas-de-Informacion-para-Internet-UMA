@@ -5,9 +5,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="menuadmin">
-        <li><a href="projects.xhtml">Proyectos</a></li>
-        <li><a href="listamiembros.xhtml">Miembros</a></li>
-        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+
     </ui:define>
 
     <ui:define name="contenido">
@@ -27,8 +25,8 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <h:outputLabel>código:</h:outputLabel><input value="#{ctrlproyectos.proyecto.codigo}"
-                                                                         readonly=""/>
+                            <h:outputLabel>código:</h:outputLabel>
+                            <input value="#{ctrlproyectos.proyecto.codigo}" readonly=""/>
                         </li>
                     </c:otherwise>
                 </c:choose>

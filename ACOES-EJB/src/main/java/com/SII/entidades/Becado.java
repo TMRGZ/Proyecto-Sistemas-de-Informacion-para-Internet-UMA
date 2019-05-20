@@ -40,6 +40,7 @@ public class Becado implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "CODIGO", nullable = false, length = 20)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
     @Column(name = "ESTADO", length = 30)
     private String estado;

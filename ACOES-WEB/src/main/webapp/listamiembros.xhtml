@@ -12,17 +12,15 @@ and open the template in the editor.
 >
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="menuadmin">
-        <li><a href="projects.xhtml">Proyectos</a></li>
-        <li><a href="listamiembros.xhtml">Miembros</a></li>
-        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+
     </ui:define>
 
     <ui:define name="contenido">
-        <h:link outcome="adminpage.xhtml" class="atras"/>
-        <head>
+        <h:head>
             <link rel="stylesheet" href="css/tabla.css"/>
-        </head>
-        <body>
+        </h:head>
+        <h1>Esto dentro de detalles del proyecto en lista de proyectos</h1>
+
         <div id="main-container">
             <h:form>
 
@@ -48,7 +46,7 @@ and open the template in the editor.
                 </table>
             </h:form>
         </div>
-        </body>
+
     </ui:define>
 </ui:composition>
 

@@ -8,57 +8,71 @@ and open the template in the editor.
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="menuadmin">
-        <li><a href="projects.xhtml">Proyectos</a></li>
-        <li><a href="listamiembros.xhtml">Miembros</a></li>
-        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+
     </ui:define>
     <ui:define name="contenido">
-        <head>
-            <link rel="stylesheet" href="css/tabla.css"/>
-        </head>
-        <h:link outcome="adminpage.xhtml" class="atras"/>
-        <div id="main-container">
-            <h:form id="beneficiarios">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Identificador</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Tipo</th>
-                        <th>Numero de Cuenta</th>
-                        <th>Observaciones</th>
-                        <th>Ver Mas</th>
-                    </tr>
-                    </thead>
+        <h:head>
+            <link rel="stylesheet" href="css/tabla2.css"/>
+        </h:head>
 
-                    <!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
-                    <ui:repeat value="#{controlben.beneficiarios.toArray()}" var="beneficiario">
-                        <tr>
-                            <td>#{beneficiario.codigo}</td>
-                            <td>#{beneficiario.identificador}</td>
-                            <td>#{beneficiario.nombre}</td>
-                            <td>#{beneficiario.apellidos}</td>
-                            <td>#{beneficiario.tipo}</td>
-                            <td>#{beneficiario.numeroCuenta}</td>
-                            <td>#{beneficiario.observaciones}</td>
-                            <td><h:commandButton value="Modificar" action="#{controlben.buscar(beneficiario)}"
-                                                 styleClass="btn-borde"/>
-                                <h:commandButton value="Borrar" action="#{controlben.borrar(beneficiario)}"
-                                                 styleClass="btn-borde"/>
-                            </td> <!-- El actioncommandButton value = "Modificar" action =  debe comprobar si es un usuario o admin para poder dejar que se modifique-->
-                        </tr>
-                    </ui:repeat>
-                </table>
+        <h:form id="beneficiarios">
+            <div align="center" class="container">
+                <h1>Lista de beneficiarios</h1>
+                <h:dataTable value="#{controlben.beneficiarios.toArray()}" var="beneficiario"
+                             styleClass="order-table" headerClass="order-table-header"
+                             rowClasses="order-table-odd-row, order-table-even-row">
+                    <h:column>
+                        <f:facet name="header">Codigo</f:facet>
+                        <h:outputText value="#{beneficiario.codigo}"/>
+                    </h:column>
 
-                <br> <h:commandButton value="Añadir" action="nuevobeneficiario.xhtml" styleClass="btn-borde"/></br>
+                    <h:column>
+                        <f:facet name="header">Identificador</f:facet>
+                        <h:outputText value="#{beneficiario.identificador}"/>
+                    </h:column>
 
-            </h:form>
-        </div>
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{beneficiario.nombre}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Apellidos</f:facet>
+                        <h:outputText value="#{beneficiario.apellidos}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Tipo</f:facet>
+                        <h:outputText value="#{beneficiario.tipo}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Numero de Cuenta</f:facet>
+                        <h:outputText value="#{beneficiario.numeroCuenta}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Observaciones</f:facet>
+                        <h:outputText value="#{beneficiario.observaciones}"/>
+                    </h:column>
+
+                    <h:column>
+                        <h:commandButton value="Modificar" action="#{controlben.buscar(beneficiario)}"
+                                         styleClass="btn-borde"/>
+                    </h:column>
+
+                    <h:column>
+                        <h:commandButton value="Borrar" action="#{controlben.borrar(beneficiario)}"
+                                         styleClass="btn-borde"/>
+                    </h:column>
+
+                </h:dataTable>
+                <h:commandButton value="Añadir" action="nuevobeneficiario.xhtml" styleClass="btn-borde"/>
+            </div>
+        </h:form>
     </ui:define>
 </ui:composition>
 

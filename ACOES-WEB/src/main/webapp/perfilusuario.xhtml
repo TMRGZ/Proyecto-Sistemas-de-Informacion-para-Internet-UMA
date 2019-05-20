@@ -10,13 +10,10 @@ and open the template in the editor.
                 xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="titulo">Perfil</ui:define>
     <ui:define name="menuadmin">
-        <li><a href="projects.xhtml">Proyectos</a></li>
-        <li><a href="listamiembros.xhtml">Miembros</a></li>
-        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+
     </ui:define>
     <ui:define name="contenido">
         <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
-        <h:link outcome="adminpage.xhtml" class="atras"/>
         <c:choose>
             <c:when test="#{perfil.estasAutorizadoParaEditar()}">
                 <h1>#{perfil.accion} perfil</h1>
@@ -42,7 +39,7 @@ and open the template in the editor.
                         </li>
                         <li>
                             <label>Rol: </label>
-                            <h:inputText value="#{perfil.usuario.rol}" required="true"/>
+                            <h:inputText value="#{perfil.usuario.rol}" required="true" disabled="true"/>
                         </li>
                     </ol>
 

@@ -5,60 +5,108 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="menuadmin">
-        <li><a href="projects.xhtml">Proyectos</a></li>
-        <li><a href="listamiembros.xhtml">Miembros</a></li>
-        <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+
     </ui:define>
 
+
     <ui:define name="contenido">
-        <h:link outcome="adminpage.xhtml" class="atras"/>
-
-
+        <h:head>
+            <link rel="stylesheet" href="css/tabla2.css"/>
+        </h:head>
         <c:choose>
-
-
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
             <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
-
                 No tiene permisos para ver esta información.
-
             </c:when>
             <c:otherwise>
 
-                Lista proyectos
-
-
                 <h:form id="listaproyectos"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
-                    <ol class="lista">
+                    <div align="center" class="container">
+                        <h1>Lista de Proyectos</h1>
 
-                        <ui:repeat value="#{ctrlproyectos.proyectos}" var="proyecto">
-                            <li>
-                                #{proyecto.nombre}
-                                <div align="right">
-                                    <h:commandButton value="Borrar"
-                                                     action="#{ctrlproyectos.remProyecto(proyecto)}"
-                                                     styleClass="btn-borde"/>
-                                    <h:commandButton value="Modificar" action="adminproject.xhtml"
-                                                     styleClass="btn-borde">
-                                        <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
-                                    </h:commandButton>
-                                    <h:commandButton value="Detalles" action="detailsproject.xhtml"
-                                                     styleClass="btn-borde">
-                                        <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
-                                    </h:commandButton>
-                                </div>
-                            </li>
-                        </ui:repeat>
-                    </ol>
-                    <div align="center">
+                        <h:dataTable value="#{ctrlproyectos.proyectos}" var="proyecto" styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row">
+
+                            <h:column>
+                                <f:facet name="header">Nombre</f:facet>
+                                <h:outputText value="#{proyecto.nombre}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Presupuesto</f:facet>
+                                <c:choose>
+                                    <c:when test="#{!empty proyecto.presupuesto}"><h:outputText
+                                            value="#{proyecto.presupuesto}"/></c:when>
+                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                                </c:choose>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Combustible</f:facet>
+                                <c:choose>
+                                    <c:when test="#{!empty proyecto.combustible}"><h:outputText
+                                            value="#{proyecto.combustible}"/></c:when>
+                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                                </c:choose>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Mantenimiento</f:facet>
+                                <c:choose>
+                                    <c:when test="#{!empty proyecto.mantenimiento}"><h:outputText
+                                            value="#{proyecto.mantenimiento}"/></c:when>
+                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                                </c:choose>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Contenedor</f:facet>
+                                <c:choose>
+                                    <c:when test="#{!empty proyecto.contenedor}"><h:outputText
+                                            value="#{proyecto.contenedor}"/></c:when>
+                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                                </c:choose>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Descripcion</f:facet>
+                                <c:choose>
+                                    <c:when test="#{!empty proyecto.descripcion}"><h:outputText
+                                            value="#{proyecto.descripcion}"/></c:when>
+                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                                </c:choose>
+                            </h:column>
+
+                            <h:column>
+                                <h:commandButton value="Borrar"
+                                                 action="#{ctrlproyectos.remProyecto(proyecto)}"
+                                                 styleClass="btn-borde"/>
+                            </h:column>
+
+                            <h:column>
+                                <h:commandButton value="Modificar" action="adminproject.xhtml"
+                                                 styleClass="btn-borde">
+                                    <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                                </h:commandButton>
+                            </h:column>
+
+                            <h:column>
+                                <h:commandButton value="Detalles" action="detailsproject.xhtml"
+                                                 styleClass="btn-borde">
+                                    <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
+                                </h:commandButton>
+                            </h:column>
+
+                        </h:dataTable>
+
                         <h:commandButton value="Añadir" action="adminproject.xhtml" styleClass="btn-borde">
                             <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
                         </h:commandButton>
-                    </div>
 
+                    </div>
                 </h:form>
             </c:otherwise>
-
         </c:choose>
     </ui:define>
 </ui:composition>

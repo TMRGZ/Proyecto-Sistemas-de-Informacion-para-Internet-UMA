@@ -9,9 +9,7 @@
 
 
 <h:head>
-    <title>
-        <ui:define name="titulo">Titulo de pagina</ui:define>
-    </title>
+    <title><ui:define name="titulo">Titulo de pagina</ui:define></title>
     <link rel="stylesheet" href="css/lista.css"/>
     <link rel="stylesheet" href="css/menu.css"/>
     <link rel="stylesheet" href="css/botones.css"/>
@@ -19,21 +17,25 @@
 </h:head>
 
 <h:body>
-
     <div class="nav">
-
         <h:form id="menu">
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
             <ul class="menulist">
                 <c:choose>
                     <c:when test="#{!empty infoSesion.usuario}">
                         <li><h:commandLink action="#{infoSesion.home()}" value="Inicio"/></li>
-                        <li><h:commandLink action="#{infoSesion.invalidarSesion()}" value="Cerrar Sesion"/></li>
+
 
                         <c:when test="#{infoSesion.usuario.rol == 1}">
+                            <li><a href="listausuarios.xhtml">Usuarios</a></li>
+                            <li><a href="projects.xhtml">Proyectos</a></li>
+                            <li><a href="listamiembros.xhtml">Miembros</a></li>
+                            <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
+
                             <ui:insert name="menuadmin"/>
                         </c:when>
                         <div class="perfil">
+                            <li><h:commandLink action="#{infoSesion.invalidarSesion()}" value="Cerrar Sesion"/></li>
                             <li>
                                 <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
                                 <h:commandLink value="#{infoSesion.usuario.nombreUsuario}"

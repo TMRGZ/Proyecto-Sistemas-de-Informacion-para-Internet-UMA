@@ -24,7 +24,7 @@
                     <div align="center" class="container">
                         <h1>Lista de Proyectos</h1>
 
-                        <h:dataTable value="#{ctrlproyectos.proyectos}" var="proyecto" styleClass="order-table"
+                        <h:dataTable value="#{ctrlproyectos.getProyectos()}" var="proyecto" styleClass="order-table"
                                      headerClass="order-table-header"
                                      rowClasses="order-table-odd-row,order-table-even-row">
 
@@ -35,74 +35,77 @@
 
                             <h:column>
                                 <f:facet name="header">Presupuesto</f:facet>
-                                <c:choose>
-                                    <c:when test="#{!empty proyecto.presupuesto}"><h:outputText
-                                            value="#{proyecto.presupuesto}"/></c:when>
-                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                                </c:choose>
+                                <!--<c:choose>
+                                    <c:when test="#{proyecto.presupuesto == null}">-->
+                                <h:outputText
+                                        value="#{proyecto.presupuesto}"/>
+                                <!--</c:when>
+                                        <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                                </c:choose>-->
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Combustible</f:facet>
-                                <c:choose>
-                                    <c:when test="#{!empty proyecto.combustible}"><h:outputText
-                                            value="#{proyecto.combustible}"/></c:when>
-                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                                </c:choose>
+                                <!--<c:choose>
+                                    <c:when test="#{!empty proyecto.combustible}">-->
+                                <h:outputText
+                                        value="#{proyecto.combustible}"/><!--</c:when>
+                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                            </c:choose>-->
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Mantenimiento</f:facet>
-                                <c:choose>
-                                    <c:when test="#{!empty proyecto.mantenimiento}"><h:outputText
-                                            value="#{proyecto.mantenimiento}"/></c:when>
-                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                                </c:choose>
+                                <!--<c:choose>
+                                    <c:when test="#{!empty proyecto.mantenimiento}">--><h:outputText
+                                    value="#{proyecto.mantenimiento}"/><!--</c:when>
+                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                            </c:choose>-->
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Contenedor</f:facet>
-                                <c:choose>
-                                    <c:when test="#{!empty proyecto.contenedor}"><h:outputText
-                                            value="#{proyecto.contenedor}"/></c:when>
-                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                                </c:choose>
+                                <!--<c:choose>
+                                    <c:when test="#{!empty proyecto.contenedor}">-->
+                                <h:outputText
+                                        value="#{proyecto.contenedor}"/><!--</c:when>
+                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                            </c:choose>-->
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Descripcion</f:facet>
-                                <c:choose>
-                                    <c:when test="#{!empty proyecto.descripcion}"><h:outputText
-                                            value="#{proyecto.descripcion}"/></c:when>
-                                    <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                                </c:choose>
+                                <!--<c:choose>
+                                    <c:when test="#{!empty proyecto.descripcion}">-->
+                                <h:outputText
+                                        value="#{proyecto.descripcion}"/><!--</c:when>
+                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
+                            </c:choose>-->
                             </h:column>
 
                             <h:column>
                                 <h:commandButton value="Borrar"
                                                  action="#{ctrlproyectos.remProyecto(proyecto)}"
-                                                 styleClass="btn-borde"/>
+                                                 styleClass="btn-borde" id="remproy"/>
+                                <h:message for="remproy"/>
                             </h:column>
 
                             <h:column>
-                                <h:commandButton value="Modificar" action="adminproject.xhtml"
-                                                 styleClass="btn-borde">
-                                    <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
-                                </h:commandButton>
+                                <h:commandButton value="Modificar" action="#{ctrlproyectos.administrar(1, proyecto)}"
+                                                 styleClass="btn-borde"/>
+                                <h:inputHidden value="#{ctrlproyectos.modo}"/>
                             </h:column>
 
                             <h:column>
                                 <h:commandButton value="Detalles" action="detailsproject.xhtml"
-                                                 styleClass="btn-borde">
-                                    <f:actionListener binding="#{ctrlproyectos.setProyecto(proyecto)}"/>
-                                </h:commandButton>
+                                                 styleClass="btn-borde"/>
                             </h:column>
 
                         </h:dataTable>
 
-                        <h:commandButton value="Añadir" action="adminproject.xhtml" styleClass="btn-borde">
-                            <f:actionListener binding="#{ctrlproyectos.setProyectoVacio()}"/>
-                        </h:commandButton>
+                        <h:commandButton value="Añadir" action="#{ctrlproyectos.administrar(0, proyecto)}"
+                                         styleClass="btn-borde"/>
+                        <h:inputHidden value="#{ctrlproyectos.modo}"/>
 
                     </div>
                 </h:form>

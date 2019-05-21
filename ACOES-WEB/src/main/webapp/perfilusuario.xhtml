@@ -39,7 +39,9 @@ and open the template in the editor.
                         </li>
                         <li>
                             <label>Rol: </label>
-                            <h:inputText value="#{perfil.usuario.rol}" required="true" disabled="true"/>
+                            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+                            <h:inputText value="#{perfil.usuario.rol}" required="true"
+                                         disabled="#{infoSesion.usuario.rol != 1}"/>
                         </li>
                     </ol>
 

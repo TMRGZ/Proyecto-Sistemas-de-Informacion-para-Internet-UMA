@@ -4,11 +4,13 @@ package com.SII.vista;
 import com.SII.entidades.Proyecto;
 import com.SII.negocio.NegocioProy;
 import com.SII.negocio.excepciones.AcoesException;
+import com.SII.negocio.excepciones.ProyInexistenteException;
+import com.SII.negocio.excepciones.ProyRepException;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -17,72 +19,106 @@ import java.util.List;
 @RequestScoped
 public class ControlProyecto implements Serializable {
 
-    private Proyecto proyecto;
-    private int modo;
-    @EJB
+    @Inject
     private NegocioProy negproy;
+    @Inject
+    private InfoSesion sesion;
+
+    private Proyecto proyecto;
+    private Modo modo;
 
     public ControlProyecto() {
         proyecto = new Proyecto();
+        modo = Modo.VER;
+    }
+
+    public String ver(Proyecto proyecto) {
+        this.proyecto = proyecto;
+        setModo(Modo.VER);
+        return "detailsproject.xhtml";
     }
 
 
-    public String addProyecto() {
-
-        try {
-            negproy.AnnadirProy(proyecto);
-        } catch (AcoesException e) {
-            FacesMessage fm = new FacesMessage("Existe un Proyecto con el mismo código");
-            FacesContext.getCurrentInstance().addMessage("adminproject:addproy", fm);
-        }
-        return "projects.xhtml";
+    public String modificar(Proyecto proyecto) {
+        this.proyecto = proyecto;
+        setModo(Modo.MODIFICAR);
+        return "adminproject.xhtml";
     }
 
-    public String updProyecto() {
+    public String annadir() {
+        setModo(Modo.INSERTAR);
+        return "adminproject.xhtml";
+    }
+
+    public String ejecutarAccion() {
         try {
-            negproy.ModificarProy(proyecto);
-        } catch (AcoesException e) {
+            switch (modo) {
+                case MODIFICAR:
+                    negproy.modificarProy(proyecto);
+                    break;
+                case INSERTAR:
+                    negproy.annadirProy(proyecto);
+                    break;
+            }
+            sesion.refrescarUsuario();
+            return "projects.xhtml";
+
+        } catch (ProyInexistenteException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");
             FacesContext.getCurrentInstance().addMessage("adminproject:modproy", fm);
+            return null;
+
+        } catch (ProyRepException e) {
+            FacesMessage fm = new FacesMessage("Existe un Proyecto con el mismo código");
+            FacesContext.getCurrentInstance().addMessage("adminproject:addproy", fm);
+            return null;
+
+        } catch (AcoesException e) {
+            return "inicio.xhtml";
         }
-        return "projects.xhtml";
+    }
+
+    public String getAccion() {
+        switch (modo) {
+            case VER:
+                return "Ver";
+            case MODIFICAR:
+                return "Modificar";
+            case INSERTAR:
+                return "Añadir";
+        }
+        return null;
+    }
+
+    public Modo getModo() {
+        return modo;
+    }
+
+    public void setModo(Modo modo) {
+        this.modo = modo;
     }
 
     public String remProyecto(Proyecto p) {
         try {
-            negproy.EliminarProy(p);
+            negproy.eliminarProy(p);
         } catch (AcoesException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");
             FacesContext.getCurrentInstance().addMessage("projects:remproy", fm);
         }
-        return "projects.xhtml";
+        return null;
     }
 
     public List<Proyecto> getProyectos() {
-
         return negproy.getProys();
     }
-
 
     public Proyecto getProyecto() {
         return proyecto;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public int getModo() {
-        return modo;
-    }
-
-    public void setModo(int modo) {
-        this.modo = modo;
-    }
-
-    public String administrar(int modo, Proyecto p) {
-        this.modo = modo;
-        this.setProyecto(p);
-        return "adminproject.xhtml";
+    public enum Modo {
+        MODIFICAR,
+        VER,
+        INSERTAR
     }
 }

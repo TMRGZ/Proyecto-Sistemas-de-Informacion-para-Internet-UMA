@@ -3,7 +3,6 @@ package com.SII.negocio;
 import com.SII.entidades.Proyecto;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ProyInexistenteException;
-import com.SII.negocio.excepciones.ProyRepException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,18 +16,12 @@ public class NegocioProyImpl implements NegocioProy {
     private EntityManager em;
 
     @Override
-    public void AnnadirProy(Proyecto p) throws AcoesException {
-        Proyecto aux = em.find(Proyecto.class, p.getCodigo());
-        if (aux != null) {
-            throw new ProyRepException();
-        }
-
+    public void annadirProy(Proyecto p) throws AcoesException {
         em.persist(p);
-
     }
 
     @Override
-    public void ModificarProy(Proyecto p) throws AcoesException {
+    public void modificarProy(Proyecto p) throws AcoesException {
         Proyecto aux = em.find(Proyecto.class, p.getCodigo());
         if (aux == null) {
             throw new ProyInexistenteException();
@@ -37,7 +30,7 @@ public class NegocioProyImpl implements NegocioProy {
     }
 
     @Override
-    public void EliminarProy(Proyecto p) throws AcoesException {
+    public void eliminarProy(Proyecto p) throws AcoesException {
         Proyecto aux = em.find(Proyecto.class, p.getCodigo());
         if (aux == null) {
             throw new ProyInexistenteException();

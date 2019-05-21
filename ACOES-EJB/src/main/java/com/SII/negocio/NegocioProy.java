@@ -8,11 +8,11 @@ import java.util.List;
 
 @Local
 public interface NegocioProy {
-    void AnnadirProy(Proyecto p) throws AcoesException;
+    void annadirProy(Proyecto p) throws AcoesException;
 
-    void ModificarProy(Proyecto p) throws AcoesException;
+    void modificarProy(Proyecto p) throws AcoesException;
 
-    void EliminarProy(Proyecto p) throws AcoesException;
+    void eliminarProy(Proyecto p) throws AcoesException;
 
     List<Proyecto> getProys();
 }

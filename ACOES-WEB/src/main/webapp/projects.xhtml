@@ -19,8 +19,8 @@
                 No tiene permisos para ver esta información.
             </c:when>
             <c:otherwise>
-
-                <h:form id="listaproyectos"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
+                <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
+                <h:form id="listaproyectos">
                     <div align="center" class="container">
                         <h1>Lista de Proyectos</h1>
 
@@ -35,77 +35,53 @@
 
                             <h:column>
                                 <f:facet name="header">Presupuesto</f:facet>
-                                <!--<c:choose>
-                                    <c:when test="#{proyecto.presupuesto == null}">-->
-                                <h:outputText
-                                        value="#{proyecto.presupuesto}"/>
-                                <!--</c:when>
-                                        <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                                </c:choose>-->
+                                <h:outputText value="#{proyecto.presupuesto}"/>
+
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Combustible</f:facet>
-                                <!--<c:choose>
-                                    <c:when test="#{!empty proyecto.combustible}">-->
                                 <h:outputText
-                                        value="#{proyecto.combustible}"/><!--</c:when>
-                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                            </c:choose>-->
+                                        value="#{proyecto.combustible}"/>
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Mantenimiento</f:facet>
-                                <!--<c:choose>
-                                    <c:when test="#{!empty proyecto.mantenimiento}">--><h:outputText
-                                    value="#{proyecto.mantenimiento}"/><!--</c:when>
-                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                            </c:choose>-->
+                                <h:outputText
+                                        value="#{proyecto.mantenimiento}"/>
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Contenedor</f:facet>
-                                <!--<c:choose>
-                                    <c:when test="#{!empty proyecto.contenedor}">-->
                                 <h:outputText
-                                        value="#{proyecto.contenedor}"/><!--</c:when>
-                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                            </c:choose>-->
+                                        value="#{proyecto.contenedor}"/>
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Descripcion</f:facet>
-                                <!--<c:choose>
-                                    <c:when test="#{!empty proyecto.descripcion}">-->
                                 <h:outputText
-                                        value="#{proyecto.descripcion}"/><!--</c:when>
-                                <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                            </c:choose>-->
+                                        value="#{proyecto.descripcion}"/>
                             </h:column>
 
                             <h:column>
-                                <h:commandButton value="Borrar"
-                                                 action="#{ctrlproyectos.remProyecto(proyecto)}"
-                                                 styleClass="btn-borde" id="remproy"/>
-                                <h:message for="remproy"/>
-                            </h:column>
-
-                            <h:column>
-                                <h:commandButton value="Modificar" action="#{ctrlproyectos.administrar(1, proyecto)}"
+                                <h:commandButton value="Borrar" action="#{ctrlproyectos.remProyecto(proyecto)}"
                                                  styleClass="btn-borde"/>
-                                <h:inputHidden value="#{ctrlproyectos.modo}"/>
                             </h:column>
 
                             <h:column>
-                                <h:commandButton value="Detalles" action="detailsproject.xhtml"
+                                <h:commandButton value="Modificar" action="#{ctrlproyectos.modificar(proyecto)}"
+                                                 styleClass="btn-borde"/>
+                            </h:column>
+
+                            <h:column>
+                                <h:commandButton value="Detalles" action="#{ctrlproyectos.ver(proyecto)}"
                                                  styleClass="btn-borde"/>
                             </h:column>
 
                         </h:dataTable>
 
-                        <h:commandButton value="Añadir" action="#{ctrlproyectos.administrar(0, proyecto)}"
+                        <h:commandButton value="Añadir" action="#{ctrlproyectos.annadir()}"
                                          styleClass="btn-borde"/>
-                        <h:inputHidden value="#{ctrlproyectos.modo}"/>
 
                     </div>
                 </h:form>

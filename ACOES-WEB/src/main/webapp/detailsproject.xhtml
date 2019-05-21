@@ -6,34 +6,31 @@
 
     <ui:define name="contenido">
         <h:link outcome="projects.xhtml" class="atras"/>
-        <ol class="lista"><!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
-            <li>
+        <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
 
-                <h:outputLabel>código:</h:outputLabel>#{ctrlproyectos.getProyecto().codigo}
-
-            </li>
-
+        <ol class="lista">
             <li>
-                <h:outputLabel>nombre:</h:outputLabel>#{ctrlproyectos.getProyecto().nombre}
+                <h:outputLabel>código:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().codigo}</h:outputLabel>
             </li>
             <li>
-                <h:outputLabel>presupuesto:</h:outputLabel>#{ctrlproyectos.getProyecto().presupuesto}
+                <h:outputLabel>nombre:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().nombre}</h:outputLabel>
             </li>
             <li>
-                <h:outputLabel>combustible:</h:outputLabel>#{ctrlproyectos.getProyecto().combustible}
+                <h:outputLabel>presupuesto:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().presupuesto} </h:outputLabel>
             </li>
             <li>
-                <h:outputLabel>contenedor:</h:outputLabel>#{ctrlproyectos.getProyecto().contenedor}
+                <h:outputLabel>combustible:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().combustible}</h:outputLabel>
             </li>
             <li>
-                <h:outputLabel>descripción:</h:outputLabel>#{ctrlproyectos.getProyecto().descripcion}
+                <h:outputLabel>contenedor:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().contenedor}</h:outputLabel>
             </li>
             <li>
-                <h:outputLabel>mantenimiento:</h:outputLabel>#{ctrlproyectos.getProyecto().mantenimiento}
+                <h:outputLabel>descripción:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().descripcion} </h:outputLabel>
+            </li>
+            <li>
+                <h:outputLabel>mantenimiento:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().mantenimiento}</h:outputLabel>
             </li>
         </ol>
 
     </ui:define>
-
-
 </ui:composition>

@@ -1,64 +1,66 @@
 package com.SII.vista;
 
 
-import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Proyecto;
+import com.SII.negocio.NegocioProy;
+import com.SII.negocio.excepciones.AcoesException;
 
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Named(value = "ctrlproyectos")
-@ManagedBean
-@SessionScoped
+@RequestScoped
 public class ControlProyecto implements Serializable {
-    private List<Proyecto> proyectos;
 
     private Proyecto proyecto;
+    private int modo;
+    @EJB
+    private NegocioProy negproy;
 
     public ControlProyecto() {
-        proyectos = new ArrayList<>();
-        proyectos.add(new Proyecto((long) 0, "Charla en la UMA"));
-        proyectos.get(0).setBeneficiarioSet(new HashSet<>());
-        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario((long) 1, "1-1", "paco", "Niño"));
-        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario((long) 2, "1-2", "Julian Muñoz", "Socio"));
-        proyectos.add(new Proyecto((long) 1, "Adaptarse al sistema de los alumnos"));
+        proyecto = new Proyecto();
     }
 
 
-    public String uploadProyecto() {
-        if (proyectos.indexOf(proyecto) >= 0) {
+    public String addProyecto() {
 
-            updProyecto(proyectos.get(proyectos.indexOf(proyecto)), proyecto.getNombre(), proyecto.getPresupuesto(), proyecto.getCombustible(),
-                    proyecto.getContenedor(), proyecto.getMantenimiento(), proyecto.getDescripcion());
-        } else {
-            proyectos.add(proyecto);
+        try {
+            negproy.AnnadirProy(proyecto);
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Existe un Proyecto con el mismo código");
+            FacesContext.getCurrentInstance().addMessage("adminproject:addproy", fm);
+        }
+        return "projects.xhtml";
+    }
+
+    public String updProyecto() {
+        try {
+            negproy.ModificarProy(proyecto);
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("adminproject:modproy", fm);
         }
         return "projects.xhtml";
     }
 
     public String remProyecto(Proyecto p) {
-        proyectos.remove(p);
-        return null;
-    }
-
-    public void updProyecto(Proyecto p, String nombre, Integer presupuesto, Integer combustible, Integer contenedor, Integer mantenimiento, String descripcion) {
-        Proyecto upd = proyectos.get(proyectos.indexOf(p));
-
-        if (nombre != null) upd.setNombre(nombre);
-        if (presupuesto != null) upd.setPresupuesto(presupuesto);
-        if (combustible != null) upd.setCombustible(combustible);
-        if (contenedor != null) upd.setContenedor(contenedor);
-        if (descripcion != null) upd.setDescripcion(descripcion);
-        if (mantenimiento != null) upd.setMantenimiento(mantenimiento);
+        try {
+            negproy.EliminarProy(p);
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("projects:remproy", fm);
+        }
+        return "projects.xhtml";
     }
 
     public List<Proyecto> getProyectos() {
-        return proyectos;
+
+        return negproy.getProys();
     }
 
 
@@ -70,7 +72,17 @@ public class ControlProyecto implements Serializable {
         this.proyecto = proyecto;
     }
 
-    public void setProyectoVacio() {
-        setProyecto(new Proyecto());
+    public int getModo() {
+        return modo;
+    }
+
+    public void setModo(int modo) {
+        this.modo = modo;
+    }
+
+    public String administrar(int modo, Proyecto p) {
+        this.modo = modo;
+        this.setProyecto(p);
+        return "adminproject.xhtml";
     }
 }

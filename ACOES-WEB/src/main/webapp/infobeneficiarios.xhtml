@@ -17,28 +17,28 @@ and open the template in the editor.
             <ol class="lista">
                 <li>
                     <label>Identificador: </label>
-                    <h:inputText value="#{controlben.beneficiario.identificador}"/>
+                    <h:inputText value="#{bene.beneficiario.identificador}"/>
                 </li>
                 <li>
                     <label>Nombre: </label>
-                    <h:inputText value="#{controlben.beneficiario.nombre}"/>
+                    <h:inputText value="#{bene.beneficiario.nombre}"/>
                 </li>
                 <li>
                     <label>Apellido: </label>
-                    <h:inputText value="#{controlben.beneficiario.apellidos}"/>
+                    <h:inputText value="#{bene.beneficiario.apellidos}"/>
                 </li>
                 <li>
                     <label>Numero de cuenta </label>
-                    <h:inputText value="#{controlben.beneficiario.numeroCuenta}"/>
+                    <h:inputText value="#{bene.beneficiario.numeroCuenta}"/>
                 </li>
                 <li>
                     <label>Tipo: </label>
-                    <h:inputText value="#{controlben.beneficiario.tipo}"/>
+                    <h:inputText value="#{bene.beneficiario.tipo}"/>
                 </li>
 
             </ol>
             <p>
-                <h:commandButton value="Enviar" action="#{controlben.modificar()}" styleClass="btn-borde"/>
+                <h:commandButton value="Enviar" action="#{bene.modificar()}" styleClass="btn-borde"/>
             </p>
         </h:form>
     </ui:define>

@@ -21,35 +21,35 @@ and open the template in the editor.
                     <li>
                         <h:outputLabel>Identificador: </h:outputLabel>
 
-                        <h:inputText value="#{controlben.getbeneficiarioadd().identificador}"/>
+                        <h:inputText value="#{bene.getbeneficiarioadd().identificador}"/>
                     </li>
                     <li>
                         <h:outputLabel>Nombre: </h:outputLabel>
-                        <h:inputText value="#{controlben.getbeneficiarioadd().nombre}"/>
+                        <h:inputText value="#{bene.getbeneficiarioadd().nombre}"/>
                     </li>
                     <li>
                         <h:outputLabel>Apellidos: </h:outputLabel>
-                        <h:inputText value="#{controlben.getbeneficiarioadd().apellidos}"/>
+                        <h:inputText value="#{bene.getbeneficiarioadd().apellidos}"/>
                     </li>
                     <li>
                         <h:outputLabel>Numero de cuenta: </h:outputLabel>
-                        <h:inputText value="#{controlben.getbeneficiarioadd().numeroCuenta}"/>
+                        <h:inputText value="#{bene.getbeneficiarioadd().numeroCuenta}"/>
                     </li>
                     <li>
                         <h:outputLabel>Tipo: </h:outputLabel>
-                        <h:selectOneMenu value="#{controlben.getbeneficiarioadd().tipo}">
+                        <h:selectOneMenu value="#{bene.getbeneficiarioadd().tipo}">
                             <f:selectItem itemValue="Niño" itemLabel="Niño"/>
                             <f:selectItem itemValue="Socio" itemLabel="Socio"/>
                         </h:selectOneMenu>
                     </li>
                     <li>
                         <h:outputLabel>Observaciones: </h:outputLabel>
-                        <h:inputText value="#{controlben.getbeneficiarioadd().observaciones}"/>
+                        <h:inputText value="#{bene.getbeneficiarioadd().observaciones}"/>
                     </li>
 
                 </ol>
                 <p>
-                    <h:commandButton value="Enviar" action="#{controlben.add()}" styleClass="btn-borde"/>
+                    <h:commandButton value="Enviar" action="#{bene.anadir()}" styleClass="btn-borde"/>
                 </p>
             </h:form>
         </h:body>

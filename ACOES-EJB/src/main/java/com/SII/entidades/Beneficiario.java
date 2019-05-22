@@ -60,8 +60,8 @@ public class Beneficiario implements Serializable {
     private Becado becado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
     private Beneficiario beneficiario;
-    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)
-    @OneToOne(optional = false)
+    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = true)
+    @OneToOne(optional = true)
     private Beneficiario beneficiarioCodigo;
     @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO", nullable = false)
     @OneToOne(optional = false)

@@ -1,76 +1,124 @@
 package com.SII.vista;
 
 
-import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Proyecto;
+import com.SII.negocio.NegocioProy;
+import com.SII.negocio.excepciones.AcoesException;
+import com.SII.negocio.excepciones.ProyInexistenteException;
+import com.SII.negocio.excepciones.ProyRepException;
 
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Named(value = "ctrlproyectos")
-@ManagedBean
-@SessionScoped
+@RequestScoped
 public class ControlProyecto implements Serializable {
-    private List<Proyecto> proyectos;
+
+    @Inject
+    private NegocioProy negproy;
+    @Inject
+    private InfoSesion sesion;
 
     private Proyecto proyecto;
+    private Modo modo;
 
     public ControlProyecto() {
-        proyectos = new ArrayList<>();
-        proyectos.add(new Proyecto((long) 0, "Charla en la UMA"));
-        proyectos.get(0).setBeneficiarioSet(new HashSet<>());
-        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario((long) 1, "1-1", "paco", "Niño"));
-        proyectos.get(0).getBeneficiarioSet().add(new Beneficiario((long) 2, "1-2", "Julian Muñoz", "Socio"));
-        proyectos.add(new Proyecto((long) 1, "Adaptarse al sistema de los alumnos"));
+        proyecto = new Proyecto();
+        modo = Modo.VER;
+    }
+
+    public String ver(Proyecto proyecto) {
+        this.proyecto = proyecto;
+        setModo(Modo.VER);
+        return "detailsproject.xhtml";
     }
 
 
-    public String uploadProyecto() {
-        if (proyectos.indexOf(proyecto) >= 0) {
+    public String modificar(Proyecto proyecto) {
+        this.proyecto = proyecto;
+        setModo(Modo.MODIFICAR);
+        return "adminproject.xhtml";
+    }
 
-            updProyecto(proyectos.get(proyectos.indexOf(proyecto)), proyecto.getNombre(), proyecto.getPresupuesto(), proyecto.getCombustible(),
-                    proyecto.getContenedor(), proyecto.getMantenimiento(), proyecto.getDescripcion());
-        } else {
-            proyectos.add(proyecto);
+    public String annadir() {
+        setModo(Modo.INSERTAR);
+        return "adminproject.xhtml";
+    }
+
+    public String ejecutarAccion() {
+        try {
+            switch (modo) {
+                case MODIFICAR:
+                    negproy.modificarProy(proyecto);
+                    break;
+                case INSERTAR:
+                    negproy.annadirProy(proyecto);
+                    break;
+            }
+            sesion.refrescarUsuario();
+            return "projects.xhtml";
+
+        } catch (ProyInexistenteException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("adminproject:modproy", fm);
+            return null;
+
+        } catch (ProyRepException e) {
+            FacesMessage fm = new FacesMessage("Existe un Proyecto con el mismo código");
+            FacesContext.getCurrentInstance().addMessage("adminproject:addproy", fm);
+            return null;
+
+        } catch (AcoesException e) {
+            return "inicio.xhtml";
         }
-        return "projects.xhtml";
     }
 
-    public String remProyecto(Proyecto p) {
-        proyectos.remove(p);
+    public String getAccion() {
+        switch (modo) {
+            case VER:
+                return "Ver";
+            case MODIFICAR:
+                return "Modificar";
+            case INSERTAR:
+                return "Añadir";
+        }
         return null;
     }
 
-    public void updProyecto(Proyecto p, String nombre, Integer presupuesto, Integer combustible, Integer contenedor, Integer mantenimiento, String descripcion) {
-        Proyecto upd = proyectos.get(proyectos.indexOf(p));
+    public Modo getModo() {
+        return modo;
+    }
 
-        if (nombre != null) upd.setNombre(nombre);
-        if (presupuesto != null) upd.setPresupuesto(presupuesto);
-        if (combustible != null) upd.setCombustible(combustible);
-        if (contenedor != null) upd.setContenedor(contenedor);
-        if (descripcion != null) upd.setDescripcion(descripcion);
-        if (mantenimiento != null) upd.setMantenimiento(mantenimiento);
+    public void setModo(Modo modo) {
+        this.modo = modo;
+    }
+
+    public String remProyecto(Proyecto p) {
+        try {
+            negproy.eliminarProy(p);
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("projects:remproy", fm);
+        }
+        return null;
     }
 
     public List<Proyecto> getProyectos() {
-        return proyectos;
+        return negproy.getProys();
     }
-
 
     public Proyecto getProyecto() {
         return proyecto;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public void setProyectoVacio() {
-        setProyecto(new Proyecto());
+    public enum Modo {
+        MODIFICAR,
+        VER,
+        INSERTAR
     }
 }

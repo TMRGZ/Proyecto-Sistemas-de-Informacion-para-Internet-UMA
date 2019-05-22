@@ -64,6 +64,10 @@ public class Proyecto implements Serializable {
         this.nombre = nombre;
     }
 
+    public Proyecto(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Long getCodigo() {
         return codigo;
     }

@@ -4,16 +4,16 @@ import com.SII.entidades.Usuario;
 import com.SII.negocio.NegocioUsuario;
 import com.SII.negocio.excepciones.AcoesException;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @Named(value = "infoSesion")
 @SessionScoped
 public class InfoSesion implements Serializable {
-    @Inject
+    @EJB
     private NegocioUsuario negocioUsuario;
 
     private Usuario usuario;

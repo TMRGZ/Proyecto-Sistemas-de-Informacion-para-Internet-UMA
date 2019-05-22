@@ -26,14 +26,13 @@
                         <li><h:commandLink action="#{infoSesion.home()}" value="Inicio"/></li>
 
 
-                        <c:when test="#{infoSesion.usuario.rol == 1}">
+                        <c:if test="#{infoSesion.usuario.rol == 1}">
                             <li><a href="listausuarios.xhtml">Usuarios</a></li>
                             <li><a href="projects.xhtml">Proyectos</a></li>
                             <li><a href="listamiembros.xhtml">Miembros</a></li>
                             <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
-
                             <ui:insert name="menuadmin"/>
-                        </c:when>
+                        </c:if>
                         <div class="perfil">
                             <li><h:commandLink action="#{infoSesion.invalidarSesion()}" value="Cerrar Sesion"/></li>
                             <li>

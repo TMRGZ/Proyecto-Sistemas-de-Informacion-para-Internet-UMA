@@ -7,59 +7,23 @@ package com.SII.negocio;
 
 import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Usuario;
+import com.SII.negocio.excepciones.AcoesException;
+
+import javax.ejb.Local;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author juan_
  */
-@Stateless
-public class NegocioBeneficiario implements NegocioBeneficiarioLocal {
-    
-    @PersistenceContext (unitName = "ACOES")
-    private EntityManager em;
+@Local
+public interface NegocioBeneficiario {
 
+    void anadirBeneficiario(Usuario u) throws AcoesException;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    void modificarBeneficiario(Beneficiario b) throws AcoesException;
 
-    @Override
-    public void anadirBeneficiario(Beneficiario b) {
-        if (b.getBeneficiarioCodigo() != null){
-            em.persist(b);
-        }else{
-            
-            Usuario u = new Usuario();
-            u.setNombreUsuario(b.getNombre()+b.getApellidos());
-            u.setContrasenna(b.getNombre()+b.getApellidos());
-            u.setRol(0);
-            u.setBeneficiario(b);
-            em.persist(u);
-            b.setUsuarioNombreUsuario(u);
-            b.setBeneficiarioCodigo(b);
-           
-            em.persist(b);
-        }
-        
-    }
+    void borrarBeneficiario(Beneficiario b) throws AcoesException;
 
-    @Override
-    public void modificarBeneficiario(Beneficiario b) {
-         
-        em.merge(b);
-    }
-
-    @Override
-    public void borrarBeneficiario(Beneficiario b) {
-        Beneficiario bene = em.find(Beneficiario.class, b.getCodigo());
-        em.remove(bene);
-    }
-
-    @Override
-    public List<Beneficiario> getListaBeneficiario() {
-        return em.createQuery("select a from Beneficiario a", Beneficiario.class).getResultList();
-    }
+    List<Beneficiario> getListaBeneficiario();
 }

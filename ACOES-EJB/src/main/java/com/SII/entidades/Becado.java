@@ -82,8 +82,8 @@ public class Becado implements Serializable {
     @JoinColumn(name = "CODIGO", referencedColumnName = "CODIGO", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Beneficiario beneficiario;
-    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO", nullable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "SOCIO_NUMERO", referencedColumnName = "NUMERO", nullable = true)
+    @ManyToOne(optional = true)
     private Socio socioNumero;
 
     public Becado() {

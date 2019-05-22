@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="menuadmin">
+
+    </ui:define>
+    <ui:define name="contenido">
+
+        <h:form>
+            <h:inputHidden value="#{bene.beneficiario.codigo}"/>
+            <!--@elvariable id="bene" type="com.SII.vista.BeneficiarioAux"-->
+            <ol class="lista">
+                <li><h:outputLabel>Identificador: </h:outputLabel>
+
+                    <h:inputText value="#{bene.beneficiario.identificador}"/></li>
+                <li><h:outputLabel>Nombre: </h:outputLabel>
+                    <h:inputText value="#{bene.beneficiario.nombre}"/></li>
+                <li><h:outputLabel>Apellido: </h:outputLabel>
+                    <h:inputText value="#{bene.beneficiario.apellidos}"/></li>
+                <li><h:outputLabel>Numero de cuenta </h:outputLabel>
+                    <h:inputText value="#{bene.beneficiario.numeroCuenta}"/></li>
+                <li><h:outputLabel>Tipo: </h:outputLabel>
+                    <h:selectOneMenu value="#{bene.beneficiario.tipo}">
+                        <f:selectItem itemValue="Niño" itemLabel="Niño"/>
+                        <f:selectItem itemValue="Socio" itemLabel="Socio"/>
+                    </h:selectOneMenu></li>
+                <li><h:outputLabel>Observaciones: </h:outputLabel>
+                    <h:inputText value="#{bene.beneficiario.observaciones}"/></li>
+            </ol>
+            <h:inputHidden value="#{bene.modo}"/>
+            <p><h:commandButton value="#{bene.accion}" action="#{bene.ejecutarAccion()}" styleClass="btn-borde"/></p>
+        </h:form>
+    </ui:define>
+</ui:composition>

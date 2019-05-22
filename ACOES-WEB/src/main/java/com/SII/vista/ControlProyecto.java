@@ -120,4 +120,6 @@ public class ControlProyecto implements Serializable {
         VER,
         INSERTAR
     }
+
+
 }

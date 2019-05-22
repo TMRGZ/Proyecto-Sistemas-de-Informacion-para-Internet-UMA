@@ -5,27 +5,23 @@ import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ContrasennaInvalidaException;
 import com.SII.negocio.excepciones.CuentaInexistenteException;
-import com.SII.negocio.excepciones.CuentaRepetidaException;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
 public class NegocioUsuarioImpl implements NegocioUsuario {
-
-
     @PersistenceContext(unitName = "ACOES")
     private EntityManager em;
 
+    @EJB
+    private NegocioPerfil negocioPerfil;
+
     @Override
     public void registrarUsuario(Usuario usuario) throws AcoesException {
-        Usuario user = em.find(Usuario.class, usuario.getNombreUsuario());
-
-        if (user != null) {
-            throw new CuentaRepetidaException();
-        }
-        em.persist(usuario);
+        negocioPerfil.registrarPerfil(usuario);
     }
 
     @Override

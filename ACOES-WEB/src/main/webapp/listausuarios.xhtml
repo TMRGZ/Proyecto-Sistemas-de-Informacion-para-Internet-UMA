@@ -2,7 +2,6 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Usuario admin</ui:define>
     <ui:define name="menuadmin">
@@ -29,27 +28,15 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">Numero de socio</f:facet>
-                        <c:choose>
-                            <c:when test="#{!empty usuario.socio}"><h:outputText
-                                    value="#{usuario.socio.numero}"/></c:when>
-                            <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                        </c:choose>
+                        <h:outputText value="#{usuario.socio.numero}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Código de beneficiario</f:facet>
-                        <c:choose>
-                            <c:when test="#{!empty usuario.beneficiario}"><h:outputText
-                                    value="#{usuario.beneficiario.codigo}"/></c:when>
-                            <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                        </c:choose>
+                        <h:outputText value="#{usuario.beneficiario.codigo}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Código de becado</f:facet>
-                        <c:choose>
-                            <c:when test="#{!empty usuario.beneficiario and !empty usuario.beneficiario.becado}"><h:outputText
-                                    value="#{usuario.beneficiario.becado.codigo}"/></c:when>
-                            <c:otherwise><h:outputText value="-"/> </c:otherwise>
-                        </c:choose>
+                        <h:outputText value="#{usuario.beneficiario.becado.codigo}"/>
                     </h:column>
 
                     <h:column>

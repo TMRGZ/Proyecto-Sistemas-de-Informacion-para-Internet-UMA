@@ -38,15 +38,14 @@ public class ControlProyecto implements Serializable {
         return "detailsproject.xhtml";
     }
 
+    public String annadir() {
+        setModo(Modo.INSERTAR);
+        return "adminproject.xhtml";
+    }
 
     public String modificar(Proyecto proyecto) {
         this.proyecto = proyecto;
         setModo(Modo.MODIFICAR);
-        return "adminproject.xhtml";
-    }
-
-    public String annadir() {
-        setModo(Modo.INSERTAR);
         return "adminproject.xhtml";
     }
 

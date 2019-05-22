@@ -1,9 +1,6 @@
 package com.SII.vista;
 
-import com.SII.entidades.Becado;
-import com.SII.entidades.Beneficiario;
-import com.SII.entidades.Socio;
-import com.SII.entidades.Usuario;
+import com.SII.entidades.*;
 import com.SII.negocio.NegocioPerfil;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ContrasennaInvalidaException;
@@ -13,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "perfil")
@@ -91,6 +89,10 @@ public class Perfil {
 
     public List<Usuario> getListaPerfiles() {
         return negocioPerfil.getListaPerfiles();
+    }
+
+    public List<Notificacion> getNotifiaciones() {
+        return new ArrayList<>(sesion.getUsuario().getNotificacionSet());
     }
 
     public String getAccion() {

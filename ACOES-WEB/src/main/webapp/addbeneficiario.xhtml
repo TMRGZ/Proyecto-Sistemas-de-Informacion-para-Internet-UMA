@@ -16,46 +16,70 @@ and open the template in the editor.
     <ui:define name="contenido">
         <h:head>
             <link rel="stylesheet" href="css/tabla2.css"/>
+            <link rel="stylesheet" href="css/ListasBeneficiarios.css"/>
         </h:head>
-
+        <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
 
         <h:form id="listaproyectos">
+            <h:inputHidden value="#{ctrlproyectos.proyecto.codigo}"/>
 
-            <div align="center" class="container">
+            <div align="center" class="container izq">
+                <h1>Beneficiarios no incluidos</h1>
+
+
                 <h:dataTable value="#{ctrlproyectos.getRestantes(ctrlproyectos.proyecto)}" var="ben"
                              styleClass="order-table"
                              headerClass="order-table-header"
                              rowClasses="order-table-odd-row,order-table-even-row">
 
-                    <!---->
                     <h:column>
-                        <f:facet name="header">Añadir</f:facet>
-                        <h:outputText
-                                value="#{ben.nombre}"/>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{ben.nombre}"/>
                     </h:column>
 
                     <h:column>
+                        <f:facet name="header">Codigo</f:facet>
+                        <h:outputText value="#{ben.codigo}"/>
+                    </h:column>
 
+                    <h:column>
+                        <f:facet name="header">Identificador</f:facet>
+                        <h:outputText value="#{ben.identificador}"/>
+                    </h:column>
+
+                    <h:column>
                         <h:commandButton value="Añadir Beneficiario" action="#{ctrlproyectos.addBen(ben)}" id="add"
                                          styleClass="btn-borde"/>
-
                         <h:message for="add"/>
                     </h:column>
 
                 </h:dataTable>
+            </div>
+
+            <div align="center" class="container der">
+                <h1>Beneficiarios presentes en #{ctrlproyectos.proyecto.nombre}</h1>
+
                 <h:dataTable value="#{ctrlproyectos.getParticipantes(ctrlproyectos.proyecto)}" var="par"
                              styleClass="order-table"
                              headerClass="order-table-header"
                              rowClasses="order-table-odd-row,order-table-even-row">
 
                     <h:column>
-                        <f:facet name="header">Eliminar</f:facet>
-                        <h:outputText
-                                value="#{par.nombre}"/>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{par.nombre}"/>
                     </h:column>
 
                     <h:column>
+                        <f:facet name="header">Codigo</f:facet>
+                        <h:outputText value="#{par.codigo}"/>
+                    </h:column>
 
+                    <h:column>
+                        <f:facet name="header">Identificador</f:facet>
+                        <h:outputText value="#{par.identificador}"/>
+                    </h:column>
+
+                    <h:column>
                         <h:commandButton value="Eliminar Beneficiario" action="#{ctrlproyectos.remBen(par)}" id="rem"
                                          styleClass="btn-borde"/>
                         <h:message for="rem"/>
@@ -64,7 +88,7 @@ and open the template in the editor.
                 </h:dataTable>
 
             </div>
-        </h:form>
 
+        </h:form>
     </ui:define>
 </ui:composition>

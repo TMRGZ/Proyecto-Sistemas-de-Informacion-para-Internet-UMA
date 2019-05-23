@@ -57,10 +57,8 @@ public class NegocioProyImpl implements NegocioProy {
         if (aux == null || aux2 == null) {
             throw new ProyInexistenteException();
         }
-        Set<Beneficiario> beneficiarios = aux.getBeneficiarioSet();
-        beneficiarios.add(aux2);
-        Set<Proyecto> proyectos = aux2.getProyectoSet();
-        proyectos.add(aux);
+        aux.getBeneficiarioSet().add(aux2);
+        aux2.getProyectoSet().add(aux);
 
         em.merge(aux);
         em.merge(aux2);
@@ -74,10 +72,8 @@ public class NegocioProyImpl implements NegocioProy {
         if (aux == null || aux2 == null) {
             throw new ProyInexistenteException();
         }
-        Set<Beneficiario> beneficiarios = aux.getBeneficiarioSet();
-        beneficiarios.remove(aux2);
-        Set<Proyecto> proyectos = aux2.getProyectoSet();
-        proyectos.remove(aux);
+        aux.getBeneficiarioSet().remove(aux2);
+        aux2.getProyectoSet().remove(aux);
 
     }
 

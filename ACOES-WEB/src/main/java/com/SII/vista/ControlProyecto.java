@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,10 +40,10 @@ public class ControlProyecto implements Serializable {
         modo = Modo.VER;
     }
 
-    public Set<Beneficiario> getParticipantes(Proyecto p) {
+    public List<Beneficiario> getParticipantes(Proyecto p) {
         try {
             this.proyecto = p;
-            return negproy.getBeneficiarios(proyecto);
+            return new ArrayList<>(negproy.getBeneficiarios(proyecto));
 
         } catch (AcoesException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");
@@ -51,13 +52,13 @@ public class ControlProyecto implements Serializable {
         }
     }
 
-    public Set<Beneficiario> getRestantes(Proyecto p) {
+    public List<Beneficiario> getRestantes(Proyecto p) {
         try {
             this.proyecto = p;
             Set<Beneficiario> ben = negproy.getBeneficiarios(proyecto);
             Set<Beneficiario> aux = new HashSet<>(ba.getListaBeneficiarios());
             aux.removeAll(ben);
-            return aux;
+            return new ArrayList<>(aux);
         } catch (AcoesException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");
             FacesContext.getCurrentInstance().addMessage("addbeneficiario:rem", fm);
@@ -98,7 +99,6 @@ public class ControlProyecto implements Serializable {
         setModo(Modo.VER);
         return "detailsproject.xhtml";
     }
-
 
     public String modificar(Proyecto proyecto) {
         this.proyecto = proyecto;
@@ -168,7 +168,6 @@ public class ControlProyecto implements Serializable {
         }
         return null;
     }
-
 
     public List<Proyecto> getProyectos() {
         return negproy.getProys();

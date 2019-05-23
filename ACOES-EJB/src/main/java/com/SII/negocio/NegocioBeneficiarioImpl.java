@@ -8,7 +8,6 @@ package com.SII.negocio;
 import com.SII.entidades.Beneficiario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
-import com.SII.negocio.excepciones.BeneficiarioRepetidoException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -34,12 +33,6 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
 
     @Override
     public void anadirColaboracion(Beneficiario b) throws AcoesException {
-        Beneficiario aux = em.find(Beneficiario.class, b.getCodigo());
-
-        if (aux != null) {
-            throw new BeneficiarioRepetidoException();
-        }
-
         em.persist(b);
     }
 

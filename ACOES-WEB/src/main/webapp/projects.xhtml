@@ -78,6 +78,12 @@
                                                  styleClass="btn-borde"/>
                             </h:column>
 
+                            <h:column>
+                                <h:commandButton value="Añadir Beneficiarios"
+                                                 action="#{ctrlproyectos.Beneficiarios(proyecto)}"
+                                                 styleClass="btn-borde"/>
+                            </h:column>
+
                         </h:dataTable>
 
                         <h:commandButton value="Añadir" action="#{ctrlproyectos.annadir()}"

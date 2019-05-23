@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="titulo">Iniciar sesion</ui:define>
+    <ui:define name="menuadmin">
+
+    </ui:define>
+    <ui:define name="contenido">
+        <h:head>
+            <link rel="stylesheet" href="css/tabla2.css"/>
+        </h:head>
+
+
+        <h:form id="listaproyectos">
+
+            <div align="center" class="container">
+                <h:dataTable value="#{ctrlproyectos.getRestantes(ctrlproyectos.proyecto)}" var="ben"
+                             styleClass="order-table"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
+
+                    <!---->
+                    <h:column>
+                        <f:facet name="header">Añadir</f:facet>
+                        <h:outputText
+                                value="#{ben.nombre}"/>
+                    </h:column>
+
+                    <h:column>
+
+                        <h:commandButton value="Añadir Beneficiario" action="#{ctrlproyectos.addBen(ben)}" id="add"
+                                         styleClass="btn-borde"/>
+
+                        <h:message for="add"/>
+                    </h:column>
+
+                </h:dataTable>
+                <h:dataTable value="#{ctrlproyectos.getParticipantes(ctrlproyectos.proyecto)}" var="par"
+                             styleClass="order-table"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
+
+                    <h:column>
+                        <f:facet name="header">Eliminar</f:facet>
+                        <h:outputText
+                                value="#{par.nombre}"/>
+                    </h:column>
+
+                    <h:column>
+
+                        <h:commandButton value="Eliminar Beneficiario" action="#{ctrlproyectos.remBen(par)}" id="rem"
+                                         styleClass="btn-borde"/>
+                        <h:message for="rem"/>
+                    </h:column>
+
+                </h:dataTable>
+
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

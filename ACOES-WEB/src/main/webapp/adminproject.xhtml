@@ -28,8 +28,9 @@
 
             <h:inputHidden value="#{ctrlproyectos.modo}"/>
 
-            <p><h:commandButton value="#{ctrlproyectos.accion}" action="#{ctrlproyectos.ejecutarAccion()}"
+            <p><h:commandButton value="#{ctrlproyectos.accion}" action="#{ctrlproyectos.ejecutarAccion()}" id="accion"
                                 styleClass="btn-borde"/></p>
+            <h:message for="accion"/>
 
         </h:form>
     </ui:define>

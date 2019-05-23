@@ -1,28 +1,35 @@
 package com.SII.vista;
 
 
+import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Proyecto;
 import com.SII.negocio.NegocioProy;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ProyInexistenteException;
 import com.SII.negocio.excepciones.ProyRepException;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Named(value = "ctrlproyectos")
-@RequestScoped
+@SessionScoped
 public class ControlProyecto implements Serializable {
 
-    @Inject
+    @EJB
     private NegocioProy negproy;
     @Inject
     private InfoSesion sesion;
+
+    @Inject
+    private BeneficiarioAux ba;
 
     private Proyecto proyecto;
     private Modo modo;
@@ -32,20 +39,75 @@ public class ControlProyecto implements Serializable {
         modo = Modo.VER;
     }
 
+    public Set<Beneficiario> getParticipantes(Proyecto p) {
+        try {
+            this.proyecto = p;
+            return negproy.getBeneficiarios(proyecto);
+
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("addbeneficiario:add", fm);
+            return null;
+        }
+    }
+
+    public Set<Beneficiario> getRestantes(Proyecto p) {
+        try {
+            this.proyecto = p;
+            Set<Beneficiario> ben = negproy.getBeneficiarios(proyecto);
+            Set<Beneficiario> aux = new HashSet<>(ba.getListaBeneficiarios());
+            aux.removeAll(ben);
+            return aux;
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("addbeneficiario:rem", fm);
+            return null;
+        }
+    }
+
+    public String addBen(Beneficiario b) {
+        try {
+            negproy.annadirBen(proyecto, b);
+            return null;
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("addbeneficiario:add", fm);
+            return null;
+        }
+    }
+
+    public String remBen(Beneficiario b) {
+        try {
+            negproy.eliminarBen(proyecto, b);
+            return null;
+        } catch (AcoesException e) {
+            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesContext.getCurrentInstance().addMessage("addbeneficiario:rem", fm);
+            return null;
+        }
+    }
+
+    public String Beneficiarios(Proyecto proyecto) {
+        this.proyecto = proyecto;
+        sesion.refrescarUsuario();
+        return "addbeneficiario.xhtml";
+    }
+
     public String ver(Proyecto proyecto) {
         this.proyecto = proyecto;
         setModo(Modo.VER);
         return "detailsproject.xhtml";
     }
 
-    public String annadir() {
-        setModo(Modo.INSERTAR);
-        return "adminproject.xhtml";
-    }
 
     public String modificar(Proyecto proyecto) {
         this.proyecto = proyecto;
         setModo(Modo.MODIFICAR);
+        return "adminproject.xhtml";
+    }
+
+    public String annadir() {
+        setModo(Modo.INSERTAR);
         return "adminproject.xhtml";
     }
 
@@ -64,12 +126,12 @@ public class ControlProyecto implements Serializable {
 
         } catch (ProyInexistenteException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");
-            FacesContext.getCurrentInstance().addMessage("adminproject:modproy", fm);
+            FacesContext.getCurrentInstance().addMessage("adminproject:accion", fm);
             return null;
 
         } catch (ProyRepException e) {
             FacesMessage fm = new FacesMessage("Existe un Proyecto con el mismo código");
-            FacesContext.getCurrentInstance().addMessage("adminproject:addproy", fm);
+            FacesContext.getCurrentInstance().addMessage("adminproject:accion", fm);
             return null;
 
         } catch (AcoesException e) {
@@ -107,6 +169,7 @@ public class ControlProyecto implements Serializable {
         return null;
     }
 
+
     public List<Proyecto> getProyectos() {
         return negproy.getProys();
     }
@@ -115,11 +178,10 @@ public class ControlProyecto implements Serializable {
         return proyecto;
     }
 
+
     public enum Modo {
         MODIFICAR,
         VER,
         INSERTAR
     }
-
-
 }

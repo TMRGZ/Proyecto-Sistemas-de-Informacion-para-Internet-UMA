@@ -66,6 +66,18 @@ public class BeneficiarioAux {
         return "adminbeneficiario.xhtml";
     }
 
+    public String colaborar() throws AcoesException {
+        this.beneficiario.setUsuarioNombreUsuario(sesion.getUsuario());
+        this.beneficiario.setTipo("Socio");
+        this.beneficiario.setIdentificador("test");
+        this.beneficiario.setBeneficiarioCodigo(this.beneficiario);
+        sesion.getUsuario().setBeneficiario(beneficiario);
+        nb.anadirColaboracion(this.beneficiario);
+
+
+        return sesion.home();
+    }
+
     public String ejecutarAccion() {
         try {
             switch (modo) {

@@ -1,66 +1,40 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="titulo">Usuario normal</ui:define>
     <ui:define name="contenido">
         <h:head>
             <link rel="stylesheet" href="css/tabla2.css"/>
         </h:head>
-        <c:choose>
-            <!--@elvariable id="ctrlsocio" type="com.SII.vista.ControlSocio"-->
-            <!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
-            <!--@elvariable id="u" type="com.SII.entidades.Usuario"-->
-            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
-            <c:when test="#{empty ctrlsocio.buscar(u)}">
-                <h:form id="apadrinarPrimeraVez">
-                    Aún no has apadrinado ¿Quieres?
+
+        <!--@elvariable id="u" type="com.SII.entidades.Usuario"-->
+        <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+        <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
+
+        <div align="center" class="container">
+            <h1>Notificaciones</h1>
+
+            <h:dataTable value="#{perfil.notifiaciones}" var="notifacion" styleClass="order-table"
+                         headerClass="order-table-header"
+                         rowClasses="order-table-odd-row,order-table-even-row">
+                <h:column>
+                    <f:facet name="header">Origen del mensaje</f:facet>
+                    <h:outputText value="#{notifacion.usuarioEmisor}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha de envío</f:facet>
+                    <h:outputText value="#{notifacion.fecha.toLocaleString()}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Contenido del mensaje</f:facet>
+                    <h:outputText value="#{notifacion.contenido}"/>
+                </h:column>
+
+            </h:dataTable>
+        </div>
 
 
-
-                    <h:commandButton value="Comenzar"
-                                     action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
-                                     styleClass="btn-borde"/>
-                </h:form>
-            </c:when>
-            <c:otherwise>
-                <ui:repeat value="#{ctrlsocio.buscar(infoSesion.usuario).toArray()}" var="niño">
-                    <ol class="lista">
-                        <li>
-                            <label>Identificador:#{niño.beneficiario.nombre} </label>
-                        </li>
-                    </ol>
-                </ui:repeat>
-                <h:form id="apadrinar">
-                    <h:commandButton value="Apadrina"
-                                     action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
-                                     styleClass="btn-borde"/>
-                </h:form>
-
-                <div align="center" class="container">
-                    <h1>Notificaciones</h1>
-                    <h:dataTable value="#{perfil.notifiaciones}" var="notifacion" styleClass="order-table"
-                                 headerClass="order-table-header"
-                                 rowClasses="order-table-odd-row,order-table-even-row">
-                        <h:column>
-                            <f:facet name="header">Origen del mensaje</f:facet>
-                            <h:outputText value="#{notifacion.usuarioEmisor}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Fecha de envío</f:facet>
-                            <h:outputText value="#{notifacion.fecha.toLocaleString()}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Contenido del mensaje</f:facet>
-                            <h:outputText value="#{notifacion.contenido}"/>
-                        </h:column>
-
-                    </h:dataTable>
-                </div>
-
-            </c:otherwise>
-        </c:choose>
     </ui:define>
 </ui:composition>
 

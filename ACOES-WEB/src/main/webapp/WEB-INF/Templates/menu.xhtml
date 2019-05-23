@@ -25,13 +25,23 @@
                     <c:when test="#{!empty infoSesion.usuario}">
                         <li><h:commandLink action="#{infoSesion.home()}" value="Inicio"/></li>
 
-
                         <c:if test="#{infoSesion.usuario.rol == 1}">
                             <li><a href="listausuarios.xhtml">Usuarios</a></li>
                             <li><a href="projects.xhtml">Proyectos</a></li>
                             <li><a href="listamiembros.xhtml">Miembros</a></li>
                             <li><a href="listabeneficiarios.xhtml"> Beneficiarios </a></li>
                             <ui:insert name="menuadmin"/>
+                        </c:if>
+                        <c:if test="#{infoSesion.usuario.rol != 1}">
+                            <li><a href="listaapadrinados.xhtml">Apadrinados</a></li>
+                            <li><h:link outcome="formulariocolaborar.xhtml"
+                                        rendered="#{infoSesion.usuario.beneficiario == null}">¿Quieres colaborar con ACOES?</h:link>
+                            </li>
+                            <li><h:link outcome="colaboraciones.xhtml"
+                                        rendered="#{infoSesion.usuario.beneficiario != null}">Colaboraciones</h:link>
+                            </li>
+
+
                         </c:if>
                         <div class="perfil">
                             <li><h:commandLink action="#{infoSesion.invalidarSesion()}" value="Cerrar Sesion"/></li>

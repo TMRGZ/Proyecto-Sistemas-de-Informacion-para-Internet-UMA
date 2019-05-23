@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                template="WEB-INF/Templates/menu.xhtml">
+    <ui:define name="titulo">Registro</ui:define>
+    <ui:define name="contenido">
+        <h:head>
+            <link rel="stylesheet" href="css/registro.css"/>
+        </h:head>
+
+        <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+        <!--@elvariable id="bene" type="com.SII.vista.BeneficiarioAux"-->
+
+        <h:form id="colaborar" style="border:1px solid #ccc">
+            <div class="container">
+                <h1>Colaborar</h1>
+                <p>Rellena este formulario para ser un nuevo colaborador de ACOES.</p>
+
+                <hr/>
+
+                <b><h:outputText value="Nombre*"/></b>
+
+                <h:inputText id="nombre" value="#{bene.beneficiario.nombre}" required="true"
+                             a:placeholder="Introduzca su nombre"/>
+                <h:message for="nombre"/>
+                <b><h:outputText value="Apellidos"/></b>
+                <h:inputText id="apellidos" value="#{bene.beneficiario.apellidos}"
+                             a:placeholder="Introduzca sus apellidos"/>
+                <h:message for="apellidos"/>
+
+                <b><h:outputText value="Numero de cuenta:"/></b>
+                <h:inputText id="cuenta" value="#{bene.beneficiario.numeroCuenta}"/>
+                <h:message for="cuenta"/>
+
+
+                <p>Los campos marcados con * son obligatorios</p>
+                <div class="clearfix">
+                    <h:commandButton value="Colaborar" action="#{bene.colaborar()}"
+                                     styleClass="btn-borde"/></div>
+                <h:messages/>
+            </div>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

@@ -25,4 +25,6 @@ public interface NegocioBeneficiario {
     void borrarBeneficiario(Beneficiario b) throws AcoesException;
 
     List<Beneficiario> getListaBeneficiario();
+
+    void anadirColaboracion(Beneficiario b) throws AcoesException;
 }

@@ -24,7 +24,7 @@
                                      required="#{empty perfil.usuario.nombreUsuario}"
                                      a:placeholder="Introduzca un nombre de usuario"
                                      validatorMessage="Los nombres de usuario no deben tener carácteres especiales distintos de _ o -"
-                                     disabled="true">
+                                     disabled="#{!perfil.esInsertar()}">
                             <f:validateRegex pattern="[aA-zZ0-9_-]*"/>
                         </h:inputText>
                         <h:message for="user"/>
@@ -45,7 +45,7 @@
                         <h:message for="repass"/>
 
                         <b><h:outputText value="Rol"/></b>
-                        <h:selectOneMenu value="#{perfil.usuario.rol}" disabled="true">
+                        <h:selectOneMenu value="#{perfil.usuario.rol}" disabled="#{!perfil.esInsertar()}">
                             <f:selectItem itemValue="1" itemLabel="Administrador"/>
                             <f:selectItem itemValue="0" itemLabel="Estandar"/>
                         </h:selectOneMenu>

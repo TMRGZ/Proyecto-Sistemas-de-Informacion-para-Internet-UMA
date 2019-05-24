@@ -60,8 +60,13 @@ public class Perfil implements Serializable {
     }
 
     public String registrarUsuario() {
+        this.usuario = new Usuario();
         setModo(Modo.INSERTAR);
         return "perfilusuario.xhtml";
+    }
+
+    public boolean esInsertar() {
+        return this.modo == Modo.INSERTAR;
     }
 
     public String ejecutarAccion() {

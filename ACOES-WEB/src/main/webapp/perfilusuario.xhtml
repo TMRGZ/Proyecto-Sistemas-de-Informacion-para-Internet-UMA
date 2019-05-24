@@ -1,194 +1,196 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<ui:composition template="WEB-INF/Templates/menu.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <ui:define name="titulo">Perfil</ui:define>
-    <ui:define name="menuadmin">
-
-    </ui:define>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                template="WEB-INF/Templates/menu.xhtml">
+    <ui:define name="titulo">Registro</ui:define>
     <ui:define name="contenido">
-        <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
+        <h:head>
+            <link rel="stylesheet" href="css/registro.css"/>
+        </h:head>
+
         <c:choose>
+            <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
             <c:when test="#{perfil.estasAutorizadoParaEditar()}">
-                <h1>#{perfil.accion} perfil</h1>
-                <h:form>
-                    <ol class="lista">
-                        <li>
-                            <label>Nombre de usuario: </label>
-                            <c:choose>
-                                <c:when test="#{empty perfil.usuario.nombreUsuario}">
-                                    <h:inputText value="#{perfil.usuario.nombreUsuario}" required="true"/></c:when>
-                                <c:otherwise>
-                                    <h:inputText value="#{perfil.usuario.nombreUsuario}" disabled="true"/></c:otherwise>
-                            </c:choose>
+                <h:form id="perfil" style="border:1px solid #ccc">
+                    <div class="container">
+                        <h1>#{perfil.accion} perfil</h1>
+                        <p>Detalles del perfil en ACOES</p>
 
-                        </li>
-                        <li>
-                            <label>Contraseña: </label>
-                            <h:inputSecret value="#{perfil.usuario.contrasenna}" required="true"/>
-                        </li>
-                        <li>
-                            <label>Repite contraseña: </label>
-                            <h:inputSecret value="#{perfil.repass}" required="true"/>
-                        </li>
-                        <li>
-                            <label>Rol: </label>
-                            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
-                            <h:inputText value="#{perfil.usuario.rol}" required="true"
-                                         disabled="#{infoSesion.usuario.rol != 1}"/>
-                        </li>
-                    </ol>
+                        <hr/>
 
-                    <c:choose>
-                        <c:when test="#{!empty perfil.socio}">
-                            <hr/>
-                            <ol class="lista">
-                                <li>
-                                    <label>Numero de socio: </label>
-                                    <h:inputText value="#{perfil.socio.numero}" disabled="true"/>
-                                </li>
-                                <li>
-                                    <label>Nombre: </label>
-                                    <h:inputText value="#{perfil.socio.nombre}"/>
-                                </li>
-                                <li>
-                                    <label>Estado: </label>
-                                    <h:inputText value="#{perfil.socio.estado}"/>
-                                </li>
-                                <li>
-                                    <label>NIF </label>
-                                    <h:inputText value="#{perfil.socio.nif}"/>
-                                </li>
-                                <li>
-                                    <label>Direccion </label>
-                                    <h:inputText value="#{perfil.socio.direccion}"/>
-                                </li>
-                                <li>
-                                    <label>Poblacion </label>
-                                    <h:inputText value="#{perfil.socio.poblacion}"/>
-                                </li>
-                                <li>
-                                    <label>Codigo Postal </label>
-                                    <h:inputText value="#{perfil.socio.codigoPostal}"/>
-                                </li>
-                                <li>
-                                    <label>Provincia </label>
-                                    <h:inputText value="#{perfil.socio.provincia}"/>
-                                </li>
-                                <li>
-                                    <label>Telefono</label>
-                                    <h:inputText value="#{perfil.socio.telefono}"/>
-                                </li>
-                                <li>
-                                    <label>Telefono movil</label>
-                                    <h:inputText value="#{perfil.socio.telefonoMovil}"/>
-                                </li>
-                                <li>
-                                    <label>Correo Electronico</label>
-                                    <h:inputText value="#{perfil.socio.correoElectronico}"/>
-                                </li>
-                                <li>
-                                    <label>Fecha de alta</label>
-                                    <h:inputText value="#{perfil.socio.fechaAlta}"/>
-                                </li>
-                            </ol>
-                        </c:when>
-                    </c:choose>
+                        <b><h:outputText value="Nombre de usuario*"/></b>
+                        <h:inputText id="user" value="#{perfil.usuario.nombreUsuario}"
+                                     required="#{empty perfil.usuario.nombreUsuario}"
+                                     a:placeholder="Introduzca un nombre de usuario"
+                                     validatorMessage="Los nombres de usuario no deben tener carácteres especiales distintos de _ o -"
+                                     disabled="true">
+                            <f:validateRegex pattern="[aA-zZ0-9_-]*"/>
+                        </h:inputText>
+                        <h:message for="user"/>
 
-                    <c:choose>
-                        <c:when test="#{!empty perfil.beneficiario}">
-                            <hr/>
-                            <ol class="lista">
-                                <li>
-                                    <label>Identificador: </label>
-                                    <h:inputText value="#{perfil.beneficiario.identificador}"/>
-                                </li>
-                                <li>
-                                    <label>Nombre: </label>
-                                    <h:inputText value="#{perfil.beneficiario.nombre}"/>
-                                </li>
-                                <li>
-                                    <label>Apellido: </label>
-                                    <h:inputText value="#{perfil.beneficiario.apellidos}"/>
-                                </li>
-                                <li>
-                                    <label>Numero de cuenta </label>
-                                    <h:inputText value="#{perfil.beneficiario.numeroCuenta}"/>
-                                </li>
-                                <li>
-                                    <label>Tipo: </label>
-                                    <h:inputText value="#{perfil.beneficiario.tipo}"/>
-                                </li>
-                            </ol>
-                        </c:when>
-                    </c:choose>
+                        <b><h:outputText value="Contraseña*"/></b>
+                        <h:inputSecret id="pass" value="#{perfil.usuario.contrasenna}" required="true"
+                                       a:placeholder="Introduzca una contraseña"
+                                       validatorMessage="Las contraseñas no deben tener carácteres especiales"
+                                       disabled="#{perfil.esVer()}" rendered="#{!perfil.esVer()}">
+                            <f:validateRegex pattern="[aA-zZ0-9]*"/>
+                        </h:inputSecret>
+                        <h:message for="pass"/>
 
-                    <c:choose>
-                        <c:when test="#{!empty perfil.becado}">
-                            <ol class="lista">
-                                <li>
-                                    <label>Estado: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Beca: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Foto: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Fecha nacimiento: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Fecha ingreso ACOES: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Proyecto: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Fecha de alta en proyecto: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Fecha de alta: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Grado: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Colonia de procedencia: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                                <li>
-                                    <label>Colonia actual: </label>
-                                    <h:inputText value="#{perfil.becado.estado}"/>
-                                </li>
-                            </ol>
-                        </c:when>
-                    </c:choose>
+                        <b><h:outputText value="Confirma la contraseña*"/></b>
+                        <h:inputSecret id="repass" value="#{perfil.repass}" required="true"
+                                       a:placeholder="Repìta la contraseña" disabled="#{perfil.esVer()}"
+                                       rendered="#{!perfil.esVer()}"/>
+                        <h:message for="repass"/>
 
-                    <p><h:commandButton value="#{perfil.accion}" action="#{perfil.ejecutarAccion()}"
-                                        styleClass="btn-borde"/></p>
-                    <h:inputHidden value="#{perfil.modo}"/>
+                        <b><h:outputText value="Rol"/></b>
+                        <h:selectOneMenu value="#{perfil.usuario.rol}" disabled="true">
+                            <f:selectItem itemValue="1" itemLabel="Administrador"/>
+                            <f:selectItem itemValue="0" itemLabel="Estandar"/>
+                        </h:selectOneMenu>
 
-                    <c:choose>
-                        <c:when test="#{perfil.accion.equals('Modificar')}">
-                            <h:inputHidden value="#{perfil.usuario.nombreUsuario}"/>
-                        </c:when>
-                    </c:choose>
+
+                        <c:if test="#{!empty perfil.usuario.socio}">
+                            <b><h:outputText value="Numero de socio"/></b>
+                            <h:inputText id="nsocio" value="#{perfil.usuario.socio.numero}"
+                                         disabled="true">
+                            </h:inputText>
+
+                            <b><h:outputText value="Nombre"/></b>
+                            <h:inputText id="nombre" value="#{perfil.usuario.socio.nombre}" required="true"
+                                         a:placeholder="Introduzca un nombre" disabled="#{perfil.esVer()}"/>
+                            <h:message for="nombre"/>
+
+                            <b><h:outputText value="Apellidos"/></b>
+                            <h:inputText id="apellidos" value="#{perfil.usuario.socio.apellidos}"
+                                         a:placeholder="Introduzca unos apellidos" disabled="#{perfil.esVer()}"/>
+                            <h:message for="apellidos"/>
+
+                            <b><h:outputText value="NIF*"/></b>
+                            <h:inputText id="nif" value="#{perfil.usuario.socio.nif}"
+                                         a:placeholder="Introduzca un NIF" disabled="#{perfil.esVer()}"/>
+                            <h:message for="nif"/>
+
+                            <b><h:outputText value="E-mail*"/></b>
+                            <h:inputText id="email" value="#{perfil.usuario.socio.correoElectronico}" required="true"
+                                         validatorMessage="Compruebe que ha introducido un e-mail correcto"
+                                         a:placeholder="Introduzca un correo electrónico" disabled="#{perfil.esVer()}">
+                                <f:validateRegex pattern=".+@.+"/>
+                            </h:inputText>
+                            <h:message for="email"/>
+
+                            <b><h:outputText value="Teléfono*"/></b>
+                            <h:inputText id="telefono" value="#{perfil.usuario.socio.telefono}" required="true"
+                                         a:placeholder="Introduzca un teléfono"
+                                         validatorMessage="Compruebe que ha introducido un número de teléfono valido"
+                                         disabled="#{perfil.esVer()}">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <h:message for="telefono"/>
+
+                            <b><h:outputText value="Teléfono Movil"/></b>
+                            <h:inputText id="telMovil" value="#{perfil.usuario.socio.telefonoMovil}"
+                                         a:placeholder="Introduzca un teléfono móvil"
+                                         validatorMessage="Compruebe que ha introducido un número de teléfono valido"
+                                         disabled="#{perfil.esVer()}">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <h:message for="telMovil"/>
+
+                            <b><h:outputText value="Estado:"/></b>
+                            <h:inputText id="estado" value="#{perfil.usuario.socio.estado}"
+                                         disabled="#{perfil.esVer()}"/>
+                            <h:message for="estado"/>
+
+                            <b><h:outputText value="Dirección*"/></b>
+                            <h:inputText id="direccion" value="#{perfil.usuario.socio.direccion}" required="true"
+                                         disabled="#{perfil.esVer()}"/>
+                            <h:message for="direccion"/>
+
+                            <b><h:outputText value="Código postal*"/></b>
+                            <h:inputText id="cp" value="#{perfil.usuario.socio.codigoPostal}" required="true"
+                                         disabled="#{perfil.esVer()}"/>
+                            <h:message for="cp"/>
+
+                            <b><h:outputText value="Provincia*"/></b>
+                            <h:inputText id="provincia" value="#{perfil.usuario.socio.provincia}" required="true"
+                                         disabled="#{perfil.esVer()}"/>
+                            <h:message for="provincia"/>
+
+                            <b><h:outputText value="Poblacion*"/></b>
+                            <h:inputText id="poblacion" value="#{perfil.usuario.socio.poblacion}" required="true"
+                                         disabled="#{perfil.esVer()}"/>
+                            <h:message for="poblacion"/>
+                        </c:if>
+
+                        <c:if test="#{!empty perfil.usuario.beneficiario}">
+                            <b><h:outputText value="Identificador"/></b>
+                            <h:inputText id="ident" value="#{perfil.usuario.beneficiario.identificador}"
+                                         disabled="true">
+                            </h:inputText>
+
+                            <b><h:outputText value="Nombre"/></b>
+                            <h:inputText id="nombrebene" value="#{perfil.usuario.beneficiario.nombre}" required="true"
+                                         a:placeholder="Introduzca un nombre" disabled="#{perfil.esVer()}"/>
+                            <h:message for="nombrebene"/>
+
+                            <b><h:outputText value="Apellidos"/></b>
+                            <h:inputText id="apellidosbene" value="#{perfil.usuario.beneficiario.apellidos}"
+                                         a:placeholder="Introduzca unos apellidos" disabled="#{perfil.esVer()}"/>
+                            <h:message for="apellidosbene"/>
+
+                            <b><h:outputText value="Numero de cuenta*"/></b>
+                            <h:inputText id="cuenta" value="#{perfil.usuario.beneficiario.numeroCuenta}"
+                                         a:placeholder="Introduzca un numero de cuenta" disabled="#{perfil.esVer()}"/>
+                            <h:message for="cuenta"/>
+
+                            <b><h:outputText value="Tipo"/></b>
+                            <h:inputText id="tipo" value="#{perfil.usuario.beneficiario.tipo}" disabled="true">
+                            </h:inputText>
+                        </c:if>
+
+                        <c:if test="#{!empty perfil.usuario.beneficiario.becado}">
+                            <b><h:outputText value="Estado"/></b>
+                            <h:inputText id="estadobecado" value="#{perfil.usuario.beneficiario.becado.estado}"
+                                         disabled="true">
+                            </h:inputText>
+
+                            <b><h:outputText value="Beca"/></b>
+                            <h:inputText id="beca" value="#{perfil.usuario.beneficiario.becado.beca}" disabled="true"/>
+
+                            <b><h:outputText value="Fecha de nacimiento"/></b>
+                            <h:inputText id="fechanacimiento"
+                                         value="#{perfil.usuario.beneficiario.becado.fechaNacimiento}" disabled="true"/>
+                            <h:message for="fechanacimiento"/>
+
+                            <b><h:outputText value="Fecha ingreso en ACOES"/></b>
+                            <h:inputText id="fechaingreso" value="#{perfil.usuario.beneficiario.becado.fechaAcoes}"
+                                         disabled="true"/>
+
+                            <b><h:outputText value="Grado"/></b>
+                            <h:inputText id="grado" value="#{perfil.usuario.beneficiario.becado.gradoCurso}"
+                                         disabled="true">
+                            </h:inputText>
+
+                            <b><h:outputText value="Colonia de procedencia"/></b>
+                            <h:inputText id="procedencia"
+                                         value="#{perfil.usuario.beneficiario.becado.coloniaProcedencia}"
+                                         disabled="true">
+                            </h:inputText>
+
+                            <b><h:outputText value="Colonia actual"/></b>
+                            <h:inputText id="coloniaactual" value="#{perfil.usuario.beneficiario.becado.coloniaActual}"
+                                         disabled="true"/>/>
+                        </c:if>
+
+                        <div class="clearfix">
+                            <h:commandButton value="#{perfil.accion} usuario"
+                                             action="#{perfil.ejecutarAccion()}"
+                                             styleClass="btn-borde" rendered="#{!perfil.esVer()}"/>
+                        </div>
+                        <h:messages/>
+                    </div>
                 </h:form>
             </c:when>
             <c:otherwise>

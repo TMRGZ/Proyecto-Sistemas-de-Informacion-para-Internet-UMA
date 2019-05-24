@@ -1,5 +1,7 @@
 package com.SII.negocio;
 
+import com.SII.entidades.Beneficiario;
+import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.CuentaRepetidaException;
@@ -21,7 +23,34 @@ public class NegocioPerfilImpl implements NegocioPerfil {
 
     @Override
     public void modificarPerfil(Usuario usuario) throws AcoesException {
-        em.merge(usuario);
+        Usuario aux = em.find(Usuario.class, usuario.getNombreUsuario());
+        Beneficiario auxBen = aux.getBeneficiario();
+        Socio auxSoc = aux.getSocio();
+
+        // Beneficiario
+        if (auxBen != null) {
+            auxBen.setNombre(usuario.getBeneficiario().getNombre());
+            auxBen.setApellidos(usuario.getBeneficiario().getApellidos());
+            auxBen.setNumeroCuenta(usuario.getBeneficiario().getNumeroCuenta());
+            aux.setBeneficiario(auxBen);
+        }
+
+        // Socio
+        if (auxSoc != null) {
+            auxSoc.setNombre(usuario.getSocio().getNombre());
+            auxSoc.setApellidos(usuario.getSocio().getApellidos());
+            auxSoc.setDireccion(usuario.getSocio().getDireccion());
+            auxSoc.setCodigoPostal(usuario.getSocio().getCodigoPostal());
+            auxSoc.setEstado(usuario.getSocio().getEstado());
+            auxSoc.setNif(usuario.getSocio().getNif());
+            auxSoc.setPoblacion(usuario.getSocio().getPoblacion());
+            auxSoc.setProvincia(usuario.getSocio().getProvincia());
+            auxSoc.setTelefono(usuario.getSocio().getTelefono());
+            auxSoc.setTelefonoMovil(usuario.getSocio().getTelefonoMovil());
+            aux.setSocio(auxSoc);
+        }
+
+        em.merge(aux);
     }
 
     @Override

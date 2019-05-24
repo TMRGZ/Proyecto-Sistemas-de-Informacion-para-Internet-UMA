@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="WEB-INF/Templates/menu.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="titulo">Perfil</ui:define>
+    <ui:define name="menuadmin">
+
+    </ui:define>
+    <ui:define name="contenido">
+        <!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
+        <c:choose>
+            <c:when test="#{perfil.estasAutorizadoParaEditar()}">
+                <h1>#{perfil.accion} perfil</h1>
+                <h:form>
+                    <ol class="lista">
+                        <li>
+                            <label>Nombre de usuario: </label>
+                            <c:choose>
+                                <c:when test="#{empty perfil.usuario.nombreUsuario}">
+                                    <h:inputText value="#{perfil.usuario.nombreUsuario}" required="true"/></c:when>
+                                <c:otherwise>
+                                    <h:inputText value="#{perfil.usuario.nombreUsuario}" disabled="true"/></c:otherwise>
+                            </c:choose>
+
+                        </li>
+                        <li>
+                            <label>Contraseña: </label>
+                            <h:inputSecret value="#{perfil.usuario.contrasenna}" required="true"/>
+                        </li>
+                        <li>
+                            <label>Repite contraseña: </label>
+                            <h:inputSecret value="#{perfil.repass}" required="true"/>
+                        </li>
+                        <li>
+                            <label>Rol: </label>
+                            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+                            <h:inputText value="#{perfil.usuario.rol}" required="true"
+                                         disabled="#{infoSesion.usuario.rol != 1}"/>
+                        </li>
+                    </ol>
+
+                    <c:choose>
+                        <c:when test="#{!empty perfil.socio}">
+                            <hr/>
+                            <ol class="lista">
+                                <li>
+                                    <label>Numero de socio: </label>
+                                    <h:inputText value="#{perfil.socio.numero}" disabled="true"/>
+                                </li>
+                                <li>
+                                    <label>Nombre: </label>
+                                    <h:inputText value="#{perfil.socio.nombre}"/>
+                                </li>
+                                <li>
+                                    <label>Estado: </label>
+                                    <h:inputText value="#{perfil.socio.estado}"/>
+                                </li>
+                                <li>
+                                    <label>NIF </label>
+                                    <h:inputText value="#{perfil.socio.nif}"/>
+                                </li>
+                                <li>
+                                    <label>Direccion </label>
+                                    <h:inputText value="#{perfil.socio.direccion}"/>
+                                </li>
+                                <li>
+                                    <label>Poblacion </label>
+                                    <h:inputText value="#{perfil.socio.poblacion}"/>
+                                </li>
+                                <li>
+                                    <label>Codigo Postal </label>
+                                    <h:inputText value="#{perfil.socio.codigoPostal}"/>
+                                </li>
+                                <li>
+                                    <label>Provincia </label>
+                                    <h:inputText value="#{perfil.socio.provincia}"/>
+                                </li>
+                                <li>
+                                    <label>Telefono</label>
+                                    <h:inputText value="#{perfil.socio.telefono}"/>
+                                </li>
+                                <li>
+                                    <label>Telefono movil</label>
+                                    <h:inputText value="#{perfil.socio.telefonoMovil}"/>
+                                </li>
+                                <li>
+                                    <label>Correo Electronico</label>
+                                    <h:inputText value="#{perfil.socio.correoElectronico}"/>
+                                </li>
+                                <li>
+                                    <label>Fecha de alta</label>
+                                    <h:inputText value="#{perfil.socio.fechaAlta}"/>
+                                </li>
+                            </ol>
+                        </c:when>
+                    </c:choose>
+
+                    <c:choose>
+                        <c:when test="#{!empty perfil.beneficiario}">
+                            <hr/>
+                            <ol class="lista">
+                                <li>
+                                    <label>Identificador: </label>
+                                    <h:inputText value="#{perfil.beneficiario.identificador}"/>
+                                </li>
+                                <li>
+                                    <label>Nombre: </label>
+                                    <h:inputText value="#{perfil.beneficiario.nombre}"/>
+                                </li>
+                                <li>
+                                    <label>Apellido: </label>
+                                    <h:inputText value="#{perfil.beneficiario.apellidos}"/>
+                                </li>
+                                <li>
+                                    <label>Numero de cuenta </label>
+                                    <h:inputText value="#{perfil.beneficiario.numeroCuenta}"/>
+                                </li>
+                                <li>
+                                    <label>Tipo: </label>
+                                    <h:inputText value="#{perfil.beneficiario.tipo}"/>
+                                </li>
+                            </ol>
+                        </c:when>
+                    </c:choose>
+
+                    <c:choose>
+                        <c:when test="#{!empty perfil.becado}">
+                            <ol class="lista">
+                                <li>
+                                    <label>Estado: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Beca: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Foto: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Fecha nacimiento: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Fecha ingreso ACOES: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Proyecto: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Fecha de alta en proyecto: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Fecha de alta: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Grado: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Colonia de procedencia: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                                <li>
+                                    <label>Colonia actual: </label>
+                                    <h:inputText value="#{perfil.becado.estado}"/>
+                                </li>
+                            </ol>
+                        </c:when>
+                    </c:choose>
+
+                    <p><h:commandButton value="#{perfil.accion}" action="#{perfil.ejecutarAccion()}"
+                                        styleClass="btn-borde"/></p>
+                    <h:inputHidden value="#{perfil.modo}"/>
+
+                    <c:choose>
+                        <c:when test="#{perfil.accion.equals('Modificar')}">
+                            <h:inputHidden value="#{perfil.usuario.nombreUsuario}"/>
+                        </c:when>
+                    </c:choose>
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                Acceso no permitido
+            </c:otherwise>
+        </c:choose>
+    </ui:define>
+</ui:composition>

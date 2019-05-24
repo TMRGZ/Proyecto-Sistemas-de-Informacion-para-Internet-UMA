@@ -5,17 +5,18 @@ import com.SII.negocio.NegocioPerfil;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ContrasennaInvalidaException;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "perfil")
-@RequestScoped
-public class Perfil {
+@SessionScoped
+public class Perfil implements Serializable {
     @Inject
     private InfoSesion sesion;
     @Inject
@@ -26,12 +27,10 @@ public class Perfil {
 
     public Perfil() {
         usuario = new Usuario();
+        usuario.setSocio(new Socio());
+        usuario.setBeneficiario(new Beneficiario());
+        usuario.getBeneficiario().setBecado(new Becado());
         modo = Modo.VER;
-    }
-
-    public String refrescar() {
-        sesion.refrescarUsuario();
-        return null;
     }
 
     public String eliminar(Usuario usuario) {
@@ -52,8 +51,12 @@ public class Perfil {
 
     public String ver(Usuario usuario) {
         this.usuario = usuario;
-        setModo(Modo.VER);
+        setModo(usuario.equals(sesion.getUsuario()) ? Modo.MODIFICAR : Modo.VER);
         return "perfilusuario.xhtml";
+    }
+
+    public boolean esVer() {
+        return this.modo == Modo.VER;
     }
 
     public String registrarUsuario() {
@@ -129,30 +132,6 @@ public class Perfil {
 
     public void setModo(Modo modo) {
         this.modo = modo;
-    }
-
-    public Socio getSocio() {
-        return usuario.getSocio();
-    }
-
-    public void setSocio(Socio socio) {
-        this.usuario.setSocio(socio);
-    }
-
-    public Beneficiario getBeneficiario() {
-        return usuario.getBeneficiario();
-    }
-
-    public void setBeneficiario(Beneficiario beneficiario) {
-        this.usuario.setBeneficiario(beneficiario);
-    }
-
-    public Becado getBecado() {
-        return usuario.getBeneficiario() == null ? null : usuario.getBeneficiario().getBecado();
-    }
-
-    public void setBecado(Becado becado) {
-        this.usuario.getBeneficiario().setBecado(becado);
     }
 
     public enum Modo {

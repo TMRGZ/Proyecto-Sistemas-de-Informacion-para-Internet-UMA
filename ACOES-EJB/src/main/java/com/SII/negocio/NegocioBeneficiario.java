@@ -27,4 +27,6 @@ public interface NegocioBeneficiario {
     List<Beneficiario> getListaBeneficiario();
 
     void anadirColaboracion(Beneficiario b) throws AcoesException;
+    void anadirBecado(Beneficiario b);
+    void modificarBecado(Beneficiario b);
 }

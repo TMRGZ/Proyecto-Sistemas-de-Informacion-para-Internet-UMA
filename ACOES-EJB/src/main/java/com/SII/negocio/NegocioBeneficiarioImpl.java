@@ -5,6 +5,7 @@
  */
 package com.SII.negocio;
 
+import com.SII.entidades.Becado;
 import com.SII.entidades.Beneficiario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
@@ -53,6 +54,15 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
 
         em.merge(aux);
     }
+    
+    @Override
+    public void modificarBecado(Beneficiario b){
+        Becado aux = em.find(Becado.class, b.getBecado().getCodigo());
+        
+        aux.setAgente(b.getBecado().getAgente());
+        
+        em.merge(aux);
+    }
 
     @Override
     public void borrarBeneficiario(Beneficiario b) throws AcoesException {
@@ -62,5 +72,12 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
     @Override
     public List<Beneficiario> getListaBeneficiario() {
         return em.createQuery("select a from Beneficiario a", Beneficiario.class).getResultList();
+    }
+    @Override
+    public void anadirBecado(Beneficiario b){
+          Becado bec = new Becado(b.getCodigo());
+          b.setBecado(bec);
+          bec.setBeneficiario(b);
+          em.persist(bec);
     }
 }

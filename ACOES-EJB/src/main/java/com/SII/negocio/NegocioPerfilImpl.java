@@ -4,6 +4,7 @@ import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
+import com.SII.negocio.excepciones.CuentaInexistenteException;
 import com.SII.negocio.excepciones.CuentaRepetidaException;
 
 import javax.ejb.Stateless;
@@ -18,12 +19,21 @@ public class NegocioPerfilImpl implements NegocioPerfil {
 
     @Override
     public void eliminarPerfil(Usuario usuario) throws AcoesException {
+        if (em.find(Usuario.class, usuario.getNombreUsuario()) == null) {
+            throw new CuentaInexistenteException();
+        }
+
         em.remove(em.merge(usuario));
     }
 
     @Override
     public void modificarPerfil(Usuario usuario) throws AcoesException {
         Usuario aux = em.find(Usuario.class, usuario.getNombreUsuario());
+
+        if (aux == null) {
+            throw new CuentaInexistenteException();
+        }
+
         Beneficiario auxBen = aux.getBeneficiario();
         Socio auxSoc = aux.getSocio();
 

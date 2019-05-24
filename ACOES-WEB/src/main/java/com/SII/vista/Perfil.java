@@ -76,7 +76,7 @@ public class Perfil implements Serializable {
                     break;
             }
             sesion.refrescarUsuario();
-            return sesion.home();
+            return "listausuarios.xhtml";
         } catch (ContrasennaInvalidaException e) {
             FacesMessage fm = new FacesMessage("Las contraseñas no coinciden");
             FacesContext.getCurrentInstance().addMessage("login:user", fm);

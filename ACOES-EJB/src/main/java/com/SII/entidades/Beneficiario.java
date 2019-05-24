@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- *
  * @author MiguelRuiz
  */
 @Entity
@@ -20,14 +19,14 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"BENEFICIARIO_CODIGO"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b")
-    , @NamedQuery(name = "Beneficiario.findByCodigo", query = "SELECT b FROM Beneficiario b WHERE b.codigo = :codigo")
-    , @NamedQuery(name = "Beneficiario.findByIdentificador", query = "SELECT b FROM Beneficiario b WHERE b.identificador = :identificador")
-    , @NamedQuery(name = "Beneficiario.findByNombre", query = "SELECT b FROM Beneficiario b WHERE b.nombre = :nombre")
-    , @NamedQuery(name = "Beneficiario.findByTipo", query = "SELECT b FROM Beneficiario b WHERE b.tipo = :tipo")
-    , @NamedQuery(name = "Beneficiario.findByApellidos", query = "SELECT b FROM Beneficiario b WHERE b.apellidos = :apellidos")
-    , @NamedQuery(name = "Beneficiario.findByObservaciones", query = "SELECT b FROM Beneficiario b WHERE b.observaciones = :observaciones")
-    , @NamedQuery(name = "Beneficiario.findByNumeroCuenta", query = "SELECT b FROM Beneficiario b WHERE b.numeroCuenta = :numeroCuenta")})
+        @NamedQuery(name = "Beneficiario.findAll", query = "SELECT b FROM Beneficiario b")
+        , @NamedQuery(name = "Beneficiario.findByCodigo", query = "SELECT b FROM Beneficiario b WHERE b.codigo = :codigo")
+        , @NamedQuery(name = "Beneficiario.findByIdentificador", query = "SELECT b FROM Beneficiario b WHERE b.identificador = :identificador")
+        , @NamedQuery(name = "Beneficiario.findByNombre", query = "SELECT b FROM Beneficiario b WHERE b.nombre = :nombre")
+        , @NamedQuery(name = "Beneficiario.findByTipo", query = "SELECT b FROM Beneficiario b WHERE b.tipo = :tipo")
+        , @NamedQuery(name = "Beneficiario.findByApellidos", query = "SELECT b FROM Beneficiario b WHERE b.apellidos = :apellidos")
+        , @NamedQuery(name = "Beneficiario.findByObservaciones", query = "SELECT b FROM Beneficiario b WHERE b.observaciones = :observaciones")
+        , @NamedQuery(name = "Beneficiario.findByNumeroCuenta", query = "SELECT b FROM Beneficiario b WHERE b.numeroCuenta = :numeroCuenta")})
 public class Beneficiario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -199,5 +198,5 @@ public class Beneficiario implements Serializable {
     public String toString() {
         return "javaapplication2.Beneficiario[ codigo=" + codigo + " ]";
     }
-    
+
 }

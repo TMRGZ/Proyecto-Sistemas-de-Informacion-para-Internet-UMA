@@ -12,17 +12,16 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- *
  * @author MiguelRuiz
  */
 @Entity
 @Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
-    , @NamedQuery(name = "Usuario.findByContrasenna", query = "SELECT u FROM Usuario u WHERE u.contrasenna = :contrasenna")
-    , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
+        @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+        , @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
+        , @NamedQuery(name = "Usuario.findByContrasenna", query = "SELECT u FROM Usuario u WHERE u.contrasenna = :contrasenna")
+        , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -126,5 +125,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "javaapplication2.Usuario[ nombreUsuario=" + nombreUsuario + " ]";
     }
-    
+
 }

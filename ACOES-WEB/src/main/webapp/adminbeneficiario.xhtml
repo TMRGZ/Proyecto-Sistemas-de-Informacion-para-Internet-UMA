@@ -28,29 +28,29 @@ and open the template in the editor.
                     <h:inputText value="#{bene.beneficiario.apellidos}"/></li>
                 <li><h:outputLabel>Numero de cuenta </h:outputLabel>
                     <h:inputText value="#{bene.beneficiario.numeroCuenta}"/></li>
-                    <li><h:outputLabel>Tipo: </h:outputLabel>
-                        <c:choose>
-                            <c:when test="#{bene.esModificar()}">
-                                <h:inputText disabled="true" value="#{bene.beneficiario.tipo}"/>
-                            </c:when>
-                            <c:otherwise>
-                        <h:selectOneMenu value="#{bene.beneficiario.tipo}">
-                        <f:selectItem  itemValue="Niño" itemLabel="Niño"/>
-                        <f:selectItem  itemValue="Socio" itemLabel="Socio"/>
-                        </h:selectOneMenu>
-                            </c:otherwise>
-                            
-                        </c:choose>
+                <li><h:outputLabel>Tipo: </h:outputLabel>
+                    <c:choose>
+                        <c:when test="#{bene.esModificar()}">
+                            <h:inputText disabled="true" value="#{bene.beneficiario.tipo}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <h:selectOneMenu value="#{bene.beneficiario.tipo}">
+                                <f:selectItem itemValue="Niño" itemLabel="Niño"/>
+                                <f:selectItem itemValue="Socio" itemLabel="Socio"/>
+                            </h:selectOneMenu>
+                        </c:otherwise>
 
-                        
+                    </c:choose>
+
+
                 </li>
-               
+
                 <li><h:outputLabel>Observaciones: </h:outputLabel>
                     <h:inputText value="#{bene.beneficiario.observaciones}"/></li>
-                    <c:if test="#{bene.beneficiario.becado != null}">
-                                <li><h:outputLabel>Agente: </h:outputLabel>
-                                <h:inputText value="#{bene.beneficiario.becado.agente}"/></li>
-                        </c:if>
+                <c:if test="#{bene.beneficiario.becado != null}">
+                    <li><h:outputLabel>Agente: </h:outputLabel>
+                        <h:inputText value="#{bene.beneficiario.becado.agente}"/></li>
+                </c:if>
             </ol>
             <h:inputHidden value="#{bene.modo}"/>
             <p><h:commandButton value="#{bene.accion}" action="#{bene.ejecutarAccion()}" styleClass="btn-borde"/></p>

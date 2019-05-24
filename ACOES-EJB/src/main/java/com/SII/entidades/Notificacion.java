@@ -13,19 +13,18 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *
  * @author MiguelRuiz
  */
 @Entity
 @Table(name = "NOTIFICACION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n")
-    , @NamedQuery(name = "Notificacion.findById", query = "SELECT n FROM Notificacion n WHERE n.id = :id")
-    , @NamedQuery(name = "Notificacion.findByUsuarioReceptor", query = "SELECT n FROM Notificacion n WHERE n.usuarioReceptor = :usuarioReceptor")
-    , @NamedQuery(name = "Notificacion.findByUsuarioEmisor", query = "SELECT n FROM Notificacion n WHERE n.usuarioEmisor = :usuarioEmisor")
-    , @NamedQuery(name = "Notificacion.findByFecha", query = "SELECT n FROM Notificacion n WHERE n.fecha = :fecha")
-    , @NamedQuery(name = "Notificacion.findByContenido", query = "SELECT n FROM Notificacion n WHERE n.contenido = :contenido")})
+        @NamedQuery(name = "Notificacion.findAll", query = "SELECT n FROM Notificacion n")
+        , @NamedQuery(name = "Notificacion.findById", query = "SELECT n FROM Notificacion n WHERE n.id = :id")
+        , @NamedQuery(name = "Notificacion.findByUsuarioReceptor", query = "SELECT n FROM Notificacion n WHERE n.usuarioReceptor = :usuarioReceptor")
+        , @NamedQuery(name = "Notificacion.findByUsuarioEmisor", query = "SELECT n FROM Notificacion n WHERE n.usuarioEmisor = :usuarioEmisor")
+        , @NamedQuery(name = "Notificacion.findByFecha", query = "SELECT n FROM Notificacion n WHERE n.fecha = :fecha")
+        , @NamedQuery(name = "Notificacion.findByContenido", query = "SELECT n FROM Notificacion n WHERE n.contenido = :contenido")})
 public class Notificacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -137,5 +136,5 @@ public class Notificacion implements Serializable {
     public String toString() {
         return "javaapplication2.Notificacion[ id=" + id + " ]";
     }
-    
+
 }

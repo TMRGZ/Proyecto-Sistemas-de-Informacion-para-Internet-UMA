@@ -12,21 +12,20 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- *
  * @author MiguelRuiz
  */
 @Entity
 @Table(name = "PROYECTO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
-    , @NamedQuery(name = "Proyecto.findByCodigo", query = "SELECT p FROM Proyecto p WHERE p.codigo = :codigo")
-    , @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre")
-    , @NamedQuery(name = "Proyecto.findByPresupuesto", query = "SELECT p FROM Proyecto p WHERE p.presupuesto = :presupuesto")
-    , @NamedQuery(name = "Proyecto.findByCombustible", query = "SELECT p FROM Proyecto p WHERE p.combustible = :combustible")
-    , @NamedQuery(name = "Proyecto.findByMantenimiento", query = "SELECT p FROM Proyecto p WHERE p.mantenimiento = :mantenimiento")
-    , @NamedQuery(name = "Proyecto.findByContenedor", query = "SELECT p FROM Proyecto p WHERE p.contenedor = :contenedor")
-    , @NamedQuery(name = "Proyecto.findByDescripcion", query = "SELECT p FROM Proyecto p WHERE p.descripcion = :descripcion")})
+        @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
+        , @NamedQuery(name = "Proyecto.findByCodigo", query = "SELECT p FROM Proyecto p WHERE p.codigo = :codigo")
+        , @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre")
+        , @NamedQuery(name = "Proyecto.findByPresupuesto", query = "SELECT p FROM Proyecto p WHERE p.presupuesto = :presupuesto")
+        , @NamedQuery(name = "Proyecto.findByCombustible", query = "SELECT p FROM Proyecto p WHERE p.combustible = :combustible")
+        , @NamedQuery(name = "Proyecto.findByMantenimiento", query = "SELECT p FROM Proyecto p WHERE p.mantenimiento = :mantenimiento")
+        , @NamedQuery(name = "Proyecto.findByContenedor", query = "SELECT p FROM Proyecto p WHERE p.contenedor = :contenedor")
+        , @NamedQuery(name = "Proyecto.findByDescripcion", query = "SELECT p FROM Proyecto p WHERE p.descripcion = :descripcion")})
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -154,5 +153,5 @@ public class Proyecto implements Serializable {
     public String toString() {
         return "javaapplication2.Proyecto[ codigo=" + codigo + " ]";
     }
-    
+
 }

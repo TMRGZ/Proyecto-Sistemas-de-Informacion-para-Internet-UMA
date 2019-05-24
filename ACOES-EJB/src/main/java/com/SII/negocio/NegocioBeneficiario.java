@@ -5,6 +5,7 @@
  */
 package com.SII.negocio;
 
+import com.SII.entidades.Becado;
 import com.SII.entidades.Beneficiario;
 import com.SII.negocio.excepciones.AcoesException;
 
@@ -12,7 +13,6 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
- *
  * @author juan_
  */
 @Local
@@ -26,7 +26,11 @@ public interface NegocioBeneficiario {
 
     List<Beneficiario> getListaBeneficiario();
 
+    List<Becado> getListaBecados();
+
     void anadirColaboracion(Beneficiario b) throws AcoesException;
-    void anadirBecado(Beneficiario b);
+
+    void anadirBecado(Becado b);
+
     void modificarBecado(Beneficiario b);
 }

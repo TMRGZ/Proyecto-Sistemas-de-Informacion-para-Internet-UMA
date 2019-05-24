@@ -33,8 +33,8 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
     }
 
     @Override
-    public void anadirColaboracion(Beneficiario b) throws AcoesException {
-        em.persist(b);
+    public void borrarBeneficiario(Beneficiario b) throws AcoesException {
+        negocioPerfil.eliminarPerfil(b.getUsuarioNombreUsuario());
     }
 
     @Override
@@ -54,30 +54,36 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
 
         em.merge(aux);
     }
-    
-    @Override
-    public void modificarBecado(Beneficiario b){
-        Becado aux = em.find(Becado.class, b.getBecado().getCodigo());
-        
-        aux.setAgente(b.getBecado().getAgente());
-        
-        em.merge(aux);
-    }
-
-    @Override
-    public void borrarBeneficiario(Beneficiario b) throws AcoesException {
-        negocioPerfil.eliminarPerfil(b.getUsuarioNombreUsuario());
-    }
 
     @Override
     public List<Beneficiario> getListaBeneficiario() {
         return em.createQuery("select a from Beneficiario a", Beneficiario.class).getResultList();
     }
+
+
+
     @Override
-    public void anadirBecado(Beneficiario b){
-          Becado bec = new Becado(b.getCodigo());
-          b.setBecado(bec);
-          bec.setBeneficiario(b);
-          em.persist(bec);
+    public void anadirColaboracion(Beneficiario b) {
+        em.persist(b);
     }
+
+
+    @Override
+    public void anadirBecado(Becado b) {
+        em.persist(b);
+    }
+
+    @Override
+    public void modificarBecado(Beneficiario b) {
+        Becado aux = em.find(Becado.class, b.getBecado().getCodigo());
+        aux.setAgente(b.getBecado().getAgente());
+        em.merge(aux);
+    }
+
+    @Override
+    public List<Becado> getListaBecados() {
+        return em.createQuery("select a from Becado a", Becado.class).getResultList();
+    }
+
+
 }

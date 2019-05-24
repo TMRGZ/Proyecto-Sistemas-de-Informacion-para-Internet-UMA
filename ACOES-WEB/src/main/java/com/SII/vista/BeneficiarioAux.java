@@ -5,11 +5,13 @@
  */
 package com.SII.vista;
 
+import com.SII.entidades.Becado;
 import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.NegocioBeneficiario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
+import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -17,14 +19,15 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 
 
 /**
  * @author juan_
  */
 @Named("bene")
-@RequestScoped
-public class BeneficiarioAux {
+@SessionScoped
+public class BeneficiarioAux implements Serializable{
 
     @Inject
     private NegocioBeneficiario nb;
@@ -57,6 +60,7 @@ public class BeneficiarioAux {
 
     public String annadir() {
         setModo(Modo.INSERTAR);
+        beneficiario = new Beneficiario();
         return "adminbeneficiario.xhtml";
     }
 
@@ -83,19 +87,30 @@ public class BeneficiarioAux {
             switch (modo) {
                 case INSERTAR:
                     Usuario u = new Usuario();
+                    
                     u.setNombreUsuario(beneficiario.getNombre() + beneficiario.getApellidos());
                     u.setContrasenna(beneficiario.getNombre() + beneficiario.getApellidos());
                     u.setRol(0);
                     u.setBeneficiario(beneficiario);
                     beneficiario.setUsuarioNombreUsuario(u);
                     beneficiario.setBeneficiarioCodigo(beneficiario);
+                    
                     nb.anadirBeneficiario(beneficiario);
+                    
+                    if(beneficiario.getTipo().equals("Niño")){
+                        nb.anadirBecado(beneficiario);
+                    }
+                    
                     break;
                 case MODIFICAR:
                     nb.modificarBeneficiario(beneficiario);
+                    if(beneficiario.getTipo().equals("Niño")){
+                        nb.modificarBecado(beneficiario);
+                    }
                     break;
             }
             sesion.refrescarUsuario();
+            
             return "listabeneficiarios.xhtml";
         } catch (BeneficiarioInexistenteException e) {
             FacesMessage fm = new FacesMessage("Beneficiario Inexistente");
@@ -133,6 +148,21 @@ public class BeneficiarioAux {
 
     public void setModo(Modo modo) {
         this.modo = modo;
+    }
+    
+    public boolean esBecado(){
+       return this.beneficiario.getTipo().equals("Niño");
+    }
+    public boolean esModificar(){
+                   switch (modo) {
+            case VER:
+                return false;
+            case MODIFICAR:
+                return true;
+            case INSERTAR:
+                return false;
+        }
+           return false;
     }
 
     public enum Modo {

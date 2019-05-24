@@ -15,7 +15,7 @@
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
             <c:when test="#{empty ctrlsocio.buscar(u)}">
                 <h:form id="apadrinarPrimeraVez">
-                    Aún no has apadrinado ¿Quieres?
+                    Aun no has apadrinado ¿Quieres?
 
 
                     <h:commandButton value="Comenzar"
@@ -24,10 +24,10 @@
                 </h:form>
             </c:when>
             <c:otherwise>
-                <ui:repeat value="#{ctrlsocio.buscar(infoSesion.usuario).toArray()}" var="niño">
+                <ui:repeat value="#{ctrlsocio.buscar(infoSesion.usuario).toArray()}" var="nino">
                     <ol class="lista">
                         <li>
-                            <label>Identificador:#{niño.beneficiario.nombre} </label>
+                            <label>Identificador:#{nino.beneficiario.nombre} </label>
                         </li>
                     </ol>
                 </ui:repeat>

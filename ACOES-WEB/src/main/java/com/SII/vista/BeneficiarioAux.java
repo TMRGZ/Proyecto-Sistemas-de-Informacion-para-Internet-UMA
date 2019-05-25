@@ -38,6 +38,7 @@ public class BeneficiarioAux implements Serializable {
 
     public BeneficiarioAux() {
         beneficiario = new Beneficiario();
+        beneficiario.setBecado(new Becado());
         modo = Modo.VER;
     }
 
@@ -93,23 +94,18 @@ public class BeneficiarioAux implements Serializable {
                     u.setBeneficiario(beneficiario);
                     beneficiario.setUsuarioNombreUsuario(u);
                     beneficiario.setBeneficiarioCodigo(beneficiario);
+                    nb.anadirBeneficiario(beneficiario);
 
                     if (beneficiario.getTipo().equals("Niño")) {
                         Becado bec = new Becado(beneficiario.getCodigo());
                         beneficiario.setBecado(bec);
                         bec.setBeneficiario(beneficiario);
                         nb.anadirBecado(bec);
-                    } else {
-                        nb.anadirBeneficiario(beneficiario);
                     }
 
                     break;
                 case MODIFICAR:
-                    if (beneficiario.getTipo().equals("Niño")) {
-                        nb.modificarBecado(beneficiario);
-                    } else {
-                        nb.modificarBeneficiario(beneficiario);
-                    }
+                    nb.modificarBeneficiario(beneficiario);
                     break;
             }
             sesion.refrescarUsuario();

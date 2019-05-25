@@ -31,6 +31,4 @@ public interface NegocioBeneficiario {
     void anadirColaboracion(Beneficiario b) throws AcoesException;
 
     void anadirBecado(Becado b);
-
-    void modificarBecado(Beneficiario b);
 }

@@ -52,6 +52,15 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
         aux.setTipo(b.getTipo());
         aux.setObservaciones(b.getObservaciones());
 
+        Becado auxBecado = aux.getBecado();
+
+        if (auxBecado != null) {
+            auxBecado.setAgente(b.getBecado().getAgente());
+
+            aux.setBecado(auxBecado);
+        }
+
+
         em.merge(aux);
     }
 
@@ -71,13 +80,7 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
     @Override
     public void anadirBecado(Becado b) {
         em.persist(b);
-    }
-
-    @Override
-    public void modificarBecado(Beneficiario b) {
-        Becado aux = em.find(Becado.class, b.getBecado().getCodigo());
-        aux.setAgente(b.getBecado().getAgente());
-        em.merge(aux);
+        em.merge(b.getBeneficiario());
     }
 
     @Override

@@ -1,7 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Usuario admin</ui:define>
     <ui:define name="menuadmin">
@@ -12,49 +12,59 @@
             <link rel="stylesheet" href="css/tabla2.css"/>
         </h:head>
 
-        <h:form id="listaUsuarios"><!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
-            <div align="center" class="container">
-                <h1>Lista de usuarios</h1>
-                <h:dataTable value="#{perfil.getListaPerfiles()}" var="usuario" styleClass="order-table"
-                             headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
-                    <h:column>
-                        <f:facet name="header">Usuario</f:facet>
-                        <h:outputText value="#{usuario.nombreUsuario}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Rol</f:facet>
-                        <h:outputText value="#{usuario.rol}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Numero de socio</f:facet>
-                        <h:outputText value="#{usuario.socio.numero}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Código de beneficiario</f:facet>
-                        <h:outputText value="#{usuario.beneficiario.codigo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Código de becado</f:facet>
-                        <h:outputText value="#{usuario.beneficiario.becado.codigo}"/>
-                    </h:column>
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <h:form id="listaUsuarios"><!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
+                    <div align="center" class="container">
+                        <h1>Lista de usuarios</h1>
+                        <h:dataTable value="#{perfil.getListaPerfiles()}" var="usuario" styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row">
+                            <h:column>
+                                <f:facet name="header">Usuario</f:facet>
+                                <h:outputText value="#{usuario.nombreUsuario}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Rol</f:facet>
+                                <h:outputText value="#{usuario.rol}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Numero de socio</f:facet>
+                                <h:outputText value="#{usuario.socio.numero}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Código de beneficiario</f:facet>
+                                <h:outputText value="#{usuario.beneficiario.codigo}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Código de becado</f:facet>
+                                <h:outputText value="#{usuario.beneficiario.becado.codigo}"/>
+                            </h:column>
 
-                    <h:column>
-                        <h:commandButton value="Detalles" action="#{perfil.ver(usuario)}"
+                            <h:column>
+                                <h:commandButton value="Detalles" action="#{perfil.ver(usuario)}"
+                                                 styleClass="btn-borde"/>
+                            </h:column>
+                            <h:column>
+                                <h:commandButton value="Modificar" action="#{perfil.modificar(usuario)}"
+                                                 styleClass="btn-borde"/>
+                            </h:column>
+                            <h:column>
+                                <h:commandButton value="Eliminar" action="#{perfil.eliminar(usuario)}"
+                                                 styleClass="btn-borde"/>
+                            </h:column>
+                        </h:dataTable>
+                        <h:commandButton value="Nuevo" action="#{perfil.registrarUsuario()}"
                                          styleClass="btn-borde"/>
-                    </h:column>
-                    <h:column>
-                        <h:commandButton value="Modificar" action="#{perfil.modificar(usuario)}"
-                                         styleClass="btn-borde"/>
-                    </h:column>
-                    <h:column>
-                        <h:commandButton value="Eliminar" action="#{perfil.eliminar(usuario)}"
-                                         styleClass="btn-borde"/>
-                    </h:column>
-                </h:dataTable>
-                <h:commandButton value="Nuevo" action="#{perfil.registrarUsuario()}"
-                                 styleClass="btn-borde"/>
-            </div>
-        </h:form>
+                    </div>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
+
+
     </ui:define>
 </ui:composition>

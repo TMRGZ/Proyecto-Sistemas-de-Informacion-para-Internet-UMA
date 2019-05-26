@@ -7,39 +7,47 @@ and open the template in the editor.
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="menuadmin">
 
     </ui:define>
     <ui:define name="contenido">
-        <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
-            <ol class="lista">
-                <li>
-                    <label>Identificador: </label>
-                    <h:inputText value="#{bene.beneficiario.identificador}"/>
-                </li>
-                <li>
-                    <label>Nombre: </label>
-                    <h:inputText value="#{bene.beneficiario.nombre}"/>
-                </li>
-                <li>
-                    <label>Apellido: </label>
-                    <h:inputText value="#{bene.beneficiario.apellidos}"/>
-                </li>
-                <li>
-                    <label>Numero de cuenta </label>
-                    <h:inputText value="#{bene.beneficiario.numeroCuenta}"/>
-                </li>
-                <li>
-                    <label>Tipo: </label>
-                    <h:inputText value="#{bene.beneficiario.tipo}"/>
-                </li>
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <h:form><!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
+                    <ol class="lista">
+                        <li>
+                            <label>Identificador: </label>
+                            <h:inputText value="#{bene.beneficiario.identificador}"/>
+                        </li>
+                        <li>
+                            <label>Nombre: </label>
+                            <h:inputText value="#{bene.beneficiario.nombre}"/>
+                        </li>
+                        <li>
+                            <label>Apellido: </label>
+                            <h:inputText value="#{bene.beneficiario.apellidos}"/>
+                        </li>
+                        <li>
+                            <label>Numero de cuenta </label>
+                            <h:inputText value="#{bene.beneficiario.numeroCuenta}"/>
+                        </li>
+                        <li>
+                            <label>Tipo: </label>
+                            <h:inputText value="#{bene.beneficiario.tipo}"/>
+                        </li>
 
-            </ol>
-            <p>
-                <h:commandButton value="Enviar" action="#{bene.modificar()}" styleClass="btn-borde"/>
-            </p>
-        </h:form>
+                    </ol>
+                    <p>
+                        <h:commandButton value="Enviar" action="#{bene.modificar()}" styleClass="btn-borde"/>
+                    </p>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
 </ui:composition>

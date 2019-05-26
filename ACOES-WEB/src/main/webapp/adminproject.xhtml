@@ -2,36 +2,45 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
->
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
     <ui:define name="contenido">
-        <h:link outcome="projects.xhtml" class="atras"/>
-        <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
-        <h:form>
-            <h:inputHidden value="#{ctrlproyectos.proyecto.codigo}"/>
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <h:link outcome="projects.xhtml" class="atras"/>
+                <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
+                <h:form>
+                    <h:inputHidden value="#{ctrlproyectos.proyecto.codigo}"/>
 
-            <ol class="lista">
-                <li><h:outputLabel>nombre:</h:outputLabel><h:inputText value="#{ctrlproyectos.getProyecto().nombre}"/>
-                </li>
-                <li><h:outputLabel>presupuesto:</h:outputLabel><h:inputText
-                        value="#{ctrlproyectos.proyecto.presupuesto}"/></li>
-                <li><h:outputLabel>combustible:</h:outputLabel><h:inputText
-                        value="#{ctrlproyectos.proyecto.combustible}"/></li>
-                <li><h:outputLabel>contenedor:</h:outputLabel><h:inputText
-                        value="#{ctrlproyectos.proyecto.contenedor}"/></li>
-                <li><h:outputLabel>descripción:</h:outputLabel><h:inputText
-                        value="#{ctrlproyectos.proyecto.descripcion}"/></li>
-                <li><h:outputLabel>mantenimiento:</h:outputLabel><h:inputText
-                        value="#{ctrlproyectos.proyecto.mantenimiento}"/></li>
-            </ol>
+                    <ol class="lista">
+                        <li><h:outputLabel>nombre:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.getProyecto().nombre}"/>
+                        </li>
+                        <li><h:outputLabel>presupuesto:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.proyecto.presupuesto}"/></li>
+                        <li><h:outputLabel>combustible:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.proyecto.combustible}"/></li>
+                        <li><h:outputLabel>contenedor:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.proyecto.contenedor}"/></li>
+                        <li><h:outputLabel>descripción:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.proyecto.descripcion}"/></li>
+                        <li><h:outputLabel>mantenimiento:</h:outputLabel><h:inputText
+                                value="#{ctrlproyectos.proyecto.mantenimiento}"/></li>
+                    </ol>
 
-            <h:inputHidden value="#{ctrlproyectos.modo}"/>
+                    <h:inputHidden value="#{ctrlproyectos.modo}"/>
 
-            <p><h:commandButton value="#{ctrlproyectos.accion}" action="#{ctrlproyectos.ejecutarAccion()}" id="accion"
-                                styleClass="btn-borde"/></p>
-            <h:message for="accion"/>
-
-        </h:form>
+                    <p><h:commandButton value="#{ctrlproyectos.accion}" action="#{ctrlproyectos.ejecutarAccion()}"
+                                        id="accion"
+                                        styleClass="btn-borde"/></p>
+                    <h:message for="accion"/>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
 </ui:composition>

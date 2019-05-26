@@ -1,48 +1,57 @@
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
     <ui:define name="contenido">
         <h:link outcome="projects.xhtml" class="atras"/>
         <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <ol class="lista">
+                    <li>
+                        <h:outputLabel>código:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().codigo}</h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>nombre:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().nombre}</h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>presupuesto:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().presupuesto} </h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>combustible:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().combustible}</h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>contenedor:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().contenedor}</h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>descripción:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().descripcion} </h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>mantenimiento:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().mantenimiento}</h:outputLabel>
+                    </li>
+                    <li>
+                        <h:outputLabel>Beneficiarios:</h:outputLabel>
+                        <h:dataTable value="#{ctrlproyectos.getProyecto().beneficiarioSet}" var="set"
+                                     styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row">
 
-        <ol class="lista">
-            <li>
-                <h:outputLabel>código:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().codigo}</h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>nombre:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().nombre}</h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>presupuesto:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().presupuesto} </h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>combustible:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().combustible}</h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>contenedor:</h:outputLabel><h:outputLabel> #{ctrlproyectos.getProyecto().contenedor}</h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>descripción:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().descripcion} </h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>mantenimiento:</h:outputLabel><h:outputLabel>#{ctrlproyectos.getProyecto().mantenimiento}</h:outputLabel>
-            </li>
-            <li>
-                <h:outputLabel>Beneficiarios:</h:outputLabel>
-                <h:dataTable value="#{ctrlproyectos.getProyecto().beneficiarioSet}" var="set" styleClass="order-table"
-                             headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
+                            <h:column>
+                                <h:outputText value="#{set.nombre}"/>
+                            </h:column>
 
-                    <h:column>
-                        <h:outputText value="#{set.nombre}"/>
-                    </h:column>
+                        </h:dataTable>
+                    </li>
+                </ol>
+            </c:otherwise>
+        </c:choose>
 
-                </h:dataTable>
-            </li>
-        </ol>
 
     </ui:define>
 </ui:composition>

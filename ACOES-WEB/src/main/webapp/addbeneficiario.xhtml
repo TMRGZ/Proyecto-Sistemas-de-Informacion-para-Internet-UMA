@@ -8,87 +8,99 @@ and open the template in the editor.
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="titulo">Iniciar sesion</ui:define>
     <ui:define name="menuadmin">
 
     </ui:define>
     <ui:define name="contenido">
-        <h:head>
-            <link rel="stylesheet" href="css/tabla2.css"/>
-            <link rel="stylesheet" href="css/ListasBeneficiarios.css"/>
-        </h:head>
-        <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <h:head>
+                    <link rel="stylesheet" href="css/tabla2.css"/>
+                    <link rel="stylesheet" href="css/ListasBeneficiarios.css"/>
+                </h:head>
+                <!--@elvariable id="ctrlproyectos" type="com.SII.vista.ControlProyecto"-->
 
-        <h:form id="listaproyectos">
-            <h:inputHidden value="#{ctrlproyectos.proyecto.codigo}"/>
+                <h:form id="listaproyectos">
+                    <h:inputHidden value="#{ctrlproyectos.proyecto.codigo}"/>
 
-            <div align="center" class="container izq">
-                <h1>Beneficiarios no incluidos</h1>
+                    <div align="center" class="container izq">
+                        <h1>Beneficiarios no incluidos</h1>
 
 
-                <h:dataTable value="#{ctrlproyectos.getRestantes(ctrlproyectos.proyecto)}" var="ben"
-                             styleClass="order-table"
-                             headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
+                        <h:dataTable value="#{ctrlproyectos.getRestantes(ctrlproyectos.proyecto)}" var="ben"
+                                     styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row">
 
-                    <h:column>
-                        <f:facet name="header">Nombre</f:facet>
-                        <h:outputText value="#{ben.nombre}"/>
-                    </h:column>
+                            <h:column>
+                                <f:facet name="header">Nombre</f:facet>
+                                <h:outputText value="#{ben.nombre}"/>
+                            </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Codigo</f:facet>
-                        <h:outputText value="#{ben.codigo}"/>
-                    </h:column>
+                            <h:column>
+                                <f:facet name="header">Codigo</f:facet>
+                                <h:outputText value="#{ben.codigo}"/>
+                            </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Identificador</f:facet>
-                        <h:outputText value="#{ben.identificador}"/>
-                    </h:column>
+                            <h:column>
+                                <f:facet name="header">Identificador</f:facet>
+                                <h:outputText value="#{ben.identificador}"/>
+                            </h:column>
 
-                    <h:column>
-                        <h:commandButton value="Añadir Beneficiario" action="#{ctrlproyectos.addBen(ben)}" id="add"
-                                         styleClass="btn-borde"/>
-                        <h:message for="add"/>
-                    </h:column>
+                            <h:column>
+                                <h:commandButton value="Añadir Beneficiario" action="#{ctrlproyectos.addBen(ben)}"
+                                                 id="add"
+                                                 styleClass="btn-borde"/>
+                                <h:message for="add"/>
+                            </h:column>
 
-                </h:dataTable>
-            </div>
+                        </h:dataTable>
+                    </div>
 
-            <div align="center" class="container der">
-                <h1>Beneficiarios presentes en #{ctrlproyectos.proyecto.nombre}</h1>
+                    <div align="center" class="container der">
+                        <h1>Beneficiarios presentes en #{ctrlproyectos.proyecto.nombre}</h1>
 
-                <h:dataTable value="#{ctrlproyectos.getParticipantes(ctrlproyectos.proyecto)}" var="par"
-                             styleClass="order-table"
-                             headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
+                        <h:dataTable value="#{ctrlproyectos.getParticipantes(ctrlproyectos.proyecto)}" var="par"
+                                     styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row">
 
-                    <h:column>
-                        <f:facet name="header">Nombre</f:facet>
-                        <h:outputText value="#{par.nombre}"/>
-                    </h:column>
+                            <h:column>
+                                <f:facet name="header">Nombre</f:facet>
+                                <h:outputText value="#{par.nombre}"/>
+                            </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Codigo</f:facet>
-                        <h:outputText value="#{par.codigo}"/>
-                    </h:column>
+                            <h:column>
+                                <f:facet name="header">Codigo</f:facet>
+                                <h:outputText value="#{par.codigo}"/>
+                            </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Identificador</f:facet>
-                        <h:outputText value="#{par.identificador}"/>
-                    </h:column>
+                            <h:column>
+                                <f:facet name="header">Identificador</f:facet>
+                                <h:outputText value="#{par.identificador}"/>
+                            </h:column>
 
-                    <h:column>
-                        <h:commandButton value="Eliminar Beneficiario" action="#{ctrlproyectos.remBen(par)}" id="rem"
-                                         styleClass="btn-borde"/>
-                        <h:message for="rem"/>
-                    </h:column>
+                            <h:column>
+                                <h:commandButton value="Eliminar Beneficiario" action="#{ctrlproyectos.remBen(par)}"
+                                                 id="rem"
+                                                 styleClass="btn-borde"/>
+                                <h:message for="rem"/>
+                            </h:column>
 
-                </h:dataTable>
+                        </h:dataTable>
 
-            </div>
+                    </div>
 
-        </h:form>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
+
+
     </ui:define>
 </ui:composition>

@@ -92,7 +92,7 @@ public class Perfil implements Serializable {
     }
 
     public boolean estasAutorizadoParaEditar() {
-        return sesion.getUsuario().getRol() == 1 || sesion.getUsuario().equals(usuario);
+        return sesion.getUsuario() != null && (sesion.getUsuario().getRol() == 1 || sesion.getUsuario().equals(usuario));
     }
 
     public List<Usuario> getListaPerfiles() {

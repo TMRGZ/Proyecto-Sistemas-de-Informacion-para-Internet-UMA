@@ -4,7 +4,6 @@ import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Proyecto;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ProyInexistenteException;
-import com.SII.negocio.excepciones.ProyRepException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,10 +19,6 @@ public class NegocioProyImpl implements NegocioProy {
 
     @Override
     public void annadirProy(Proyecto p) throws AcoesException {
-        Proyecto aux = em.find(Proyecto.class, p.getCodigo());
-        if (aux != null) {
-            throw new ProyRepException();
-        }
         em.persist(p);
     }
 

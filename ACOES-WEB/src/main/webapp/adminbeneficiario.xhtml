@@ -14,46 +14,51 @@ and open the template in the editor.
 
     </ui:define>
     <ui:define name="contenido">
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <h:form>
+                    <h:inputHidden value="#{bene.beneficiario.codigo}"/>
+                    <h:inputHidden value="#{bene.beneficiario.tipo}"/>
+                    <!--@elvariable id="bene" type="com.SII.vista.BeneficiarioAux"-->
+                    <ol class="lista">
+                        <li><h:outputLabel>Identificador: </h:outputLabel>
+                            <h:inputText value="#{bene.beneficiario.identificador}"/></li>
+                        <li><h:outputLabel>Nombre: </h:outputLabel>
+                            <h:inputText value="#{bene.beneficiario.nombre}"/></li>
+                        <li><h:outputLabel>Apellido: </h:outputLabel>
+                            <h:inputText value="#{bene.beneficiario.apellidos}"/></li>
+                        <li><h:outputLabel>Numero de cuenta </h:outputLabel>
+                            <h:inputText value="#{bene.beneficiario.numeroCuenta}"/></li>
+                        <li><h:outputLabel>Tipo: </h:outputLabel>
+                            <c:choose>
+                                <c:when test="#{bene.esModificar()}">
+                                    <h:inputText disabled="true" value="#{bene.beneficiario.tipo}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <h:selectOneMenu value="#{bene.beneficiario.tipo}">
+                                        <f:selectItem itemValue="Niño" itemLabel="Niño"/>
+                                        <f:selectItem itemValue="Socio" itemLabel="Socio"/>
+                                    </h:selectOneMenu>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
 
-        <h:form>
-            <h:inputHidden value="#{bene.beneficiario.codigo}"/>
-            <h:inputHidden value="#{bene.beneficiario.tipo}"/>
-            <!--@elvariable id="bene" type="com.SII.vista.BeneficiarioAux"-->
-            <ol class="lista">
-                <li><h:outputLabel>Identificador: </h:outputLabel>
-                    <h:inputText value="#{bene.beneficiario.identificador}"/></li>
-                <li><h:outputLabel>Nombre: </h:outputLabel>
-                    <h:inputText value="#{bene.beneficiario.nombre}"/></li>
-                <li><h:outputLabel>Apellido: </h:outputLabel>
-                    <h:inputText value="#{bene.beneficiario.apellidos}"/></li>
-                <li><h:outputLabel>Numero de cuenta </h:outputLabel>
-                    <h:inputText value="#{bene.beneficiario.numeroCuenta}"/></li>
-                <li><h:outputLabel>Tipo: </h:outputLabel>
-                    <c:choose>
-                        <c:when test="#{bene.esModificar()}">
-                            <h:inputText disabled="true" value="#{bene.beneficiario.tipo}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <h:selectOneMenu value="#{bene.beneficiario.tipo}">
-                                <f:selectItem itemValue="Niño" itemLabel="Niño"/>
-                                <f:selectItem itemValue="Socio" itemLabel="Socio"/>
-                            </h:selectOneMenu>
-                        </c:otherwise>
-
-                    </c:choose>
-
-
-                </li>
-
-                <li><h:outputLabel>Observaciones: </h:outputLabel>
-                    <h:inputText value="#{bene.beneficiario.observaciones}"/></li>
-                <c:if test="#{bene.beneficiario.becado != null}">
-                    <li><h:outputLabel>Agente: </h:outputLabel>
-                        <h:inputText value="#{bene.beneficiario.becado.agente}"/></li>
-                </c:if>
-            </ol>
-            <h:inputHidden value="#{bene.modo}"/>
-            <p><h:commandButton value="#{bene.accion}" action="#{bene.ejecutarAccion()}" styleClass="btn-borde"/></p>
-        </h:form>
+                        <li><h:outputLabel>Observaciones: </h:outputLabel>
+                            <h:inputText value="#{bene.beneficiario.observaciones}"/></li>
+                        <c:if test="#{bene.beneficiario.becado != null}">
+                            <li><h:outputLabel>Agente: </h:outputLabel>
+                                <h:inputText value="#{bene.beneficiario.becado.agente}"/></li>
+                        </c:if>
+                    </ol>
+                    <h:inputHidden value="#{bene.modo}"/>
+                    <p><h:commandButton value="#{bene.accion}" action="#{bene.ejecutarAccion()}"
+                                        styleClass="btn-borde"/></p>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
 </ui:composition>

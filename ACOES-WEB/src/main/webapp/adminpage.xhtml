@@ -1,38 +1,45 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="WEB-INF/Templates/menu.xhtml">
     <ui:define name="titulo">Usuario admin</ui:define>
     <ui:define name="menuadmin">
 
     </ui:define>
     <ui:define name="contenido">
-        <h:head>
-            <link rel="stylesheet" href="css/tabla2.css"/>
-        </h:head>
+        <c:choose>
+            <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
+            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
+                No tiene permisos para ver esta información.
+            </c:when>
+            <c:otherwise>
+                <h:head>
+                    <link rel="stylesheet" href="css/tabla2.css"/>
+                </h:head>
 
-        <h:form id="listaUsuarios"><!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
-            <div align="center" class="container">
-                <h1>Notificaciones</h1>
-                <h:dataTable value="#{perfil.notifiaciones}" var="notifacion" styleClass="order-table"
-                             headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
-                    <h:column>
-                        <f:facet name="header">Origen del mensaje</f:facet>
-                        <h:outputText value="#{notifacion.usuarioEmisor}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Fecha de envío</f:facet>
-                        <h:outputText value="#{notifacion.fecha.toLocaleString()}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Contenido del mensaje</f:facet>
-                        <h:outputText value="#{notifacion.contenido}"/>
-                    </h:column>
-
-                </h:dataTable>
-            </div>
-        </h:form>
+                <h:form id="listaUsuarios"><!--@elvariable id="perfil" type="com.SII.vista.Perfil"-->
+                    <div align="center" class="container">
+                        <h1>Notificaciones</h1>
+                        <h:dataTable value="#{perfil.notifiaciones}" var="notifacion" styleClass="order-table"
+                                     headerClass="order-table-header"
+                                     rowClasses="order-table-odd-row,order-table-even-row">
+                            <h:column>
+                                <f:facet name="header">Origen del mensaje</f:facet>
+                                <h:outputText value="#{notifacion.usuarioEmisor}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Fecha de envío</f:facet>
+                                <h:outputText value="#{notifacion.fecha.toLocaleString()}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Contenido del mensaje</f:facet>
+                                <h:outputText value="#{notifacion.contenido}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                </h:form>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
 </ui:composition>

@@ -5,6 +5,7 @@ import com.SII.negocio.NegocioPerfil;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ContrasennaInvalidaException;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Perfil implements Serializable {
     @Inject
     private InfoSesion sesion;
-    @Inject
+    @EJB
     private NegocioPerfil negocioPerfil;
     private Usuario usuario;
     private Modo modo;

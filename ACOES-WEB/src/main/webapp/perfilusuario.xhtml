@@ -29,7 +29,7 @@
                         </h:inputText>
                         <h:message for="user"/>
 
-                        <b><h:outputText value="Contraseña*"/></b>
+                        <b><h:outputText value="Contraseña*" rendered="#{!perfil.esVer()}"/></b>
                         <h:inputSecret id="pass" value="#{perfil.usuario.contrasenna}" required="true"
                                        a:placeholder="Introduzca una contraseña"
                                        validatorMessage="Las contraseñas no deben tener carácteres especiales"
@@ -38,7 +38,7 @@
                         </h:inputSecret>
                         <h:message for="pass"/>
 
-                        <b><h:outputText value="Confirma la contraseña*"/></b>
+                        <b><h:outputText value="Confirma la contraseña*" rendered="#{!perfil.esVer()}"/></b>
                         <h:inputSecret id="repass" value="#{perfil.repass}" required="true"
                                        a:placeholder="Repìta la contraseña" disabled="#{perfil.esVer()}"
                                        rendered="#{!perfil.esVer()}"/>

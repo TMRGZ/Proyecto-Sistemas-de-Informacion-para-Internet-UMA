@@ -12,6 +12,7 @@ import com.SII.negocio.NegocioBeneficiario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -28,7 +29,7 @@ import java.util.List;
 @SessionScoped
 public class BeneficiarioAux implements Serializable {
 
-    @Inject
+    @EJB
     private NegocioBeneficiario nb;
     @Inject
     private InfoSesion sesion;
@@ -74,6 +75,7 @@ public class BeneficiarioAux implements Serializable {
         this.beneficiario.setUsuarioNombreUsuario(sesion.getUsuario());
         this.beneficiario.setTipo("Socio");
         this.beneficiario.setIdentificador("test");
+        this.beneficiario.setBecado(null);
         this.beneficiario.setBeneficiarioCodigo(this.beneficiario);
         sesion.getUsuario().setBeneficiario(beneficiario);
         nb.anadirColaboracion(this.beneficiario);

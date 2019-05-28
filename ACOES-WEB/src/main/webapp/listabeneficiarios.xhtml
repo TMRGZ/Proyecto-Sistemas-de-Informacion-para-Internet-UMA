@@ -1,91 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
 <ui:composition template="WEB-INF/Templates/menu.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <ui:define name="titulo">Iniciar sesion</ui:define>
-    <ui:define name="menuadmin">
-
-    </ui:define>
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="titulo">Usuario normal</ui:define>
     <ui:define name="contenido">
         <h:head>
             <link rel="stylesheet" href="css/tabla2.css"/>
         </h:head>
-
         <c:choose>
+            <!--@elvariable id="ctrlsocio" type="com.SII.vista.ControlSocio"-->
+            <!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
+            <!--@elvariable id="u" type="com.SII.entidades.Usuario"-->
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
-            <c:when test="#{empty infoSesion.usuario || !(infoSesion.usuario.rol == 1)}">
-                No tiene permisos para ver esta información.
+            <c:when test="#{empty ctrlsocio.buscar(u)}">
+                <h:form id="apadrinarPrimeraVez">
+                    Aun no has apadrinado ¿Quieres?
+
+
+                    <h:commandButton value="Comenzar"
+                                     action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
+                                     styleClass="btn-borde"/>
+                </h:form>
             </c:when>
             <c:otherwise>
-                <h:form id="beneficiarios">
-                    <div align="center" class="container">
-                        <h1>Lista de beneficiarios</h1>
-                        <!--@elvariable id="bene" type="com.SII.vista.BeneficiarioAux"-->
-                        <h:dataTable value="#{bene.getListaBeneficiarios()}" var="beneficiario"
-                                     styleClass="order-table" headerClass="order-table-header"
-                                     rowClasses="order-table-odd-row, order-table-even-row">
-                            <h:column>
-                                <f:facet name="header">Codigo</f:facet>
-                                <h:outputText value="#{beneficiario.codigo}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Identificador</f:facet>
-                                <h:outputText value="#{beneficiario.identificador}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Nombre</f:facet>
-                                <h:outputText value="#{beneficiario.nombre}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Apellidos</f:facet>
-                                <h:outputText value="#{beneficiario.apellidos}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Tipo</f:facet>
-                                <h:outputText value="#{beneficiario.tipo}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Numero de Cuenta</f:facet>
-                                <h:outputText value="#{beneficiario.numeroCuenta}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Observaciones</f:facet>
-                                <h:outputText value="#{beneficiario.observaciones}"/>
-                            </h:column>
-
-                            <h:column>
-                                <h:commandButton value="Modificar" action="#{bene.modificar(beneficiario)}"
-                                                 styleClass="btn-borde"/>
-                            </h:column>
-
-                            <h:column>
-                                <h:commandButton value="Borrar" action="#{bene.borrar(beneficiario)}"
-                                                 styleClass="btn-borde"/>
-                            </h:column>
-
-                        </h:dataTable>
-                        <h:commandButton value="Añadir" action="#{bene.annadir()}" styleClass="btn-borde"/>
-                    </div>
+                <ui:repeat value="#{ctrlsocio.buscar(infoSesion.usuario).toArray()}" var="nino">
+                    <ol class="lista">
+                        <li>
+                            <label>Identificador:#{nino.beneficiario.nombre} </label>
+                            <h:form id="desapadrinar">
+                            <h:commandButton value="Desapadrinar"
+                                     action="#{ctrlsocio.desapadrinar(infoSesion.usuario,nino)}"
+                                     styleClass="btn-borde"/>
+                            </h:form>
+                        </li>
+                    </ol>
+                </ui:repeat>
+                <h:form id="apadrinar">
+                    <h:commandButton value="Apadrina"
+                                     action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
+                                     styleClass="btn-borde"/>
                 </h:form>
             </c:otherwise>
         </c:choose>
-
-
     </ui:define>
 </ui:composition>
-
-

@@ -56,7 +56,10 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
 
         if (auxBecado != null) {
             auxBecado.setAgente(b.getBecado().getAgente());
-
+            auxBecado.setBeca(b.getBecado().getBeca());
+            auxBecado.setColoniaActual(b.getBecado().getColoniaActual());
+            auxBecado.setColoniaProcedencia(b.getBecado().getColoniaProcedencia());
+            auxBecado.setEstado(b.getBecado().getEstado());
             aux.setBecado(auxBecado);
         }
 

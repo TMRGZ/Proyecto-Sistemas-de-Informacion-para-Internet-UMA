@@ -9,6 +9,7 @@ import com.SII.negocio.excepciones.SocioInexistenteException;
 import com.SII.entidades.Becado;
 import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Socio;
+import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
 import java.util.List;
@@ -73,6 +74,12 @@ public class NegocioSocioImpl implements NegocioSocio{
         Socio aux = em.find(Socio.class, s.getNumero());
         aux.getBecadoSet().remove(b);
         em.merge(aux);
+    }
+
+    @Override
+    public Socio buscar(Usuario u) throws AcoesException {
+        Socio socio = em.find(Socio.class, u.getNombreUsuario());
+        return socio;
     }
 
     

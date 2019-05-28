@@ -21,23 +21,21 @@ import javax.persistence.PersistenceContext;
 @SessionScoped
 public class ControlSocio implements Serializable {
 
-    @PersistenceContext(unitName = "ACOES")
-    private EntityManager em;
     private NegocioSocioImpl nc;
 
     public ControlSocio() {
         
     }
 
-    public List<Notificacion> getNotificaciones(Usuario u) {
-        Socio socio = em.find(Socio.class, u.getNombreUsuario());
+    public List<Notificacion> getNotificaciones(Usuario u) throws AcoesException {
+        Socio socio = nc.buscar(u);
         if (socio.getUsuarioNombreUsuario().getNotificacionSet() == null) {
             socio.getUsuarioNombreUsuario().setNotificacionSet(new HashSet<>());        }
         return new ArrayList<>(socio.getUsuarioNombreUsuario().getNotificacionSet());
     }
 
     public String apadrinar(Usuario u, Set<Beneficiario> listben) throws AcoesException {
-        Socio socio = em.find(Socio.class, u.getNombreUsuario());
+        Socio socio = nc.buscar(u);
         if (socio.getBecadoSet() == null) {
             socio.setBecadoSet(new HashSet<>());
         }
@@ -45,7 +43,8 @@ public class ControlSocio implements Serializable {
 
         for (Beneficiario beneficiario : listben) {
             if (beneficiario.getTipo().equals("Niño")) {
-                Becado b = em.find(Becado.class, beneficiario.getCodigo());
+                Becado b = new Becado();
+                b.setBeneficiario(beneficiario);
                 nc.apadrinar(socio, b);
             }
         }
@@ -53,15 +52,21 @@ public class ControlSocio implements Serializable {
         return "listaapadrinados.xhtml";
     }
 
-    public String desapadrinar(Usuario u, Becado b) throws AcoesException {
-        Socio socio = em.find(Socio.class, u.getNombreUsuario());
-        Becado becado = em.find(Becado.class, b.getBeneficiario().getCodigo());
-        nc.desapadrinar(socio, becado);
+    public String desapadrinar(Usuario u, Set<Beneficiario> listben) throws AcoesException {
+        
+        Socio socio = nc.buscar(u);
+        if (socio.getBecadoSet() == null) {
+            socio.setBecadoSet(new HashSet<>());
+        }
+
+
+      
+
         return "listaapadrinados.xhtml";
     }
     
-    public Set<Becado> buscar(Usuario u) {
-        Socio socio = em.find(Socio.class, u.getNombreUsuario());
+    public Set<Becado> buscar(Usuario u) throws AcoesException {
+        Socio socio = nc.buscar(u);
         return socio.getBecadoSet();
     }
 

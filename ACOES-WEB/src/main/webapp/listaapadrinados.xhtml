@@ -18,29 +18,25 @@
                     Aun no has apadrinado ¿Quieres?
 
 
-                    <h:commandButton value="Comenzar"
-                                     action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
+                    <h:commandButton value="Desapadrinar"
+                                             action="#{ctrlsocio.desapadrinar(infoSesion.usuario,controlben.beneficiarios)}"
                                      styleClass="btn-borde"/>
-                </h:form>
+                            </h:form>
             </c:when>
             <c:otherwise>
                 <ui:repeat value="#{ctrlsocio.buscar(infoSesion.usuario).toArray()}" var="nino">
                     <ol class="lista">
                         <li>
                             <label>Identificador:#{nino.beneficiario.nombre} </label>
-                            <h:form id="desapadrinar">
-                            <h:commandButton value="Desapadrinar"
-                                     action="#{ctrlsocio.desapadrinar(infoSesion.usuario,nino)}"
-                                     styleClass="btn-borde"/>
-                            </h:form>
                         </li>
+                        
                     </ol>
                 </ui:repeat>
-                <h:form id="apadrinar">
-                    <h:commandButton value="Apadrina"
-                                     action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
+                <h:form id="desapadrinar">
+                            <h:commandButton value="Desapadrinar"
+                                             action="#{ctrlsocio.desapadrinar(infoSesion.usuario,controlben.beneficiarios)}"
                                      styleClass="btn-borde"/>
-                </h:form>
+                            </h:form>
             </c:otherwise>
         </c:choose>
     </ui:define>

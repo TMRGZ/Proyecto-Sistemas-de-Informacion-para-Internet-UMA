@@ -28,6 +28,11 @@
                     <ol class="lista">
                         <li>
                             <label>Identificador:#{nino.beneficiario.nombre} </label>
+                            <h:form id="desapadrinar">
+                            <h:commandButton value="Desapadrinar"
+                                     action="#{ctrlsocio.desapadrinar(infoSesion.usuario,nino)}"
+                                     styleClass="btn-borde"/>
+                            </h:form>
                         </li>
                     </ol>
                 </ui:repeat>

@@ -32,10 +32,11 @@ public class ControlSocio implements Serializable {
     public String apadrinar() throws AcoesException {
     
         Socio s = sesion.getUsuario().getSocio();
-        
+        boolean apadrinado=false;
         for(Beneficiario b : ba.getListaBeneficiarios()){
-            if(b.getBeneficiario().getTipo().equals("Niño")){
+            if(b.getBeneficiario().getTipo().equals("Niño") && apadrinado==false && b.getBecado().getSocioNumero()==null){
                 nc.apadrinar(s, b.getBecado());
+                apadrinado=true;
             }
         }
         

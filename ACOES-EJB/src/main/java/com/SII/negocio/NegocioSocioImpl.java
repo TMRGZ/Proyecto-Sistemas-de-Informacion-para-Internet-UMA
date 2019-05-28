@@ -58,22 +58,28 @@ public class NegocioSocioImpl implements NegocioSocio{
     @Override
     public void apadrinar(Socio s, Becado b) throws AcoesException {
         Socio aux = em.find(Socio.class, s.getNumero());
+        Becado aux2 = em.find(Becado.class, b.getCodigo());
         if (aux == null) {
             throw new SocioInexistenteException();
         }
-        aux.getBecadoSet().add(b);
+        aux.getBecadoSet().add(aux2);
+        aux2.setSocioNumero(aux);
         em.merge(aux);
+        em.merge(aux2);
         
     }
 
     @Override
     public void desapadrinar(Socio s, Becado b) throws AcoesException {
         Socio aux = em.find(Socio.class, s.getNumero());
+        Becado aux2 = em.find(Becado.class, b.getCodigo());
         if (aux == null) {
             throw new SocioInexistenteException();
         }
-        aux.getBecadoSet().remove(b);
+        aux.getBecadoSet().remove(aux2);
+        aux2.setSocioNumero(null);
         em.merge(aux);
+        em.merge(aux2);
     }
 
     @Override

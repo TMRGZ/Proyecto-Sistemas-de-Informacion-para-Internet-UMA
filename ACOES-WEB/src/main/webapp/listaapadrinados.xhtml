@@ -13,13 +13,13 @@
             <!--@elvariable id="controlben" type="com.SII.vista.ControlBeneficiario"-->
             <!--@elvariable id="u" type="com.SII.entidades.Usuario"-->
             <!--@elvariable id="infoSesion" type="com.SII.vista.InfoSesion"-->
-            <c:when test="#{empty ctrlsocio.buscar(u)}">
+            <c:when test="#{empty ctrlsocio.buscar(infoSesion.usuario)}">
                 <h:form id="apadrinarPrimeraVez">
                     Aun no has apadrinado ¿Quieres?
 
 
-                    <h:commandButton value="Desapadrinar"
-                                             action="#{ctrlsocio.desapadrinar(infoSesion.usuario,controlben.beneficiarios)}"
+                    <h:commandButton value="Apadrinar"
+                                             action="#{ctrlsocio.apadrinar(infoSesion.usuario,controlben.beneficiarios)}"
                                      styleClass="btn-borde"/>
                             </h:form>
             </c:when>

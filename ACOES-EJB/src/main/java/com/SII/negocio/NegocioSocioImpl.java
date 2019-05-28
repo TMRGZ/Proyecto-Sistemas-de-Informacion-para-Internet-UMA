@@ -7,13 +7,9 @@ package com.SII.negocio;
 
 import com.SII.negocio.excepciones.SocioInexistenteException;
 import com.SII.entidades.Becado;
-import com.SII.entidades.Beneficiario;
 import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
-import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
-import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,12 +27,16 @@ public class NegocioSocioImpl implements NegocioSocio{
     
     @Override
     public void anadirSocio(Socio s) throws AcoesException {
-        negocioPerfil.registrarPerfil(s.getUsuarioNombreUsuario());
+        em.persist(s);
     }
 
     @Override
     public void borrarSocio(Socio s) throws AcoesException {
-        negocioPerfil.eliminarPerfil(s.getUsuarioNombreUsuario());
+        Socio aux = em.find(Socio.class, s.getNumero());
+        if (aux == null) {
+            throw new SocioInexistenteException();
+        }
+        em.remove(em.merge(s));
     }
 
     @Override
@@ -64,6 +64,9 @@ public class NegocioSocioImpl implements NegocioSocio{
     @Override
     public void apadrinar(Socio s, Becado b) throws AcoesException {
         Socio aux = em.find(Socio.class, s.getNumero());
+        if (aux == null) {
+            throw new SocioInexistenteException();
+        }
         aux.getBecadoSet().add(b);
         em.merge(aux);
         
@@ -72,13 +75,19 @@ public class NegocioSocioImpl implements NegocioSocio{
     @Override
     public void desapadrinar(Socio s, Becado b) throws AcoesException {
         Socio aux = em.find(Socio.class, s.getNumero());
+        if (aux == null) {
+            throw new SocioInexistenteException();
+        }
         aux.getBecadoSet().remove(b);
         em.merge(aux);
     }
 
     @Override
     public Socio buscar(Usuario u) throws AcoesException {
-        Socio socio = em.find(Socio.class, u.getNombreUsuario());
+        Socio socio = em.find(Socio.class, u.getSocio().getNumero());
+        if (socio == null) {
+            throw new SocioInexistenteException();
+        }
         return socio;
     }
 

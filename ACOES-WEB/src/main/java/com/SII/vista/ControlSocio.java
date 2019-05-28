@@ -67,6 +67,7 @@ public class ControlSocio implements Serializable {
     
     public Set<Becado> buscar(Usuario u) throws AcoesException {
         Socio socio = nc.buscar(u);
+        
         return socio.getBecadoSet();
     }
 

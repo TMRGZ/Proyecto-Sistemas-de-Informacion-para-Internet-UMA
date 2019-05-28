@@ -55,11 +55,8 @@ public class ControlSocio implements Serializable {
 
     public String desapadrinar(Usuario u, Becado b) throws AcoesException {
         Socio socio = em.find(Socio.class, u.getNombreUsuario());
-        Becado becado = em.find(Becado.class, b.getCodigo());
+        Becado becado = em.find(Becado.class, b.getBeneficiario().getCodigo());
         nc.desapadrinar(socio, becado);
-            
-        
-
         return "listaapadrinados.xhtml";
     }
     

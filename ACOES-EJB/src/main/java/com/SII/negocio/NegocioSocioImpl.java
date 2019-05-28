@@ -11,13 +11,11 @@ import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Iván
- */
+@Stateless
 public class NegocioSocioImpl implements NegocioSocio{
     
     @PersistenceContext(unitName = "ACOES")
@@ -27,16 +25,12 @@ public class NegocioSocioImpl implements NegocioSocio{
     
     @Override
     public void anadirSocio(Socio s) throws AcoesException {
-        em.persist(s);
+        negocioPerfil.registrarPerfil(s.getUsuarioNombreUsuario());
     }
 
     @Override
     public void borrarSocio(Socio s) throws AcoesException {
-        Socio aux = em.find(Socio.class, s.getNumero());
-        if (aux == null) {
-            throw new SocioInexistenteException();
-        }
-        em.remove(em.merge(s));
+        negocioPerfil.eliminarPerfil(s.getUsuarioNombreUsuario());
     }
 
     @Override

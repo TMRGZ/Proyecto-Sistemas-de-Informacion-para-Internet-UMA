@@ -6,8 +6,6 @@ import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 
 import javax.ejb.Local;
-import java.util.List;
-import java.util.Set;
 
 @Local
 public interface NegocioSocio {

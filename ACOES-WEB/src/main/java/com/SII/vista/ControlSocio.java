@@ -7,68 +7,54 @@ package com.SII.vista;
 
 
 import com.SII.entidades.*;
-import com.SII.negocio.NegocioSocioImpl;
+import com.SII.negocio.NegocioSocio;
 import com.SII.negocio.excepciones.AcoesException;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.EJB;
+import javax.inject.Inject;
 
 @Named(value = "ctrlsocio")
 @SessionScoped
 public class ControlSocio implements Serializable {
+    
+        @EJB
+        private NegocioSocio nc;
+        @Inject
+        private InfoSesion sesion;
+        @Inject
+        private BeneficiarioAux ba;
+ 
 
-    private NegocioSocioImpl nc;
-
-    public ControlSocio() {
+    public String apadrinar() throws AcoesException {
+    
+        Socio s = sesion.getUsuario().getSocio();
         
-    }
-
-    public List<Notificacion> getNotificaciones(Usuario u) throws AcoesException {
-        Socio socio = nc.buscar(u);
-        if (socio.getUsuarioNombreUsuario().getNotificacionSet() == null) {
-            socio.getUsuarioNombreUsuario().setNotificacionSet(new HashSet<>());        }
-        return new ArrayList<>(socio.getUsuarioNombreUsuario().getNotificacionSet());
-    }
-
-    public String apadrinar(Usuario u, Set<Beneficiario> listben) throws AcoesException {
-        Socio socio = nc.buscar(u);
-        if (socio.getBecadoSet() == null) {
-            socio.setBecadoSet(new HashSet<>());
-        }
-
-
-        for (Beneficiario beneficiario : listben) {
-            if (beneficiario.getTipo().equals("Niño")) {
-                Becado b = new Becado();
-                b.setBeneficiario(beneficiario);
-                nc.apadrinar(socio, b);
+        for(Beneficiario b : ba.getListaBeneficiarios()){
+            if(b.getBeneficiario().getTipo().equals("Niño")){
+                nc.apadrinar(s, b.getBecado());
             }
         }
-
+        
         return "listaapadrinados.xhtml";
+ 
     }
 
-    public String desapadrinar(Usuario u, Set<Beneficiario> listben) throws AcoesException {
+    public String desapadrinar(Beneficiario b) throws AcoesException {
         
-        Socio socio = nc.buscar(u);
-        if (socio.getBecadoSet() == null) {
-            socio.setBecadoSet(new HashSet<>());
-        }
-
-
+       Socio s = sesion.getUsuario().getSocio();
+       nc.desapadrinar(s, b.getBecado());
       
-
         return "listaapadrinados.xhtml";
     }
     
-    public Set<Becado> buscar(Usuario u) throws AcoesException {
+    public List<Becado> buscar(Usuario u) throws AcoesException {
         Socio socio = nc.buscar(u);
-        
-        return socio.getBecadoSet();
+        List<Becado> lista = new ArrayList<>(socio.getBecadoSet());
+        return lista;
     }
 
 

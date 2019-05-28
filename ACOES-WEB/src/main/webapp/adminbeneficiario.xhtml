@@ -52,6 +52,16 @@ and open the template in the editor.
                         <c:if test="#{bene.beneficiario.becado != null}">
                             <li><h:outputLabel>Agente: </h:outputLabel>
                                 <h:inputText value="#{bene.beneficiario.becado.agente}"/></li>
+                                <li><h:outputLabel>Nombre Beca: </h:outputLabel>
+                                    <h:inputText value="#{bene.beneficiario.becado.beca}"/></li>
+                                <li><h:outputLabel>Colonia Actual: </h:outputLabel>
+                                    <h:inputText value="#{bene.beneficiario.becado.coloniaActual}"/></li>
+                                <li><h:outputLabel>Procedencia: </h:outputLabel>
+                                    <h:inputText value="#{bene.beneficiario.becado.coloniaProcedencia}"/></li>
+                                                                    <li><h:outputLabel>Estado:  </h:outputLabel>
+                                                                        <h:inputText value="#{bene.beneficiario.becado.estado}"/></li>
+                                <li><h:outputLabel>Fecha de Alta: </h:outputLabel>
+                                    <h:inputText disabled="true" value="#{bene.beneficiario.becado.fechaAlta}"/></li>
                         </c:if>
                     </ol>
                     <h:inputHidden value="#{bene.modo}"/>

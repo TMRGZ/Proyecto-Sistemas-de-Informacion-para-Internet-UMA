@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -100,6 +101,8 @@ public class BeneficiarioAux implements Serializable {
 
                     if (beneficiario.getTipo().equals("Niño")) {
                         Becado bec = new Becado(beneficiario.getCodigo());
+                        Date fecha = new Date();
+                        bec.setFechaAlta(fecha);
                         beneficiario.setBecado(bec);
                         bec.setBeneficiario(beneficiario);
                         nb.anadirBecado(bec);

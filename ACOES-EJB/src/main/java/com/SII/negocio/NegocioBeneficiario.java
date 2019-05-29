@@ -7,6 +7,7 @@ package com.SII.negocio;
 
 import com.SII.entidades.Becado;
 import com.SII.entidades.Beneficiario;
+import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 
 import javax.ejb.Local;
@@ -31,4 +32,5 @@ public interface NegocioBeneficiario {
     void anadirColaboracion(Beneficiario b) throws AcoesException;
 
     void anadirBecado(Becado b);
+    public void Notificar(Usuario u);
 }

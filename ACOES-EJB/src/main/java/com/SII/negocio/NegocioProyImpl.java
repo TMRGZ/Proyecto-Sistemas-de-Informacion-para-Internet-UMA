@@ -1,9 +1,11 @@
 package com.SII.negocio;
 
 import com.SII.entidades.Beneficiario;
+import com.SII.entidades.Notificacion;
 import com.SII.entidades.Proyecto;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ProyInexistenteException;
+import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -54,7 +56,13 @@ public class NegocioProyImpl implements NegocioProy {
         }
         aux.getBeneficiarioSet().add(aux2);
         aux2.getProyectoSet().add(aux);
-
+        Notificacion n = new Notificacion();
+        n.setFecha(new Date());
+        n.setContenido("Has sido incluido en el proyecto "+p.getNombre());
+        n.setUsuarioEmisor("Administrador");
+        n.setUsuarioReceptor(b.getNombre());
+        aux2.getUsuarioNombreUsuario().getNotificacionSet().add(n);
+        em.persist(n);
         em.merge(aux);
         em.merge(aux2);
     }

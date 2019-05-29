@@ -63,6 +63,7 @@ and open the template in the editor.
                                 <li><h:outputLabel>Fecha de Alta: </h:outputLabel>
                                     <h:inputText disabled="true" value="#{bene.beneficiario.becado.fechaAlta}"/></li>
                         </c:if>
+                        
                     </ol>
                     <h:inputHidden value="#{bene.modo}"/>
                     <p><h:commandButton value="#{bene.accion}" action="#{bene.ejecutarAccion()}"

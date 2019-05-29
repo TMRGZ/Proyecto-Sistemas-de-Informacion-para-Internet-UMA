@@ -167,5 +167,9 @@ public class BeneficiarioAux implements Serializable {
         VER,
         INSERTAR
     }
+    
+    public void Notificar(Usuario u){
+        nb.Notificar(u);
+    }
 
 }

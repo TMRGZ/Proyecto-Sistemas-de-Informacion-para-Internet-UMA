@@ -57,6 +57,12 @@
                                 <h:commandButton value="Eliminar" action="#{perfil.eliminar(usuario)}"
                                                  styleClass="btn-borde"/>
                             </h:column>
+                            <h:column>
+                                <h:commandButton value="Notificar"
+                                                 action="#{bene.Notificar(usuario)}"
+                                     styleClass="btn-borde"/>
+                                
+                           </h:column>
                         </h:dataTable>
                         <h:commandButton value="Nuevo" action="#{perfil.registrarUsuario()}"
                                          styleClass="btn-borde"/>

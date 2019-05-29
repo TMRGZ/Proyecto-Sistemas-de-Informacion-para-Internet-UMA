@@ -7,8 +7,11 @@ package com.SII.negocio;
 
 import com.SII.entidades.Becado;
 import com.SII.entidades.Beneficiario;
+import com.SII.entidades.Notificacion;
+import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -90,6 +93,17 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
     public List<Becado> getListaBecados() {
         return em.createQuery("select a from Becado a", Becado.class).getResultList();
     }
-
+    
+    public void Notificar(Usuario u){
+        Usuario aux = em.find(Usuario.class, u.getNombreUsuario());
+        Notificacion n = new Notificacion();
+        n.setFecha(new Date());
+        n.setContenido("Se le ha enviado una carta ");
+        n.setUsuarioEmisor("Administrador");
+        n.setUsuarioReceptor(u.getNombreUsuario());
+        aux.getNotificacionSet().add(n);
+        em.persist(n);
+        em.merge(aux);
+    }
 
 }

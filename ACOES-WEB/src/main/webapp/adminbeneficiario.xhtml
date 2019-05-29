@@ -25,10 +25,8 @@ and open the template in the editor.
                     <h:inputHidden value="#{bene.beneficiario.tipo}"/>
                     <!--@elvariable id="bene" type="com.SII.vista.BeneficiarioAux"-->
                     <ol class="lista">
-                        <li><h:outputLabel>Identificador: </h:outputLabel>
-                            <h:inputText value="#{bene.beneficiario.identificador}"/></li>
                         <li><h:outputLabel>Nombre: </h:outputLabel>
-                            <h:inputText value="#{bene.beneficiario.nombre}"/></li>
+                            <h:inputText required = "true" value="#{bene.beneficiario.nombre}"/></li>
                         <li><h:outputLabel>Apellido: </h:outputLabel>
                             <h:inputText value="#{bene.beneficiario.apellidos}"/></li>
                         <li><h:outputLabel>Numero de cuenta </h:outputLabel>

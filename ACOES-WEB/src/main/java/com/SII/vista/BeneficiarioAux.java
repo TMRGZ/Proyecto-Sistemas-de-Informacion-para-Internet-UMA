@@ -19,8 +19,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -90,7 +93,9 @@ public class BeneficiarioAux implements Serializable {
             switch (modo) {
                 case INSERTAR:
                     Usuario u = new Usuario();
-
+                    Calendar f = new GregorianCalendar();
+                    
+                    beneficiario.setIdentificador(beneficiario.getNombre().substring(0, 1)+ f.get(Calendar.DAY_OF_MONTH)+ f.get(Calendar.MONTH)+ f.get(Calendar.YEAR) + (int)(Math.random() * (1000)));
                     u.setNombreUsuario(beneficiario.getNombre() + beneficiario.getApellidos());
                     u.setContrasenna(beneficiario.getNombre() + beneficiario.getApellidos());
                     u.setRol(0);

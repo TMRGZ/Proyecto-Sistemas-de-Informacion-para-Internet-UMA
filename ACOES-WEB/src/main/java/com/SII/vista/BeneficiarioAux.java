@@ -95,7 +95,7 @@ public class BeneficiarioAux implements Serializable {
                     Usuario u = new Usuario();
                     Calendar f = new GregorianCalendar();
                     
-                    beneficiario.setIdentificador(beneficiario.getNombre().substring(0, 1)+ f.get(Calendar.DAY_OF_MONTH)+ f.get(Calendar.MONTH)+ f.get(Calendar.YEAR) + (int)(Math.random() * (1000)));
+                    beneficiario.setIdentificador(beneficiario.getNombre().substring(0, 1).toUpperCase()+ f.get(Calendar.DAY_OF_MONTH)+ f.get(Calendar.MONTH)+ f.get(Calendar.YEAR) + (int)(Math.random() * (1000)));
                     u.setNombreUsuario(beneficiario.getNombre() + beneficiario.getApellidos());
                     u.setContrasenna(beneficiario.getNombre() + beneficiario.getApellidos());
                     u.setRol(0);

@@ -32,9 +32,8 @@
                             <ui:insert name="menuadmin"/>
                         </c:if>
                         <c:if test="#{infoSesion.usuario.rol != 1}">
-                            <c:if test="#{infoSesion.usuario.socio != null}">
-                                <li><a href="listaapadrinados.xhtml">Apadrinados</a></li>
-                            </c:if>
+                            <li><h:link outcome="listaapadrinados.xhtml"
+                                        rendered="#{infoSesion.usuario.socio != null}">Apadrinados</h:link></li>
                             <li><h:link outcome="formulariocolaborar.xhtml"
                                         rendered="#{infoSesion.usuario.beneficiario == null}">¿Quieres colaborar con ACOES?</h:link>
                             </li>

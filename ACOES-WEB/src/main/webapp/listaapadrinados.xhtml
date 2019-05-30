@@ -21,7 +21,7 @@
                     <h:commandButton value="Apadrinar"
                                      action="#{ctrlsocio.apadrinar()}"
                                      styleClass="btn-borde"/>
-                            </h:form>
+                </h:form>
             </c:when>
             <c:otherwise>
                 <ui:repeat value="#{ctrlsocio.buscar(infoSesion.usuario)}" var="nino">
@@ -29,15 +29,15 @@
                         <li>
                             <label>Identificador:#{nino.beneficiario.nombre} </label>
                             <h:form id="desapadrinar">
-                            <h:commandButton value="Desapadrinar"
-                                             action="#{ctrlsocio.desapadrinar(nino.beneficiario)}"
-                                     styleClass="btn-borde"/>
+                                <h:commandButton value="Desapadrinar"
+                                                 action="#{ctrlsocio.desapadrinar(nino.beneficiario)}"
+                                                 styleClass="btn-borde"/>
                             </h:form>
                         </li>
-                        
+
                     </ol>
                 </ui:repeat>
-                
+
             </c:otherwise>
         </c:choose>
     </ui:define>

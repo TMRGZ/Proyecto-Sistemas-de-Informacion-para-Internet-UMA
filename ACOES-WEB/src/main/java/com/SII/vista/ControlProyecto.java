@@ -177,7 +177,6 @@ public class ControlProyecto implements Serializable {
         return proyecto;
     }
 
-
     public enum Modo {
         MODIFICAR,
         VER,

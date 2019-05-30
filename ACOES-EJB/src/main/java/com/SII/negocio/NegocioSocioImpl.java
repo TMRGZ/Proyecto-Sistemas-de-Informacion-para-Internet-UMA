@@ -5,24 +5,25 @@
  */
 package com.SII.negocio;
 
-import com.SII.negocio.excepciones.SocioInexistenteException;
 import com.SII.entidades.Becado;
 import com.SII.entidades.Socio;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
+import com.SII.negocio.excepciones.SocioInexistenteException;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class NegocioSocioImpl implements NegocioSocio{
-    
+public class NegocioSocioImpl implements NegocioSocio {
+
     @PersistenceContext(unitName = "ACOES")
     private EntityManager em;
     @EJB
     private NegocioPerfil negocioPerfil;
-    
+
     @Override
     public void anadirSocio(Socio s) throws AcoesException {
         negocioPerfil.registrarPerfil(s.getUsuarioNombreUsuario());
@@ -35,7 +36,7 @@ public class NegocioSocioImpl implements NegocioSocio{
 
     @Override
     public void modificarSocio(Socio s) throws AcoesException {
-         Socio aux = em.find(Socio.class, s.getNumero());
+        Socio aux = em.find(Socio.class, s.getNumero());
 
         if (aux == null) {
             throw new SocioInexistenteException();
@@ -50,7 +51,7 @@ public class NegocioSocioImpl implements NegocioSocio{
         aux.setProvincia(s.getProvincia());
         aux.setTelefono(s.getTelefono());
         aux.setCorreoElectronico(s.getCorreoElectronico());
-       
+
 
         em.merge(aux);
     }
@@ -66,7 +67,7 @@ public class NegocioSocioImpl implements NegocioSocio{
         aux2.setSocioNumero(aux);
         em.merge(aux);
         em.merge(aux2);
-        
+
     }
 
     @Override
@@ -91,5 +92,5 @@ public class NegocioSocioImpl implements NegocioSocio{
         return socio;
     }
 
-    
+
 }

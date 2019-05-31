@@ -59,7 +59,7 @@ public class Beneficiario implements Serializable {
     private Becado becado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "beneficiarioCodigo")
     private Beneficiario beneficiario;
-    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = false)
+    @JoinColumn(name = "BENEFICIARIO_CODIGO", referencedColumnName = "CODIGO", nullable = true)
     @OneToOne(optional = false)
     private Beneficiario beneficiarioCodigo;
     @JoinColumn(name = "USUARIO_NOMBRE_USUARIO", referencedColumnName = "NOMBRE_USUARIO", nullable = false)
@@ -196,7 +196,7 @@ public class Beneficiario implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication2.Beneficiario[ codigo=" + codigo + " ]";
+        return "" + codigo  ;
     }
 
 }

@@ -11,6 +11,7 @@ import com.SII.entidades.Notificacion;
 import com.SII.entidades.Usuario;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.BeneficiarioInexistenteException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -41,7 +42,7 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
     }
 
     @Override
-    public void modificarBeneficiario(Beneficiario b) throws AcoesException {
+    public void modificarBeneficiario(Beneficiario b, Beneficiario bene) throws AcoesException {
         Beneficiario aux = em.find(Beneficiario.class, b.getCodigo());
 
         if (aux == null) {
@@ -54,7 +55,8 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
         aux.setNumeroCuenta(b.getNumeroCuenta());
         aux.setTipo(b.getTipo());
         aux.setObservaciones(b.getObservaciones());
-
+        aux.setBeneficiarioCodigo(bene);
+        
         Becado auxBecado = aux.getBecado();
 
         if (auxBecado != null) {
@@ -74,7 +76,6 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
     public List<Beneficiario> getListaBeneficiario() {
         return em.createQuery("select a from Beneficiario a", Beneficiario.class).getResultList();
     }
-
 
 
     @Override
@@ -104,6 +105,22 @@ public class NegocioBeneficiarioImpl implements NegocioBeneficiario {
         aux.getNotificacionSet().add(n);
         em.persist(n);
         em.merge(aux);
+    }
+
+    @Override
+    public Beneficiario BuscarResponsable(Long clavePrimaria) {
+      
+      return em.find(Beneficiario.class, clavePrimaria);
+    }
+
+    @Override
+    public boolean EsResponsable(Beneficiario b) {
+        List<Beneficiario> l = new ArrayList<>();
+        for (Beneficiario bene : this.getListaBeneficiario()){
+            if(bene.getBeneficiarioCodigo()!=null)
+            l.add(bene.getBeneficiarioCodigo());
+        }
+        return l.contains(b);
     }
 
 }

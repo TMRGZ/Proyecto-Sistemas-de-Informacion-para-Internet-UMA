@@ -21,7 +21,7 @@ public interface NegocioBeneficiario {
 
     void anadirBeneficiario(Beneficiario b) throws AcoesException;
 
-    void modificarBeneficiario(Beneficiario b) throws AcoesException;
+    void modificarBeneficiario(Beneficiario b,Beneficiario bene) throws AcoesException;
 
     void borrarBeneficiario(Beneficiario b) throws AcoesException;
 
@@ -33,4 +33,8 @@ public interface NegocioBeneficiario {
 
     void anadirBecado(Becado b);
     public void Notificar(Usuario u);
+
+    public Beneficiario BuscarResponsable(Long clavePrimaria);
+
+    public boolean EsResponsable(Beneficiario b);
 }

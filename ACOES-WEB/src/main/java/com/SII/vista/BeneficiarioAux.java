@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -37,10 +38,10 @@ public class BeneficiarioAux implements Serializable {
     private NegocioBeneficiario nb;
     @Inject
     private InfoSesion sesion;
-
+    private ArrayList l;
     private Beneficiario beneficiario;
     private Modo modo;
-
+    private Long clavePrimaria;
     public BeneficiarioAux() {
         beneficiario = new Beneficiario();
         beneficiario.setBecado(new Becado());
@@ -101,7 +102,11 @@ public class BeneficiarioAux implements Serializable {
                     u.setRol(0);
                     u.setBeneficiario(beneficiario);
                     beneficiario.setUsuarioNombreUsuario(u);
-                    beneficiario.setBeneficiarioCodigo(beneficiario);
+                    if (!this.clavePrimaria.equals(new Long(-1))){
+                        Beneficiario beneResponsable = nb.BuscarResponsable(this.clavePrimaria);
+                        beneficiario.setBeneficiarioCodigo(beneResponsable);
+                    }
+                    
                     nb.anadirBeneficiario(beneficiario);
 
                     if (beneficiario.getTipo().equals("Niño")) {
@@ -115,7 +120,12 @@ public class BeneficiarioAux implements Serializable {
 
                     break;
                 case MODIFICAR:
-                    nb.modificarBeneficiario(beneficiario);
+                    Beneficiario beneResponsable = null;
+                    if (!this.clavePrimaria.equals(new Long(-1))){
+                        beneResponsable = nb.BuscarResponsable(this.clavePrimaria);
+                        
+                    }
+                    nb.modificarBeneficiario(beneficiario,beneResponsable);
                     break;
             }
             sesion.refrescarUsuario();
@@ -154,6 +164,8 @@ public class BeneficiarioAux implements Serializable {
     public Modo getModo() {
         return modo;
     }
+    
+    
 
     public void setModo(Modo modo) {
         this.modo = modo;
@@ -175,6 +187,31 @@ public class BeneficiarioAux implements Serializable {
     
     public void Notificar(Usuario u){
         nb.Notificar(u);
+    }
+    public List<Beneficiario> getListaResponsable(){
+        l = new ArrayList<>();
+        for (Beneficiario b : this.getListaBeneficiarios()){
+            if(!b.getTipo().equals("Niño") && !nb.EsResponsable(b))
+                l.add(b);
+        }
+        Beneficiario bene = new Beneficiario (Long.parseLong("-1"));
+        bene.setIdentificador("Sin Beneficiario");
+        l.add(bene);
+        return l;
+    }
+
+    /**
+     * @return the clavePrimaria
+     */
+    public Long getClavePrimaria() {
+        return clavePrimaria;
+    }
+
+    /**
+     * @param clavePrimaria the clavePrimaria to set
+     */
+    public void setClavePrimaria(Long clavePrimaria) {
+        this.clavePrimaria = clavePrimaria;
     }
 
 }

@@ -39,29 +39,34 @@ and open the template in the editor.
                                 <c:otherwise>
                                     <h:selectOneMenu value="#{bene.beneficiario.tipo}">
                                         <f:selectItem itemValue="Niño" itemLabel="Niño"/>
-                                        <f:selectItem itemValue="Socio" itemLabel="Socio"/>
+                                        <f:selectItem itemValue="Beneficiario" itemLabel="Beneficiario"/>
                                     </h:selectOneMenu>
                                 </c:otherwise>
                             </c:choose>
                         </li>
-
+                        <li><h:outputLabel>Beneficiario Responsable: </h:outputLabel>
+                            <h:selectOneMenu value="#{bene.clavePrimaria}">
+                                <f:selectItems value="#{bene.getListaResponsable()}" var="clave" itemValue="#{clave.codigo}" itemLabel="#{clave.identificador}"/>
+                            </h:selectOneMenu>
+                        </li>
                         <li><h:outputLabel>Observaciones: </h:outputLabel>
                             <h:inputText value="#{bene.beneficiario.observaciones}"/></li>
+
                         <c:if test="#{bene.beneficiario.becado != null}">
                             <li><h:outputLabel>Agente: </h:outputLabel>
                                 <h:inputText value="#{bene.beneficiario.becado.agente}"/></li>
-                                <li><h:outputLabel>Nombre Beca: </h:outputLabel>
-                                    <h:inputText value="#{bene.beneficiario.becado.beca}"/></li>
-                                <li><h:outputLabel>Colonia Actual: </h:outputLabel>
-                                    <h:inputText value="#{bene.beneficiario.becado.coloniaActual}"/></li>
-                                <li><h:outputLabel>Procedencia: </h:outputLabel>
-                                    <h:inputText value="#{bene.beneficiario.becado.coloniaProcedencia}"/></li>
-                                                                    <li><h:outputLabel>Estado:  </h:outputLabel>
-                                                                        <h:inputText value="#{bene.beneficiario.becado.estado}"/></li>
-                                <li><h:outputLabel>Fecha de Alta: </h:outputLabel>
-                                    <h:inputText disabled="true" value="#{bene.beneficiario.becado.fechaAlta}"/></li>
+                            <li><h:outputLabel>Nombre Beca: </h:outputLabel>
+                                <h:inputText value="#{bene.beneficiario.becado.beca}"/></li>
+                            <li><h:outputLabel>Colonia Actual: </h:outputLabel>
+                                <h:inputText value="#{bene.beneficiario.becado.coloniaActual}"/></li>
+                            <li><h:outputLabel>Procedencia: </h:outputLabel>
+                                <h:inputText value="#{bene.beneficiario.becado.coloniaProcedencia}"/></li>
+                            <li><h:outputLabel>Estado:  </h:outputLabel>
+                                <h:inputText value="#{bene.beneficiario.becado.estado}"/></li>
+                            <li><h:outputLabel>Fecha de Alta: </h:outputLabel>
+                                <h:inputText disabled="true" value="#{bene.beneficiario.becado.fechaAlta}"/></li>
                         </c:if>
-                        
+
                     </ol>
                     <h:inputHidden value="#{bene.modo}"/>
                     <p><h:commandButton value="#{bene.accion}" action="#{bene.ejecutarAccion()}"

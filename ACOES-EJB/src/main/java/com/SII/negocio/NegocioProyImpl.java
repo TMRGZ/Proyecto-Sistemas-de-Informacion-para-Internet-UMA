@@ -77,6 +77,8 @@ public class NegocioProyImpl implements NegocioProy {
         }
         aux.getBeneficiarioSet().remove(aux2);
         aux2.getProyectoSet().remove(aux);
+        em.merge(aux);
+        em.merge(aux2);
 
     }
 

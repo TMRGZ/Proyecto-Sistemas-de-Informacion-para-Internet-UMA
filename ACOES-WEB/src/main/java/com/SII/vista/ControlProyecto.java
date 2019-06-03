@@ -42,7 +42,8 @@ public class ControlProyecto implements Serializable {
 
     public List<Beneficiario> getParticipantes(Proyecto p) {
         try {
-            this.proyecto = negproy.RecargarProyecto(proyecto);
+            this.proyecto = new Proyecto();
+            this.proyecto = negproy.RecargarProyecto(p);
             return new ArrayList<>(negproy.getBeneficiarios(proyecto));
 
         } catch (AcoesException e) {
@@ -54,8 +55,9 @@ public class ControlProyecto implements Serializable {
 
     public List<Beneficiario> getRestantes(Proyecto p) {
         try {
-            this.proyecto = negproy.RecargarProyecto(proyecto);
-            Set<Beneficiario> ben = negproy.getBeneficiarios(proyecto);
+            this.proyecto = new Proyecto();
+            this.proyecto = negproy.RecargarProyecto(p);
+            Set<Beneficiario> ben = negproy.getBeneficiarios(p);
             Set<Beneficiario> aux = new HashSet<>(ba.getListaBeneficiarios());
             aux.removeAll(ben);
             return new ArrayList<>(aux);
@@ -165,7 +167,7 @@ public class ControlProyecto implements Serializable {
 
     public String remProyecto(Proyecto p) {
         try {
-            this.proyecto = negproy.RecargarProyecto(proyecto);
+            this.proyecto = negproy.RecargarProyecto(p);
             negproy.eliminarProy(p);
         } catch (AcoesException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");

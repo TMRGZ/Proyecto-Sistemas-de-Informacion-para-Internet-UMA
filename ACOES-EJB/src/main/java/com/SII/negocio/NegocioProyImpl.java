@@ -5,11 +5,11 @@ import com.SII.entidades.Notificacion;
 import com.SII.entidades.Proyecto;
 import com.SII.negocio.excepciones.AcoesException;
 import com.SII.negocio.excepciones.ProyInexistenteException;
-import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -78,6 +78,11 @@ public class NegocioProyImpl implements NegocioProy {
         aux.getBeneficiarioSet().remove(aux2);
         aux2.getProyectoSet().remove(aux);
 
+    }
+
+    @Override
+    public Proyecto RecargarProyecto(Proyecto p) {
+        return em.find(Proyecto.class, p.getCodigo());
     }
 
     @Override

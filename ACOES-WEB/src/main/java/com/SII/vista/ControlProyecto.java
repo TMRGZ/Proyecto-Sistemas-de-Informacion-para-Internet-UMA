@@ -42,7 +42,7 @@ public class ControlProyecto implements Serializable {
 
     public List<Beneficiario> getParticipantes(Proyecto p) {
         try {
-            this.proyecto = p;
+            this.proyecto = negproy.RecargarProyecto(proyecto);
             return new ArrayList<>(negproy.getBeneficiarios(proyecto));
 
         } catch (AcoesException e) {
@@ -54,7 +54,7 @@ public class ControlProyecto implements Serializable {
 
     public List<Beneficiario> getRestantes(Proyecto p) {
         try {
-            this.proyecto = p;
+            this.proyecto = negproy.RecargarProyecto(proyecto);
             Set<Beneficiario> ben = negproy.getBeneficiarios(proyecto);
             Set<Beneficiario> aux = new HashSet<>(ba.getListaBeneficiarios());
             aux.removeAll(ben);
@@ -68,6 +68,7 @@ public class ControlProyecto implements Serializable {
 
     public String addBen(Beneficiario b) {
         try {
+            this.proyecto = negproy.RecargarProyecto(proyecto);
             negproy.annadirBen(proyecto, b);
             return null;
         } catch (AcoesException e) {
@@ -79,10 +80,12 @@ public class ControlProyecto implements Serializable {
 
     public String remBen(Beneficiario b) {
         try {
+            this.proyecto = negproy.RecargarProyecto(proyecto);
             negproy.eliminarBen(proyecto, b);
+            proyecto.getBeneficiarioSet().remove(b);
             return null;
         } catch (AcoesException e) {
-            FacesMessage fm = new FacesMessage("Proyecto Inexistente");
+            FacesMessage fm = new FacesMessage("Error");
             FacesContext.getCurrentInstance().addMessage("addbeneficiario:rem", fm);
             return null;
         }
@@ -95,18 +98,19 @@ public class ControlProyecto implements Serializable {
     }
 
     public String ver(Proyecto proyecto) {
-        this.proyecto = proyecto;
+        this.proyecto = negproy.RecargarProyecto(proyecto);
         setModo(Modo.VER);
         return "detailsproject.xhtml";
     }
 
     public String modificar(Proyecto proyecto) {
-        this.proyecto = proyecto;
+        this.proyecto = negproy.RecargarProyecto(proyecto);
         setModo(Modo.MODIFICAR);
         return "adminproject.xhtml";
     }
 
     public String annadir() {
+        proyecto = new Proyecto();
         setModo(Modo.INSERTAR);
         return "adminproject.xhtml";
     }
@@ -161,6 +165,7 @@ public class ControlProyecto implements Serializable {
 
     public String remProyecto(Proyecto p) {
         try {
+            this.proyecto = negproy.RecargarProyecto(proyecto);
             negproy.eliminarProy(p);
         } catch (AcoesException e) {
             FacesMessage fm = new FacesMessage("Proyecto Inexistente");

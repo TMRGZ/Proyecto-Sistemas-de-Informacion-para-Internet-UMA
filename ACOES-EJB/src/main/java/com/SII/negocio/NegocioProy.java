@@ -23,4 +23,6 @@ public interface NegocioProy {
     Set<Beneficiario> getBeneficiarios(Proyecto p) throws AcoesException;
 
     void eliminarBen(Proyecto proyecto, Beneficiario b) throws AcoesException;
+
+    Proyecto RecargarProyecto(Proyecto p);
 }

@@ -38,7 +38,9 @@ public class ControlSocio implements Serializable {
         Socio s = sesion.getUsuario().getSocio();
         boolean apadrinado = false;
         for (Beneficiario b : ba.getListaBeneficiarios()) {
-            if (b.getBeneficiario().getTipo().equals("Niño") && !apadrinado && b.getBecado().getSocioNumero() == null) {
+            if (b.getTipo().equals("Niño") &&
+                    !apadrinado &&
+                    b.getBecado().getSocioNumero() == null) {
                 nc.apadrinar(s, b.getBecado());
                 apadrinado = true;
             }
